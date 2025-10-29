@@ -298,45 +298,42 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+// Close modal (ปุ่ม x ด้านบน)
+    closeBtn.addEventListener('click', () => modal.style.display = 'none');
+    
+    // 💡 เพิ่ม: Close modal (ปุ่มปิดที่ Footer)
+    if (closeBtnFooter) {
+        closeBtnFooter.addEventListener('click', () => modal.style.display = 'none');
+    }
 
-    // 💡 MODIFIED: Event Listener สำหรับปุ่ม เลือก (.btn-select) - บันทึกลง DB เท่านั้น
+    // Close modal when clicking outside
+    window.addEventListener('click', e => {
+        if (e.target === modal) modal.style.display = 'none';
+    });
+
+    // Select and Save Template
     selectButtons.forEach(btn => {
         btn.addEventListener('click', async () => {
             const templateId = btn.dataset.template;
-            const confirmSelect = confirm(`คุณต้องการเลือกเทมเพลต "${templateId}" และบันทึกลงระบบใช่หรือไม่?`);
+            const confirmSelect = confirm(`คุณต้องการเลือกเทมเพลต "${templateId}" ใช่หรือไม่?`);
             if (!confirmSelect) return;
 
             try {
-                // 1. บันทึกเทมเพลตลงฐานข้อมูล
                 const res = await fetch('save_template.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: `template_name=${encodeURIComponent(templateId)}`
                 });
                 const result = await res.json();
-                
                 if (result.success) {
                     alert(`บันทึกเทมเพลต "${templateId}" เรียบร้อยแล้ว`);
                 } else {
-                    alert('เกิดข้อผิดพลาดในการบันทึกเทมเพลต: ' + result.message);
+                    alert('เกิดข้อผิดพลาด: ' + result.message);
                 }
             } catch (err) {
                 alert('เกิดข้อผิดพลาด: ' + err);
             }
         });
-    });
-
-    // Close modal (กากบาท)
-    closeBtn.addEventListener('click', () => modal.style.display = 'none');
-    
-    // Close modal (ปุ่มที่ footer - ถ้ามี)
-    if (closeBtnFooter) {
-        closeBtnFooter.addEventListener('click', () => modal.style.display = 'none');
-    }
-    
-    // Close modal when clicking outside
-    window.addEventListener('click', e => {
-        if (e.target === modal) modal.style.display = 'none';
     });
 
 });

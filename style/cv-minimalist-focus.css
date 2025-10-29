@@ -1,4 +1,4 @@
-
+/* 🎨 --- VARIABLES --- */
 :root {
     --mf-color-primary: #212121;
     --mf-color-accent: #616161;
@@ -29,7 +29,7 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.55);
-    overflow-y: hidden;
+    overflow-y: auto;
     padding: 40px 10px;
 }
 
@@ -119,8 +119,8 @@
     margin-top: 10px;
 }
 .cv-skill-card {
-    flex: 1; 
-    min-height: 180px; 
+    flex: 1;  /* ✅ เท่ากัน 50/50 */
+    min-height: 180px; /* ✅ ให้มีพื้นที่พอสำหรับ tag */
     display: flex;
     flex-direction: column;
 }
@@ -173,25 +173,23 @@ body.modal-open {
 }
 
 /* ---------------------------------------------------- */
-/* --- QR Code STYLES --- */
+/* --- เพิ่ม: CSS ของ QR Code (เพื่อให้ลอยอยู่มุมขวาบน) --- */
 /* ---------------------------------------------------- */
 
 /* 2. CSS สำหรับกล่อง QR Code */
 .qr-code-box {
+    /* 💡 อ้างอิงกับ position: relative; ใน .header */
     position: absolute; 
-    top: 10px;          
-    right: 0px;         
+    top: 10px;        
+    right: 0px;       
     z-index: 99999!important;
-    width: 110px;       
-    height: auto;       
-    text-align: center; 
+    width: 110px;     
+    height: auto;     
+    text-align: center;  
 }
 
-/* 3. CSS สำหรับรูปภาพ QR Code (แก้ไข: รวม canvas/table) */
-.qr-code-box img,
-.qr-code-box canvas, 
-.qr-code-box table 
-{
+/* 3. CSS สำหรับรูปภาพ QR Code */
+.qr-code-box img {
     width: 100px; 
     height: 100px;
     display: block; 
@@ -204,31 +202,27 @@ body.modal-open {
 /* 4. CSS สำหรับข้อความ Scan ID */
 .qr-code-box .scan-id-text {
     font-size: 8pt;
-    color: var(--mf-color-accent); 
+    color: var(--mf-color-accent); /* ใช้สี accent ให้สอดคล้องกับธีม */
     display: block;
     line-height: 1.2;
     margin-top: 3px;
 }
 
-/* ✅ PERFECT A4 PRINT FIX (แก้ไข: เพิ่ม page-break-inside) */
+/* ✅ PERFECT A4 PRINT FIX */
 @media print {
-    /* ❗ Note: body.modal-open uses overflow: visible for print */
     body.modal-open { overflow: visible !important; }
     
     .modal {
-        /* 💡 ซ่อน Modal Overlay เมื่อพิมพ์ */
-        display: none !important; 
+        display: block !important;
         overflow: visible !important;
         background: none !important;
         padding: 0;
     }
 
-    /* 💡 กำหนดขนาด A4 ให้กับ CV Section */
-    .cv-minimalist-focus,
-    .cv-minimalist-focus.cv-section {
+    .cv-minimalist-focus {
         width: 210mm !important;
         height: 297mm !important;
-        padding: 12mm 14mm !important;
+        padding: 12mm 14mm;
         margin: 0 !important;
         border: none !important;
         border-radius: 0;
@@ -237,12 +231,7 @@ body.modal-open {
         overflow: visible !important;
     }
 
-    /* 💡 ป้องกันไม่ให้เนื้อหาถูกตัดกลางคัน */
-    .detail-item, 
-    .cv-prof-skills, 
-    .qr-code-box, 
-    .cv-skill-card {
-        page-break-inside: avoid !important;
+    .cv-section {
+        page-break-inside: avoid;
     }
-    
 }
