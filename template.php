@@ -133,19 +133,19 @@ $js_data = json_encode($cv_data, JSON_UNESCAPED_UNICODE);
                     'id' => 'modern-sidebar',
                     'name' => 'Modern Sidebar',
                     'desc' => 'เน้นความชัดเจน ชื่อและตำแหน่งเด่นชัด พร้อมพื้นที่แสดงสกิลครบถ้วน',
-                    'img' => '../image/modern_cv.png'
+                    'img' => 'image/modern_cv.png'
                 ],
                 [
                     'id' => 'professional-hybrid',
                     'name' => 'Professional Hybrid',
                     'desc' => 'โครงสร้างแข็งแกร่ง เหมาะสำหรับนักศึกษาหรือผู้หางานที่ต้องการเน้นประสบการณ์',
-                    'img' => '../image/minimal_cv.png'
+                    'img' => 'image/minimal_cv.png'
                 ],
                 [
                     'id' => 'minimalist-focus',
                     'name' => 'Minimalist Focus',
                     'desc' => 'สะอาดตา เน้นเนื้อหาและความชัดเจน',
-                    'img' => '../image/profes_cv.png'
+                    'img' => 'image/profes_cv.png'
                 ]
             ];
 
