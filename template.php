@@ -117,8 +117,6 @@ $js_data = json_encode($cv_data, JSON_UNESCAPED_UNICODE);
     <?php
     include('ic/navbar.php');
     ?>
-
-    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     
     <header class="page-header">
         <h1>✨ เลือกเทมเพลตสำหรับเรซูเม่ (CV)</h1>
@@ -169,11 +167,9 @@ $js_data = json_encode($cv_data, JSON_UNESCAPED_UNICODE);
                         <p class="description"><?php echo $desc; ?></p>
                         
                         <div class="card-actions">
-                            <button class="btn-select primary-btn" data-template="<?php echo $id; ?>"><i class="fas fa-check"></i> เลือก</button>
-                            
+                            <button class="btn-select primary-btn" data-template="<?php echo $id; ?>"><i class="fas fa-check"></i> เลือก</button>                         
                             <button class="btn-preview" data-template="<?php echo $id; ?>"><i class="fas fa-eye"></i> ดูตัวอย่าง</button>
-                            
-                            <a href="download/<?php echo $id; ?>.pdf" class="btn-download" target="_blank" title="ดาวน์โหลด PDF"><i class="fas fa-download"></i></a>
+                            <button class="btn-download btn-download-trigger" data-template="<?php echo $id; ?>" title="ดาวน์โหลด PDF"><i class="fas fa-download"></i></button>
                         </div>
                     </div>
                 </section>
@@ -196,9 +192,10 @@ $js_data = json_encode($cv_data, JSON_UNESCAPED_UNICODE);
     <?php 
     include('ic/footer.php'); 
     ?>
-
-
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script> 
     <script src="js/template.js"></script>
+
 
 </body>
 </html>

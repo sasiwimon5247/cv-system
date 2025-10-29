@@ -9,44 +9,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtnFooter = document.querySelector('.btn-close-footer');
 
     const renderSkills = (skills) => skills.map(s => `<span class="skill-tag">${s}</span>`).join('');
+    // ----------------------------------------
+    // ส่วนที่ 1: ฟังก์ชันสำหรับสร้าง QR Code HTML
+    // ----------------------------------------
 
-    // function generateQRCodeHtml(data) {
-    //     const studentName = data.name_th || '';
-    //     const studentId = data.stu_id ||''; 
-    //     const universityName = data.edu_university || '';
-
-    //     // 💡 การแก้ไข: แก้ไขการต่อ String และกำหนด URL หลักเป็น Localhost
-    //     const fullLink = 
-    //         `http://localhost/cv_system/student_info.php?id=${studentId}`;
-    //     console.log("Full Link for QR Code:", fullLink);
-    //     // สร้าง URL สำหรับ QR Code Image
-    //     const qrCodeUrl = 
-    //         `https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=${encodeURIComponent(fullLink)}`;
-        
-    //     // แสดงผล
-    //     return `
-    //         <div class="qr-code-box">
-    //         <img src="${qrCodeUrl}" alt="Student QR Code">
-    //         <span class="scan-id-text">Scan ID: ${studentId}</span>
-    //         </div>
-    //     `;
-    // }
     function generateQRCodeHtml(data) {
-    const studentName = data.name_th || '';
-    const studentId = data.stu_id ||''; 
-    const universityName = data.edu_university || '';
-    const fullLink = `http://localhost/cv_system/student_info.php?id=${studentId}`;
-    console.log("Full Link for QR Code:", fullLink);
+        const studentId = data.stu_id || '';
+        
+        // 💡 การแก้ไข: ควรเปลี่ยน localhost เป็น IP Address ของคุณหากต้องการสแกนจากมือถือ
+        const IP_ADDRESS = 'localhost'; // หรือเปลี่ยนเป็น '192.168.x.x' 
+        const fullLink = `http://${IP_ADDRESS}/cv_system/student_info.php?id=${studentId}`;
+        
+        console.log("Full Link for QR Code:", fullLink);
 
-    // 💡 เปลี่ยนจาก img เป็น div ที่มี id เฉพาะ
-    return `
-        <div class="qr-code-box">
-            <div id="qrCodeContainer-${studentId}"></div> 
-            <span class="scan-id-text">Scan ID: ${studentId}</span>
-        </div>
-    `;
-}
-
+        // คืนค่า div สำหรับให้ qrcode.js สร้าง Canvas หรือ Table ในภายหลัง
+        return `
+            <div class="qr-code-box">
+                <div id="qrCodeContainer-${studentId}"></div> 
+                <span class="scan-id-text">Scan ID: ${studentId}</span>
+            </div>
+        `;
+    }
 
     function generateCVHtml(templateId, data) {
         let detailItemStyle = "margin-bottom: 12px; line-height: 1.3; font-size: 0.95em;";
@@ -224,20 +207,62 @@ document.addEventListener('DOMContentLoaded', () => {
                 return `<p>ไม่พบเทมเพลต</p>`;
         }
     }
+    // ----------------------------------------
+    // ส่วนที่ 3: ฟังก์ชันสำหรับดาวน์โหลด PDF (ไม่เปลี่ยนแปลง)
+    // ----------------------------------------
 
-    // --- Event Listeners ---
-    // Preview CV
+    const downloadCV = (templateId, data) => {
+        if (typeof html2pdf === 'undefined') {
+            console.error('html2pdf.js library is not loaded. Please check your HTML script tag.');
+            alert('เกิดข้อผิดพลาด: ไม่พบไลบรารีสำหรับสร้าง PDF');
+            return;
+        }
+
+        const element = document.createElement('div');
+        element.innerHTML = generateCVHtml(templateId, data);
+        
+        // 2. สร้าง QR Code ใน Element ใหม่ (เพื่อใช้ในการแปลง PDF)
+        const studentId = data.stu_id || '';
+        const qrContainer = element.querySelector(`#qrCodeContainer-${studentId}`);
+        const IP_ADDRESS = 'localhost'; // หรือ IP Address ของคุณ
+        const fullLink = `http://${IP_ADDRESS}/cv_system/student_info.php?id=${studentId}`;
+
+        if (qrContainer) {
+            new QRCode(qrContainer, {
+                text: fullLink,
+                width: 100,
+                height: 100,
+            });
+        }
+        
+        const options = {
+            margin: [20, 10, 20, 10], 
+            filename: `CV_${data.name_th}_${templateId}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 }, 
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+        
+        html2pdf().set(options).from(element.querySelector('.cv-section')).save();
+    };
+
+    // ----------------------------------------
+    // ส่วนที่ 4: Event Listeners (แก้ไขใหม่)
+    // ----------------------------------------
+    
+    // Preview CV (ทำงานเหมือนเดิม)
     previewButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             const templateId = btn.dataset.template;
             cvPreviewArea.innerHTML = '';
             
-            // Generate และใส่ HTML
+            // 1. Generate HTML และสร้าง QR Code ใน Modal
             cvPreviewArea.innerHTML = generateCVHtml(templateId, data);
             
             const studentId = data.stu_id || '';
             const qrContainer = document.getElementById(`qrCodeContainer-${studentId}`);
-            const fullLink = `http://localhost/cv_system/student_info.php?id=${studentId}`;
+            const IP_ADDRESS = 'localhost'; 
+            const fullLink = `http://${IP_ADDRESS}/cv_system/student_info.php?id=${studentId}`;
 
             if (qrContainer) {
                 new QRCode(qrContainer, {
@@ -246,73 +271,70 @@ document.addEventListener('DOMContentLoaded', () => {
                     height: 100,
                 });
             }
-            // แสดง modal
+            
             modal.style.display = 'block';
 
-            // --- ปรับ scale ให้พอดี A4 ---
+            // โค้ดปรับ Scale ใน Modal (ไม่เปลี่ยนแปลง)
             const cvContent = cvPreviewArea.querySelector('.cv-section'); 
             if(cvContent) {
                 setTimeout(() => {
-                    // ... (โค้ด reset transform) ...
-                    
-                    const contentWidth = cvContent.offsetWidth; // ควรจะเป็น 794px
+                    const contentWidth = cvContent.offsetWidth; 
                     const a4Width = 794; 
-                    
-                    // 💡 ปรับปรุง: ลด Scale ลงเป็น 0.97 (ย่อลง 3%) 
-                    // เพื่อให้มี Margin 20px รอบ CV และยังพอดีกับพื้นที่ Modal
                     const safetyFactor = 0.97; 
-
                     let scale = (a4Width / contentWidth) * safetyFactor; 
-                    
-                    if (scale > 1) {
-                        scale = 1;
-                    }
-
+                    if (scale > 1) { scale = 1; }
                     cvContent.style.transformOrigin = 'top center';
                     cvContent.style.transform = `scale(${scale})`;
-
                 }, 50);
             }
         });
     });
 
-
-    // Close modal (ปุ่ม x ด้านบน)
-    closeBtn.addEventListener('click', () => modal.style.display = 'none');
-    
-    // 💡 เพิ่ม: Close modal (ปุ่มปิดที่ Footer)
-    if (closeBtnFooter) {
-        closeBtnFooter.addEventListener('click', () => modal.style.display = 'none');
-    }
-
-    // Close modal when clicking outside
-    window.addEventListener('click', e => {
-        if (e.target === modal) modal.style.display = 'none';
+    // 💡 NEW: Event Listener สำหรับปุ่ม ดาวน์โหลด (.btn-download-trigger)
+    downloadButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const templateId = btn.dataset.template;
+            // เรียกฟังก์ชันดาวน์โหลด PDF โดยตรง
+            alert(`กำลังเริ่มดาวน์โหลด CV เทมเพลต "${templateId}" ในรูปแบบ PDF...`);
+            downloadCV(templateId, data);
+        });
     });
 
-    // Select and Save Template
+
+    // 💡 MODIFIED: Event Listener สำหรับปุ่ม เลือก (.btn-select) - บันทึกลง DB เท่านั้น
     selectButtons.forEach(btn => {
         btn.addEventListener('click', async () => {
             const templateId = btn.dataset.template;
-            const confirmSelect = confirm(`คุณต้องการเลือกเทมเพลต "${templateId}" ใช่หรือไม่?`);
+            const confirmSelect = confirm(`คุณต้องการเลือกเทมเพลต "${templateId}" และบันทึกลงระบบใช่หรือไม่?`);
             if (!confirmSelect) return;
 
             try {
+                // 1. บันทึกเทมเพลตลงฐานข้อมูล
                 const res = await fetch('save_template.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: `template_name=${encodeURIComponent(templateId)}`
                 });
                 const result = await res.json();
+                
                 if (result.success) {
                     alert(`บันทึกเทมเพลต "${templateId}" เรียบร้อยแล้ว`);
                 } else {
-                    alert('เกิดข้อผิดพลาด: ' + result.message);
+                    alert('เกิดข้อผิดพลาดในการบันทึกเทมเพลต: ' + result.message);
                 }
             } catch (err) {
                 alert('เกิดข้อผิดพลาด: ' + err);
             }
         });
+    });
+
+    // Close modal (ไม่เปลี่ยนแปลง)
+    closeBtn.addEventListener('click', () => modal.style.display = 'none');
+    if (closeBtnFooter) {
+        closeBtnFooter.addEventListener('click', () => modal.style.display = 'none');
+    }
+    window.addEventListener('click', e => {
+        if (e.target === modal) modal.style.display = 'none';
     });
 
 });
