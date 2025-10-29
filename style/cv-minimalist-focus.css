@@ -119,8 +119,8 @@
     margin-top: 10px;
 }
 .cv-skill-card {
-    flex: 1;  /* ✅ เท่ากัน 50/50 */
-    min-height: 180px; /* ✅ ให้มีพื้นที่พอสำหรับ tag */
+    flex: 1; 
+    min-height: 180px; 
     display: flex;
     flex-direction: column;
 }
@@ -178,18 +178,20 @@ body.modal-open {
 
 /* 2. CSS สำหรับกล่อง QR Code */
 .qr-code-box {
-    /* 💡 อ้างอิงกับ position: relative; ใน .header */
     position: absolute; 
     top: 10px;        
     right: 0px;       
     z-index: 99999!important;
     width: 110px;     
     height: auto;     
-    text-align: center;  
+    text-align: center; 
 }
 
-/* 3. CSS สำหรับรูปภาพ QR Code */
-.qr-code-box img {
+/* 3. CSS สำหรับรูปภาพ QR Code (แก้ไข: รวม canvas/table) */
+.qr-code-box img,
+.qr-code-box canvas, 
+.qr-code-box table 
+{
     width: 100px; 
     height: 100px;
     display: block; 
@@ -202,27 +204,30 @@ body.modal-open {
 /* 4. CSS สำหรับข้อความ Scan ID */
 .qr-code-box .scan-id-text {
     font-size: 8pt;
-    color: var(--mf-color-accent); /* ใช้สี accent ให้สอดคล้องกับธีม */
+    color: var(--mf-color-accent); 
     display: block;
     line-height: 1.2;
     margin-top: 3px;
 }
 
-/* ✅ PERFECT A4 PRINT FIX */
+/* ✅ PERFECT A4 PRINT FIX (แก้ไข: เพิ่ม page-break-inside) */
 @media print {
     body.modal-open { overflow: visible !important; }
     
     .modal {
-        display: block !important;
+        /* 💡 ซ่อน Modal Overlay เมื่อพิมพ์ */
+        display: none !important; 
         overflow: visible !important;
         background: none !important;
         padding: 0;
     }
 
-    .cv-minimalist-focus {
+    /* 💡 กำหนดขนาด A4 ให้กับ CV Section */
+    .cv-minimalist-focus,
+    .cv-minimalist-focus.cv-section {
         width: 210mm !important;
         height: 297mm !important;
-        padding: 12mm 14mm;
+        padding: 12mm 14mm !important;
         margin: 0 !important;
         border: none !important;
         border-radius: 0;
@@ -231,7 +236,16 @@ body.modal-open {
         overflow: visible !important;
     }
 
-    .cv-section {
-        page-break-inside: avoid;
+    /* 💡 ป้องกันไม่ให้เนื้อหาถูกตัดกลางคัน */
+    .detail-item, 
+    .cv-prof-skills, 
+    .qr-code-box, 
+    .cv-skill-card {
+        page-break-inside: avoid !important;
     }
+    
+    /* ❌ ลบโค้ดซ้ำที่ไม่จำเป็น */
+    /* .cv-section {
+        page-break-inside: avoid; 
+    } */
 }

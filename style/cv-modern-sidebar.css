@@ -184,39 +184,52 @@
     display: block; 
     margin: 0 auto; 
     padding: 2px;
-    border: 1px solid var(--mf-color-border); 
+    border: 1px solid var(--rb-color-accent); 
     visibility: visible !important;
 }
-
+.qr-code-box canvas, 
+.qr-code-box table 
+{
+    width: 100px; 
+    height: 100px;
+    display: block; 
+    margin: 0 auto; 
+    padding: 2px;
+    border: 1px solid var(--rb-color-border); 
+    visibility: visible !important;
+}
 /* 4. CSS สำหรับข้อความ Scan ID */
 .qr-code-box .scan-id-text {
     font-size: 8pt;
-    color: var(--mf-color-accent); /* ใช้สี accent ให้สอดคล้องกับธีม */
+    color: var(--rb-color-accent); /* ใช้สี accent ให้สอดคล้องกับธีม */
     display: block;
     line-height: 1.2;
     margin-top: 3px;
 }
 
-/* ✅ PRINT FIX (Perfect A4 Output) */
 @media print {
-    body.modal-open { overflow: visible !important; }
+    /* ❌ body.modal-open ไม่จำเป็นต้องมี ถ้า html2pdf ทำงานนอก Modal */
+    /* body.modal-open { overflow: visible !important; } */
+    
     .modal {
-        display: block !important;
-        overflow: visible !important;
-        padding: 0;
-        background: none;
+        display: none !important; /* ❌ ซ่อน Modal และ Overlay เมื่อพิมพ์ */
     }
-    .cv-red-theme {
+
+    /* 💡 แก้ไข: บังคับให้ CV Section มีขนาด A4 ที่สมบูรณ์ */
+    .cv-section {
         width: 210mm !important;
-        height: 297mm !important;
-        padding: 12mm 14mm;
-        margin: 0;
+        height: 297mm !important; /* ใช้ height เพื่อให้ html2pdf รู้ขอบเขตหน้า */
+        padding: 12mm 14mm !important; /* ใช้ padding แทน margin */
+        margin: 0 !important;
         border: none !important;
-        border-radius: 0;
+        border-radius: 0 !important;
         box-shadow: none !important;
         background-color: #FFFFFF !important;
+        page-break-inside: auto !important; /* ให้สามารถแบ่งหน้าได้ตามปกติ */
     }
-    .cv-section {
-        page-break-inside: avoid;
+
+    /* เพิ่มการควบคุม Page Break เพื่อไม่ให้เนื้อหาถูกตัดกลางคัน */
+    .detail-item, .cv-prof-skills, .qr-code-box {
+        page-break-inside: avoid; /* ป้องกันไม่ให้ส่วนเหล่านี้ถูกแบ่งหน้า */
     }
 }

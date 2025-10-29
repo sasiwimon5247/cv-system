@@ -1,6 +1,6 @@
 /* ======================================================================
-   🎨 CV Professional Hybrid (Pink/Purple Theme) - Fully Fixed + Print A4
-   ใช้คลาส: .cv-pink-purple-theme
+    🎨 CV Professional Hybrid (Pink/Purple Theme) - Fully Fixed + Print A4
+    ใช้คลาส: .cv-pink-purple-theme
 ====================================================================== */
 :root {
     --pp-color-primary: #8A2BE2;
@@ -105,8 +105,8 @@
     margin-top: 10px;
 }
 .cv-pink-purple-theme .cv-skill-card {
-    flex: 1;  /* ✅ เท่ากัน 50/50 */
-    min-height: 180px; /* ✅ ให้มีพื้นที่พอสำหรับ tag */
+    flex: 1; 
+    min-height: 180px;
     display: flex;
     flex-direction: column;
 }
@@ -150,31 +150,35 @@ body.modal-open {
 
 /* 2. CSS สำหรับกล่อง QR Code */
 .qr-code-box {
-    /* 💡 อ้างอิงกับ position: relative; ใน .header */
     position: absolute; 
     top: 10px;        
     right: 0px;       
     z-index: 99999!important;
     width: 110px;     
     height: auto;     
-    text-align: center;   
+    text-align: center; 
 }
 
-/* 3. CSS สำหรับรูปภาพ QR Code */
-.qr-code-box img {
+/* 3. CSS สำหรับรูปภาพ QR Code (แก้ไข: รวม canvas/table และตัวแปรสี) */
+.qr-code-box img,
+.qr-code-box canvas, 
+.qr-code-box table 
+{
     width: 100px; 
     height: 100px;
     display: block; 
     margin: 0 auto; 
     padding: 2px;
-    border: 1px solid var(--mf-color-border); 
+    /* ✅ แก้ไข: ใช้ --pp-color-border */
+    border: 1px solid var(--pp-color-border); 
     visibility: visible !important;
 }
 
-/* 4. CSS สำหรับข้อความ Scan ID */
+/* 4. CSS สำหรับข้อความ Scan ID (แก้ไข: ใช้ตัวแปรสี) */
 .qr-code-box .scan-id-text {
     font-size: 8pt;
-    color: var(--mf-color-accent); /* ใช้สี accent ให้สอดคล้องกับธีม */
+    /* ✅ แก้ไข: ใช้ --pp-color-text */
+    color: var(--pp-color-text); 
     display: block;
     line-height: 1.2;
     margin-top: 3px;
@@ -182,27 +186,26 @@ body.modal-open {
 
 /* ✅ PERFECT PRINT FIX */
 @media print {
-    body.modal-open { overflow: visible !important; }
-
+    
     .modal {
-        display: block !important;
-        background: none !important;
-        padding: 0 !important;
-        overflow: visible !important;
+        display: none !important; 
     }
 
-    .cv-pink-purple-theme {
+    /* 💡 เพิ่ม page-break-inside: avoid ให้องค์ประกอบย่อย */
+    .cv-pink-purple-theme.cv-section {
         width: 210mm !important;
-        min-height: 297mm !important;
-        padding: 12mm 15mm;
+        height: 297mm !important; 
+        padding: 12mm 14mm !important; 
         margin: 0 !important;
         border: none !important;
         border-radius: 0 !important;
         box-shadow: none !important;
-        background: #FFFFFF !important;
+        background-color: #FFFFFF !important;
+        page-break-inside: auto !important; 
     }
-
-    .cv-section {
-        page-break-inside: avoid;
+    
+    /* 💡 ป้องกันไม่ให้เนื้อหาถูกตัดกลางคัน */
+    .detail-item, .cv-prof-skills, .qr-code-box {
+        page-break-inside: avoid !important;
     }
 }
