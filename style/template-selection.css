@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
 body {
-  font-family: 'Prompt', sans-serif;
-  background-color: #fffaf5; /* ครีมอ่อน */
-  color: #333;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+    font-family: 'Prompt', sans-serif;
+    background-color: #fffaf5; /* ครีมอ่อน */
+    color: #333;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 main {
@@ -54,12 +54,9 @@ html {
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
     overflow: hidden;
     transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s; 
-    
     display: flex;
     flex-direction: column; 
-    
     min-height: 420px; 
-    
     border: 1px solid #ffe6c7; 
 }
 
@@ -106,7 +103,6 @@ html {
     margin-top: auto; 
     padding: 10px 10px 10px 10px; 
     border-top: 1px dashed #f0f0f0;
-    
     display: flex;
     align-items: center;
     gap: 5px; 
@@ -220,7 +216,8 @@ html {
     
     position: fixed; 
     top: 10px; 
-    right: calc(50vw - 425px);
+    /* 💡 แก้ไข: ให้ปุ่มอยู่ขวาบนของ viewport */
+    right: 10px; 
     
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
     cursor: pointer;
@@ -261,9 +258,10 @@ html {
     border: none !important; 
     box-shadow: none !important; 
 }
-/* ---------------------------------------------------- */
+
+/* ==================================================== */
 /* --- MOBILE RESPONSIVENESS --- */
-/* ---------------------------------------------------- */
+/* ==================================================== */
 @media (max-width: 650px) {
     .template-selection-main {
         padding: 10px;
@@ -311,5 +309,75 @@ html {
     .close-btn {
         top: 20px;
         right: 15px; 
+    }
+}
+
+/* ==================================================== */
+/* 🚨 --- PRINT & PDF-SPECIFIC STYLES (FIX) --- */
+/* ==================================================== */
+
+@media print {
+    /* 1. ซ่อนองค์ประกอบที่ไม่ต้องการให้ปรากฏใน PDF */
+    body, html {
+        background-color: white !important; 
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        overflow: hidden !important;
+    }
+    
+    .page-header,
+    .template-selection-main,
+    .template-card,
+    .modal-actions-footer,
+    .close-btn {
+        display: none !important;
+    }
+
+    /* 2. บังคับให้ Modal แสดงผลเป็น Block เต็มหน้าจอเมื่อพิมพ์ */
+    .modal {
+        display: block !important;
+        position: static !important; 
+        width: auto !important;
+        height: auto !important;
+        background-color: transparent !important;
+        overflow: hidden !important;
+        padding: 0 !important;
+    }
+
+    /* 3. ล้าง Style ของ Modal Content และ Preview Area */
+    .modal-content {
+        display: block !important;
+        max-width: none !important;
+        max-height: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+        overflow: hidden !important;
+    }
+
+    #cvPreviewArea {
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        padding: 0 !important;
+        /* ต้องแสดงผลเป็น block เพื่อให้ CV template กินพื้นที่เต็มที่ */
+        display: block !important; 
+    }
+    
+    /* 4. ล้าง Margin และ Scale ของ CV Template ใน Preview Area */
+    #cvPreviewArea > .cv-section {
+        margin: 0 !important; 
+        padding: 0 !important; 
+        box-shadow: none !important;
+        border: none !important;
+        /* ❗ สำคัญ: ลบ Scale หรือ Transform ที่ใช้ในการ Preview */
+        transform: none !important; 
+        width: 100% !important; 
+    }
+
+    /* 5. กำหนดขนาดหน้ากระดาษ A4 */
+    @page {
+        size: A4;
+        margin: 0;
     }
 }
