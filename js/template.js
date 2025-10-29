@@ -17,9 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 💡 การแก้ไข: แก้ไขการต่อ String และกำหนด URL หลักเป็น Localhost
         const fullLink = 
-            `http://localhost/cv_system/student_info.php?id=${studentId}` + 
-            `&name=${encodeURIComponent(studentName)}` +
-            `&uni=${encodeURIComponent(universityName)}`;
+            `http://localhost/cv_system/student_info.php?id=${studentId}`;
         console.log("Full Link for QR Code:", fullLink);
         // สร้าง URL สำหรับ QR Code Image
         const qrCodeUrl = 
