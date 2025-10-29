@@ -1,4 +1,4 @@
-/* 🎨 --- VARIABLES --- */
+
 :root {
     --mf-color-primary: #212121;
     --mf-color-accent: #616161;
@@ -173,17 +173,17 @@ body.modal-open {
 }
 
 /* ---------------------------------------------------- */
-/* --- เพิ่ม: CSS ของ QR Code (เพื่อให้ลอยอยู่มุมขวาบน) --- */
+/* --- QR Code STYLES --- */
 /* ---------------------------------------------------- */
 
 /* 2. CSS สำหรับกล่อง QR Code */
 .qr-code-box {
     position: absolute; 
-    top: 10px;        
-    right: 0px;       
+    top: 10px;          
+    right: 0px;         
     z-index: 99999!important;
-    width: 110px;     
-    height: auto;     
+    width: 110px;       
+    height: auto;       
     text-align: center; 
 }
 
@@ -212,6 +212,7 @@ body.modal-open {
 
 /* ✅ PERFECT A4 PRINT FIX (แก้ไข: เพิ่ม page-break-inside) */
 @media print {
+    /* ❗ Note: body.modal-open uses overflow: visible for print */
     body.modal-open { overflow: visible !important; }
     
     .modal {
@@ -244,8 +245,4 @@ body.modal-open {
         page-break-inside: avoid !important;
     }
     
-    /* ❌ ลบโค้ดซ้ำที่ไม่จำเป็น */
-    /* .cv-section {
-        page-break-inside: avoid; 
-    } */
 }

@@ -113,7 +113,7 @@
     margin-top: 10px;
 }
 .cv-red-theme .cv-skill-card {
-  flex: 1;  /* ✅ เท่ากัน 50/50 */
+    flex: 1;  /* ✅ เท่ากัน 50/50 */
     min-height: 180px; /* ✅ ให้มีพื้นที่พอสำหรับ tag */
     display: flex;
     flex-direction: column;
@@ -162,31 +162,22 @@
 }
 
 /* ---------------------------------------------------- */
-/* --- เพิ่ม: CSS ของ QR Code (เพื่อให้ลอยอยู่มุมขวาบน) --- */
+/* --- QR Code STYLES (รวมและลดความซ้ำซ้อน) --- */
 /* ---------------------------------------------------- */
 
 /* 2. CSS สำหรับกล่อง QR Code */
 .qr-code-box {
-    /* 💡 อ้างอิงกับ position: relative; ใน .header */
     position: absolute; 
-    top: 10px;        
-    right: 0px;       
+    top: 10px; 
+    right: 0px; 
     z-index: 99999!important;
-    width: 110px;     
-    height: auto;     
+    width: 110px; 
+    height: auto; 
     text-align: center; 
 }
 
-/* 3. CSS สำหรับรูปภาพ QR Code */
-.qr-code-box img {
-    width: 100px; 
-    height: 100px;
-    display: block; 
-    margin: 0 auto; 
-    padding: 2px;
-    border: 1px solid var(--rb-color-accent); 
-    visibility: visible !important;
-}
+/* 3. CSS สำหรับ QR Code (IMG, CANVAS, TABLE) - รวมให้เป็นโค้ดเดียว */
+.qr-code-box img,
 .qr-code-box canvas, 
 .qr-code-box table 
 {
@@ -195,41 +186,52 @@
     display: block; 
     margin: 0 auto; 
     padding: 2px;
+    /* ✅ ใช้สี Border ร่วมกัน เพื่อลดความซ้ำซ้อน */
     border: 1px solid var(--rb-color-border); 
     visibility: visible !important;
 }
+
 /* 4. CSS สำหรับข้อความ Scan ID */
 .qr-code-box .scan-id-text {
     font-size: 8pt;
-    color: var(--rb-color-accent); /* ใช้สี accent ให้สอดคล้องกับธีม */
+    color: var(--rb-color-accent); 
     display: block;
     line-height: 1.2;
     margin-top: 3px;
 }
 
+/* ---------------------------------------------------- */
+/* 🚨 --- PRINT & PDF-SPECIFIC STYLES (FIX) --- */
+/* ---------------------------------------------------- */
+
 @media print {
-    /* ❌ body.modal-open ไม่จำเป็นต้องมี ถ้า html2pdf ทำงานนอก Modal */
-    /* body.modal-open { overflow: visible !important; } */
-    
+    /* ❗ ลบ .modal ออกไป (ให้ General CSS จัดการ) */
     .modal {
-        display: none !important; /* ❌ ซ่อน Modal และ Overlay เมื่อพิมพ์ */
+        display: none !important; 
     }
 
-    /* 💡 แก้ไข: บังคับให้ CV Section มีขนาด A4 ที่สมบูรณ์ */
-    .cv-section {
+    /* ✅ แก้ไข: กำหนดขนาด A4 ให้กับ CV Template (คลาส .cv-red-theme และ .cv-section) */
+    .cv-red-theme, .cv-section {
         width: 210mm !important;
-        height: 297mm !important; /* ใช้ height เพื่อให้ html2pdf รู้ขอบเขตหน้า */
-        padding: 12mm 14mm !important; /* ใช้ padding แทน margin */
+        height: 297mm !important; 
+        padding: 12mm 14mm !important; 
         margin: 0 !important;
         border: none !important;
         border-radius: 0 !important;
         box-shadow: none !important;
-        background-color: #FFFFFF !important;
-        page-break-inside: auto !important; /* ให้สามารถแบ่งหน้าได้ตามปกติ */
+        /* 💡 ล้างพื้นหลังสีเทาออกเมื่อพิมพ์ */
+        background-color: white !important; 
+        page-break-inside: auto !important; 
+    }
+    
+    /* ❗ เพิ่ม: บังคับ Body และองค์ประกอบย่อยให้แสดงสีถูกต้อง */
+    body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
 
-    /* เพิ่มการควบคุม Page Break เพื่อไม่ให้เนื้อหาถูกตัดกลางคัน */
-    .detail-item, .cv-prof-skills, .qr-code-box {
-        page-break-inside: avoid; /* ป้องกันไม่ให้ส่วนเหล่านี้ถูกแบ่งหน้า */
+    /* ✅ เพิ่มการควบคุม Page Break เพื่อไม่ให้เนื้อหาถูกตัดกลางคัน */
+    .detail-item, .cv-prof-skills, .qr-code-box, .cv-skill-card, .header {
+        page-break-inside: avoid !important; /* ป้องกันไม่ให้ส่วนเหล่านี้ถูกแบ่งหน้า */
     }
 }
