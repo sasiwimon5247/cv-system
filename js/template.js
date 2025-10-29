@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(USER_CV_DATA);
     const previewButtons = document.querySelectorAll('.btn-preview');
     const selectButtons = document.querySelectorAll('.btn-select');
+    const downloadButtons = document.querySelectorAll('.btn-download-trigger');
     const modal = document.getElementById('previewModal');
     const closeBtn = document.querySelector('.close-btn');
     const cvPreviewArea = document.getElementById('cvPreviewArea');
@@ -221,10 +222,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const element = document.createElement('div');
         element.innerHTML = generateCVHtml(templateId, data);
         
-        // 2. สร้าง QR Code ใน Element ใหม่ (เพื่อใช้ในการแปลง PDF)
         const studentId = data.stu_id || '';
         const qrContainer = element.querySelector(`#qrCodeContainer-${studentId}`);
-        const IP_ADDRESS = 'localhost'; // หรือ IP Address ของคุณ
+        const IP_ADDRESS = 'localhost'; 
         const fullLink = `http://${IP_ADDRESS}/cv_system/student_info.php?id=${studentId}`;
 
         if (qrContainer) {
@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // ----------------------------------------
-    // ส่วนที่ 4: Event Listeners (แก้ไขใหม่)
+    // ส่วนที่ 4: Event Listeners (แก้ไขแล้ว)
     // ----------------------------------------
     
     // Preview CV (ทำงานเหมือนเดิม)
@@ -256,7 +256,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const templateId = btn.dataset.template;
             cvPreviewArea.innerHTML = '';
             
-            // 1. Generate HTML และสร้าง QR Code ใน Modal
             cvPreviewArea.innerHTML = generateCVHtml(templateId, data);
             
             const studentId = data.stu_id || '';
@@ -294,7 +293,6 @@ document.addEventListener('DOMContentLoaded', () => {
     downloadButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             const templateId = btn.dataset.template;
-            // เรียกฟังก์ชันดาวน์โหลด PDF โดยตรง
             alert(`กำลังเริ่มดาวน์โหลด CV เทมเพลต "${templateId}" ในรูปแบบ PDF...`);
             downloadCV(templateId, data);
         });
@@ -328,11 +326,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Close modal (ไม่เปลี่ยนแปลง)
+    // Close modal (กากบาท)
     closeBtn.addEventListener('click', () => modal.style.display = 'none');
+    
+    // Close modal (ปุ่มที่ footer - ถ้ามี)
     if (closeBtnFooter) {
         closeBtnFooter.addEventListener('click', () => modal.style.display = 'none');
     }
+    
+    // Close modal when clicking outside
     window.addEventListener('click', e => {
         if (e.target === modal) modal.style.display = 'none';
     });
