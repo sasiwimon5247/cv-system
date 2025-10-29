@@ -1,0 +1,225 @@
+/* ===== พื้นหลังและฟอนต์หลัก ===== */
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+body {
+  font-family: 'Prompt', sans-serif;
+  background-color: #fffaf5; /* ครีมอ่อน */
+  color: #333;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex-grow: 1;
+}
+
+/* ===== Container หลัก ===== */
+.education-container {
+  max-width: 700px;
+  margin: 40px auto;
+}
+
+/* ===== หัวข้อ ===== */
+.text-orange {
+  color: #094f9b; /* น้ำเงินเข้มตามธีม */
+}
+
+/* ===== ฟอร์ม ===== */
+.education-form {
+  background: #fff;
+  border-radius: 20px;
+  border: 2px solid #ff914d;
+  box-shadow: 0 6px 20px rgba(255, 145, 77, 0.15);
+  padding: 40px;
+}
+
+/* ===== Label ===== */
+.education-form label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* ===== Input ===== */
+.education-form .form-control {
+  border: 2px dashed #ffb37a;
+  border-radius: 12px;
+  padding: 10px 14px;
+  background-color: #fff9f3;
+  transition: all 0.3s ease;
+}
+
+.education-form .form-control:focus {
+  border-color: #ff7f32;
+  box-shadow: 0 0 8px rgba(255, 127, 50, 0.3);
+}
+
+/* ===== ปุ่มบันทึก ===== */
+.btn-save {
+  background-color: #ff914d;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 28px;
+  font-weight: 600;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.btn-save:hover {
+  background-color: #e66c1d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(230, 108, 29, 0.3);
+}
+
+/* ===== ปุ่มย้อนกลับ ===== */
+.btn-back {
+  background-color: #3b3937;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 28px;
+  font-weight: 600;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+  background-color: #343231;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+/* ---------------------------------------------------- */
+/* สไตล์หัวข้อหลัก (Elegant Bubble) */
+/* ---------------------------------------------------- */
+.section-title-box {
+    /* ขนาดและข้อความ */
+    font-size: 1.7em; 
+    font-weight: 800;
+    text-align: center;
+    color: #094f9b; /* สีน้ำเงินที่กำหนด */
+    font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif; 
+    
+    /* การจัดรูปแบบกรอบ */
+    display: inline-flex; /* **สำคัญ: เปลี่ยนเป็น inline-flex เพื่อจัดเรียงไอคอนกับข้อความ** */
+    align-items: center; /* จัดให้ไอคอนกับข้อความอยู่ตรงกลางแนวตั้ง */
+    padding: 12px 30px; 
+    margin: 45px auto 35px auto;
+    
+    /* พื้นหลังและกรอบ */
+    background-color: #fffaf0; 
+    border: 3px solid #ff8c00; 
+    border-radius: 50px; 
+    
+    /* เงา */
+    box-shadow: 
+        0 6px 15px rgba(255, 140, 0, 0.2), 
+        0 0 0 5px #ffffff inset, 
+        0 0 0 8px rgba(9, 79, 155, 0.1); 
+    
+    position: relative;
+    transition: all 0.3s ease-out;
+}
+
+/* ---------------------------------------------------- */
+/* สไตล์สำหรับไอคอน (fa-certificate) */
+/* ---------------------------------------------------- */
+.section-title-box .section-icon {
+    font-size: 1.1em; /* ให้ไอคอนใหญ่กว่าข้อความเล็กน้อย */
+    color: #ff8c00; /* ใช้สีส้มเพื่อให้ไอคอนเด่น */
+    margin-right: 15px; /* เว้นระยะห่างระหว่างไอคอนกับข้อความ */
+    
+    /* เพิ่มเงาเล็กน้อยให้กับไอคอน */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); 
+}
+
+
+/* ---------------------------------------------------- */
+/* องค์ประกอบเน้นและ Hover Effect (คงเดิม) */
+/* ---------------------------------------------------- */
+
+/* "ริบบิ้น" น้ำเงินเล็กๆ ด้านบน/ล่าง (เปลี่ยนสัญลักษณ์เพื่อไม่ให้ซ้ำกับไอคอน) */
+.section-title-box::before,
+.section-title-box::after {
+    content: '★'; /* สัญลักษณ์น่ารัก */
+    position: absolute;
+    color: #094f9b; 
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.section-title-box::before {
+    top: -5px;
+    left: 15px;
+    transform: rotate(-15deg);
+}
+
+.section-title-box::after {
+    bottom: -5px;
+    right: 15px;
+    transform: rotate(15deg);
+}
+
+/* Effect เมื่อเมาส์ชี้ */
+.section-title-box:hover {
+    box-shadow: 
+        0 8px 20px rgba(255, 140, 0, 0.4),
+        0 0 0 5px #ffffff inset,
+        0 0 0 8px rgba(9, 79, 155, 0.2); 
+    transform: scale(1.02);
+    cursor: default;
+}
+@media (max-width: 768px) {
+    .education-container {
+        max-width: 100%;
+        margin: 20px 10px;
+    }
+
+    .education-form {
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 4px 15px rgba(255, 145, 77, 0.1);
+    }
+    
+    .section-title-box {
+        font-size: 1.4em;
+        padding: 10px 20px;
+        margin: 30px auto 25px auto;
+        border-width: 2px;
+        border-radius: 30px;
+        box-shadow: 
+            0 4px 10px rgba(255, 140, 0, 0.2), 
+            0 0 0 3px #ffffff inset, 
+            0 0 0 5px rgba(9, 79, 155, 0.1); 
+    }
+    
+    .section-title-box .section-icon {
+        margin-right: 10px;
+    }
+
+    .section-title-box::before,
+    .section-title-box::after {
+        content: none;
+    }
+
+    .btn-save,
+    .btn-back {
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 10px;
+    }
+
+    /* หากใช้ .d-flex.justify-content-between ในปุ่มคู่ */
+    .d-flex.justify-content-between {
+        flex-direction: column; 
+        gap: 15px; 
+    }
+
+    .d-flex.justify-content-between .btn-save,
+    .d-flex.justify-content-between .btn-back {
+        width: 100%; 
+        text-align: center;
+    }
+}

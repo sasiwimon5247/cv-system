@@ -1,0 +1,108 @@
+/* styles.css */
+
+/* Define New Color Palette (Modern & Professional) */
+:root {
+    --color-primary: #00796B;   /* Teal/Dark Cyan - Accent Color */
+    --color-secondary: #263238; /* Charcoal/Dark Blue - Main Text/Headers */
+    --color-light-bg: #F4F6F7;  /* Very Light Grey/Off-White - Background for sidebars/boxes */
+    --color-text: #37474F;      /* Dark Grey - Body Text */
+    --color-border: #CFD8DC;    /* Light Border */
+}
+
+/* General Styles */
+body { font-family: 'Sukhumvit Set', 'Arial', sans-serif; background-color: #f4f4f9; color: var(--color-text); margin: 0; padding: 20px; text-align: center; }
+.template-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+.template-card { background-color: #fff; border-radius: 12px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); padding: 25px; width: 320px; text-align: left; border-top: 5px solid var(--color-primary); }
+.btn-preview { background-color: #6c757d; color: white; margin-bottom: 5px; padding: 10px; width: 100%; border: none; border-radius: 4px;}
+.btn-select { background-color: var(--color-primary); color: white; padding: 10px; width: 100%; border: none; border-radius: 4px;}
+.modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.8); }
+.modal-content { background-color: #fefefe; margin: 2% auto; padding: 20px; border-radius: 8px; width: 90%; max-width: 1100px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+.close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; }
+.close-btn:hover, .close-btn:focus { color: #000; text-decoration: none; cursor: pointer; }
+
+/* --- KEY: A4 SIMULATION (Global) --- */
+#cvPreviewArea {
+    width: 794px; 
+    height: 1123px; 
+    margin: 20px auto;
+    padding: 35px; 
+    background-color: white;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    font-size: 11pt; /* Base font for 1 & 2 */
+    line-height: 1.5; 
+    text-align: left;
+    box-sizing: border-box;
+}
+
+/* Shared Styles for CV Sections */
+.cv-section h4 {
+    font-size: 1.25em; 
+    font-weight: bold;
+    margin-top: 25px; 
+    margin-bottom: 8px;
+    padding-bottom: 2px;
+}
+.detail-item {
+    margin-bottom: 15px; 
+    line-height: 1.4;
+}
+.detail-item strong {
+    display: block;
+    font-size: 1.1em; 
+}
+
+/* Icon Styling */
+.contact-info-item {
+    display: flex;
+    align-items: flex-start;
+    font-size: 1em;
+    margin-bottom: 6px; 
+}
+.icon {
+    margin-right: 8px;
+    font-size: 1.1em;
+    width: 20px;
+    text-align: center;
+    color: var(--color-primary); 
+}
+
+/* --- 1. MODERN-SIDEBAR STYLES --- */
+.cv-modern-sidebar { display: flex; height: 100%; }
+.cv-modern-sidebar .cv-sidebar {
+    width: 33%; background-color: var(--color-secondary); color: white;
+    padding: 10px 15px 15px 15px; box-sizing: border-box; font-size: 1em; line-height: 1.4;
+}
+.cv-modern-sidebar .cv-main-content { width: 67%; padding: 0 20px; box-sizing: border-box; }
+.cv-modern-sidebar h1 { color: var(--color-secondary); font-size: 2.8em; margin-bottom: 5px; }
+.cv-modern-sidebar h2 { color: var(--color-text); border-bottom: 2px solid var(--color-border); padding-bottom: 5px; margin-top: 0; }
+.cv-modern-sidebar .cv-sidebar h4 { color: var(--color-primary); border-bottom: 1px solid var(--color-primary); margin-top: 20px; font-size: 1.15em; }
+.cv-modern-sidebar .cv-main-content h4 { color: var(--color-secondary); border-bottom: 1px solid var(--color-primary); }
+.cv-modern-sidebar .profile-photo { 
+    width: 78px; height: 104px; border-radius: 5px; margin: 10px auto 10px auto; 
+    display: block; border: 3px solid var(--color-primary); background-size: cover; background-position: center;
+}
+.cv-modern-sidebar .cv-sidebar a { color: var(--color-primary); }
+
+/* --- 2. PROFESSIONAL-HYBRID STYLES --- */
+.cv-professional-hybrid { height: 100%; display: flex; flex-direction: column; }
+.cv-professional-hybrid .header { border-bottom: 3px solid var(--color-primary); padding-bottom: 8px; margin-bottom: 20px; }
+.cv-professional-hybrid h1 { color: var(--color-secondary); font-size: 3em; margin: 0; text-align: left; }
+.cv-professional-hybrid h2 { color: var(--color-primary); font-size: 1.5em; margin: 0; text-align: left; }
+.cv-professional-hybrid .summary-box { margin-bottom: 20px; padding: 0 0 10px 0; font-style: italic; border-bottom: 1px dashed var(--color-border); }
+.cv-professional-hybrid .main-cols { display: flex; gap: 30px; height: 100%; }
+.cv-professional-hybrid .left-col { width: 68%; padding-right: 15px; }
+.cv-professional-hybrid .right-col { width: 32%; background-color: var(--color-light-bg); padding: 15px; border-radius: 5px; }
+.cv-professional-hybrid h4 { color: var(--color-secondary); border-bottom: 1px solid var(--color-border); margin-top: 20px; padding-bottom: 3px; font-size: 1.2em; }
+.cv-professional-hybrid .right-col h4 { color: var(--color-primary); }
+.skill-tag { display:inline-block; background-color:var(--color-border); padding: 4px 8px; margin: 4px 4px 4px 0; border-radius: 4px; font-size: 0.95em;}
+
+/* --- 3. MINIMALIST-FOCUS STYLES --- */
+.cv-minimalist-focus { height: 100%; padding: 0 30px; font-size: 10.5pt; line-height: 1.4; } 
+.cv-minimalist-focus .header { text-align: center; padding-bottom: 10px; border-bottom: 2px solid var(--color-primary); }
+.cv-minimalist-focus h1 { font-size: 2.8em; color: var(--color-secondary); margin-bottom: 3px; }
+.cv-minimalist-focus h2 { font-size: 1.3em; color: var(--color-primary); margin: 0; }
+.cv-minimalist-focus h4 { color: var(--color-secondary); border-bottom: 1px solid var(--color-primary); margin-top: 25px; padding-bottom: 3px; font-size: 1.15em; }
+.cv-minimalist-focus .footer-contact { margin-top: 25px; padding-top: 8px; border-top: 1px solid var(--color-border); text-align: center; }
+.cv-minimalist-focus .footer-contact span, .cv-minimalist-focus .footer-contact p { font-size: 0.95em;}

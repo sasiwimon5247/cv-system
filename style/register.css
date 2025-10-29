@@ -1,0 +1,76 @@
+/* ===== พื้นหลังและฟอนต์ ===== */
+body {
+    background-color: #fffaf5; /* ครีมอ่อน */
+    font-family: 'Prompt', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+/* ===== ปุ่มหลัก ===== */
+.btn-primary {
+    background-color: #ff914d; /* ส้มสด */
+    border-color: #ff914d;
+    border-radius: 12px; /* โค้งมน */
+    font-weight: 600;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #e66c1d; /* ส้มเข้ม */
+    border-color: #e66c1d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(230,108,29,0.3);
+}
+
+/* ===== Input/textarea focus ===== */
+.form-control:focus {
+    border-color: #ff914d;
+    box-shadow: 0 0 8px rgba(255,145,77,0.3);
+}
+
+/* ===== ข้อความ ===== */
+.text-orange {
+    color: #094f9b; /* น้ำเงินเข้มตามธีม */
+    font-weight: 600;
+}
+
+/* ===== ลิงก์ส้ม ===== */
+.link-orange {
+    color: #ff914d; /* ส้มสด */
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.link-orange:hover {
+    text-decoration: underline;
+    color: #e66c1d; /* ส้มเข้มเมื่อ hover */
+}
+@media (max-width: 576px) {
+    /* *** ปรับ Body *** */
+    body {
+        /* ให้เนื้อหายืดเต็มความกว้างจอ และเริ่มจากด้านบน */
+        align-items: stretch; 
+        padding: 15px 0;
+    }
+
+    /* *** ปรับปุ่มและฟอร์ม *** */
+    .btn-primary {
+        padding: 10px 0;
+        font-size: 0.95rem;
+        border-radius: 10px;
+    }
+    
+    .form-control {
+        padding: 8px 12px;
+        font-size: 0.95rem;
+    }
+
+    /* *** ปรับข้อความ *** */
+    .text-orange,
+    .link-orange {
+        font-size: 0.9rem;
+    }
+}

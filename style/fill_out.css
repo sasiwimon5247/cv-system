@@ -1,0 +1,374 @@
+/*
+==================================================
+  1. การตั้งค่าพื้นฐาน
+==================================================
+*/
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+
+/* สีที่ใช้ (ปรับปรุงใหม่):
+    ส้มหลัก: #ff7f32
+    ส้มเข้ม (Hover): #e66c1d
+    🚩 น้ำเงินหลัก: #07407A (Deep Corporate Blue)
+    🚩 น้ำเงินเข้ม (Footer/Hover): #05315C (Very Deep Navy)
+    ครีมอ่อน: #fffaf5
+    ครีม/ส้มอ่อน (Card Hover): #ffd6bd
+    ขาว: #FFFFFF
+    ข้อความเข้ม: #333
+*/
+
+body {
+    font-family: 'Prompt', sans-serif;
+    background-color: #fffaf5; /* ครีมอ่อน */
+    color: #333;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex-grow: 1;
+}
+
+/*
+==================================================
+  3. กล่องอัปโหลดรูป (คอลัมน์ซ้าย) - ปรับปรุงใหม่
+==================================================
+*/
+.upload-profile-form {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px; 
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); 
+    /* ใช้สีน้ำเงินหลักใหม่ */
+    border-left: 5px solid #07407A; 
+    border-top: none; 
+    margin-bottom: 20px; 
+}
+
+.upload-profile-form label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+    text-align: left; 
+}
+
+/* 🚩 สไตล์ใหม่สำหรับ input type="file" (ช่องเลือกไฟล์) */
+.upload-profile-form .form-control-file {
+    border: 1px solid #ced4da; 
+    border-radius: 8px; 
+    padding: 8px 12px; 
+    background-color: #f8f9fa; 
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: #495057;
+}
+
+.upload-profile-form .form-control-file:hover {
+    border-color: #ff914d;
+    background-color: #fffaf5;
+}
+
+.upload-profile-form .form-control-file:focus {
+    outline: none;
+    border-color: #ff7f32; 
+    box-shadow: 0 0 0 0.25rem rgba(255, 127, 50, 0.25); 
+}
+
+
+/* ใช้คลาสใหม่เพื่อหลีกเลี่ยงการชนกับ Bootstrap */
+.upload-profile-form .btn-upload {
+    /* สไตล์หลัก */
+    background-color: #ff7f32; 
+    color: #fff; 
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    padding: 12px 25px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(255, 127, 50, 0.3);
+    margin-top: 20px;
+    
+    /* นำสไตล์พื้นฐานของ .btn มาใช้ซ้ำ (บางส่วน) */
+    display: inline-block; 
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 1.5;
+    font-size: 1rem;
+}
+
+/* สไตล์ Hover/Active */
+.upload-profile-form .btn-upload:hover,
+.upload-profile-form .btn-upload:active,
+.upload-profile-form .btn-upload:focus {
+    background-color: #e66c1d; 
+    border-color: #e66c1d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 127, 50, 0.4);
+}
+/*
+==================================================
+  4. การ์ดเลือกหัวข้อ (คอลัมน์ขวา)
+==================================================
+*/
+.section-title {
+    font-weight: 700;
+    /* ใช้สีน้ำเงินหลักใหม่ */
+    color: #07407A;
+    border-bottom: 2px solid #ffb37a;
+    padding-bottom: 10px;
+}
+
+.cv-card {
+    background-color: rgb(255, 163, 50);
+    /* ใช้สีน้ำเงินเข้มใหม่ */
+    border: 4px solid #07407A; 
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    color: #333;
+    box-shadow: 0 3px 8px rgba(255, 145, 77, 0.1);
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.cv-card h5 {
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.cv-card:hover {
+    background-color: #ffd6bd;
+    color: #333;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(255, 127, 50, 0.3);
+}
+
+.cv-icon {
+    font-size: 2.2rem;
+    /* ใช้สีน้ำเงินหลักใหม่ */
+    color: #ffffff;
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
+
+.cv-card:hover .cv-icon {
+    /* ใช้สีน้ำเงินเข้มใหม่ */
+    color: #05315C;
+    transform: scale(1.15);
+}
+
+/*
+==================================================
+  5. ปุ่มเลือกเทมเพลต (ปุ่มหลักในคอลัมน์ซ้าย)
+==================================================
+*/
+.btn-template-col {
+    /* ใช้สีน้ำเงินหลักใหม่ */
+    background-color: #07407A;
+    color: white;
+    font-weight: 700; 
+    border-radius: 10px;
+    padding: 15px 26px; 
+    text-decoration: none;
+    /* อัปเดตเงาให้เข้ากับสีใหม่ */
+    box-shadow: 0 4px 15px rgba(7, 64, 122, 0.4);
+    transition: 0.3s;
+    display: block; 
+    text-align: center;
+}
+
+.btn-template-col:hover {
+    /* ใช้สีน้ำเงินเข้มใหม่ */
+    background-color: #05315C;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(7, 64, 122, 0.5);
+}
+
+/*
+==================================================
+  6. ปรับภาพโปรไฟล์ preview
+==================================================
+*/
+.profile-preview {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.profile-preview img {
+    width: 130px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 3px dashed #ff914d; 
+    padding: 4px;
+}
+
+.profile-preview button {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #ff7f32; 
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    line-height: 25px;
+    padding: 0;
+}
+
+.profile-preview button:hover {
+    background-color: #e66c1d;
+}
+
+/*
+==================================================
+  8. Responsive Design
+==================================================
+*/
+@media (max-width: 992px) {
+    /* ---------------------------------- */
+    /* แท็บเล็ตและจอขนาดกลาง */
+    /* ---------------------------------- */
+    
+    .main-content-row {
+        flex-direction: column;
+        padding: 0 15px;
+    }
+    
+    .upload-profile-form {
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 25px;
+        border-left: none;
+        border-top: 5px solid #07407A;
+        text-align: center;
+    }
+
+    .section-title {
+        text-align: left;
+        margin-top: 20px;
+        word-wrap: break-word;
+    }
+    
+    .cv-card {
+        padding: 15px;
+        margin-bottom: 15px;
+        min-width: 100%;
+    }
+
+    .cv-card h5 {
+        font-size: 1rem;
+    }
+
+    .cv-icon {
+        font-size: 1.8rem;
+    }
+
+    .btn-template-col {
+        padding: 12px 20px;
+        font-size: 1.05rem;
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    /* ---------------------------------- */
+    /* จอโทรศัพท์ทั่วไป */
+    /* ---------------------------------- */
+    
+    .main-content-row {
+        padding: 0 8px; /* ลด padding ด้านข้างลงอีก */
+    }
+
+    .upload-profile-form {
+        padding: 15px; /* ลด padding กล่องอัปโหลด */
+    }
+
+    .profile-preview img {
+        width: 100px;
+        height: 130px;
+        padding: 3px; /* ลด padding รูป */
+    }
+    
+    .profile-preview button {
+        width: 20px; /* ลดขนาดปุ่มลบ */
+        height: 20px;
+        font-size: 0.75rem;
+        top: -5px;
+        right: -5px;
+    }
+
+    .upload-profile-form label {
+        font-size: 0.9rem; /* ลดขนาด Label */
+    }
+
+    .upload-profile-form .form-control-file {
+        padding: 6px 10px; /* ลด padding input file */
+        font-size: 0.85rem;
+    }
+
+    .upload-profile-form .btn-upload {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+        margin-top: 15px;
+    }
+    
+    .section-title {
+        font-size: 1.2rem; /* ลดขนาดหัวข้อหลัก */
+    }
+
+    .cv-card {
+        padding: 10px; /* ลด padding การ์ดลงอีก */
+    }
+    
+    .cv-card h5 {
+        font-size: 0.9rem; /* ลดขนาดหัวข้อในการ์ด */
+    }
+
+    .cv-icon {
+        font-size: 1.6rem; /* ลดขนาดไอคอน */
+    }
+
+    .btn-template-col {
+        padding: 10px 15px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 400px) {
+    /* ---------------------------------- */
+    /* จอโทรศัพท์ขนาดเล็กพิเศษ (Small/Older Phones) */
+    /* ---------------------------------- */
+    .main-content-row {
+        padding: 0 5px; /* เกือบชิดขอบ */
+    }
+    
+    .upload-profile-form {
+        padding: 10px; /* ลด padding กล่องหลักเหลือ 10px */
+    }
+
+    .cv-card {
+        margin-bottom: 10px;
+        padding: 8px;
+    }
+    
+    .section-title {
+        font-size: 1.1rem;
+    }
+
+    .cv-card h5 {
+        font-size: 0.85rem;
+    }
+}

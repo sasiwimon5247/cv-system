@@ -1,0 +1,384 @@
+/*
+==================================================
+ 1. การตั้งค่าพื้นฐานและสี
+==================================================
+*/
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700;900&display=swap');
+
+:root {
+    /* โทนสี: ส้ม, ครีม, น้ำเงิน, ขาว */
+    --primary-orange: #FF8C00; 
+    --secondary-blue: #05315C; 
+    --accent-cream: #F5F5DC; 
+    --white: #FFFFFF; 
+    --text-dark: #212529; 
+}
+
+/* Keyframe Animation สำหรับ Mockup ให้ดูน่าสนใจ */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Prompt', sans-serif;
+    color: var(--text-dark);
+    line-height: 1.6;
+    background-color: var(--white);
+    /* 🚩 แก้ไข: ใช้ Flexbox เพื่อดัน Footer ลงไปด้านล่าง (หากมี) */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 🚩 เพิ่ม: Container หลักที่ยืดออกไปทั้งหมด */
+main {
+    flex-grow: 1;
+}
+
+section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+/*
+==================================================
+ 2. Header และ Navigation
+==================================================
+*/
+header {
+    background-color: var(--white);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 15px 5%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--secondary-blue);
+}
+
+/*
+==================================================
+ 3. สไตล์ปุ่ม (Buttons)
+==================================================
+*/
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 1rem;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    color: var(--white);
+    background: var(--primary-orange);
+    border: 1px solid var(--primary-orange);
+}
+.btn-primary:hover {
+    background: #e67e00;
+    border-color: #e67e00;
+}
+
+.btn-secondary {
+    color: var(--secondary-blue);
+    background: var(--white);
+    border: 1px solid var(--secondary-blue);
+    margin-right: 10px;
+}
+.btn-secondary:hover {
+    background: var(--secondary-blue);
+    color: var(--white);
+}
+
+.btn-cta {
+    background: var(--primary-orange);
+    color: var(--white);
+    font-size: 1.4rem;
+    padding: 18px 50px;
+    border: none;
+    box-shadow: 0 8px 25px rgba(255, 140, 0, 0.4);
+    transition: transform 0.3s ease;
+}
+.btn-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(255, 140, 0, 0.5);
+}
+
+
+/*
+==================================================
+ 4. Hero Section
+==================================================
+*/
+.hero-section {
+    /* 🚩 แก้ไข: ใช้ min-height: 100vh; เพื่อให้พื้นหลังไล่เฉดเต็มจอ */
+    min-height: 100vh; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 80px 5% 40px;
+    
+    background: linear-gradient(to bottom, var(--white), var(--accent-cream) 90%);
+}
+
+.hero-content {
+    max-width: 50%;
+    text-align: left;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    color: var(--primary-orange);
+    font-weight: 700;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 10px;
+    animation: fadeInDown 1s ease-out;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    line-height: 1.1;
+    color: var(--secondary-blue);
+    animation: fadeInLeft 1s ease-out;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    color: var(--text-dark);
+    margin-bottom: 40px;
+    animation: fadeInLeft 1.2s ease-out;
+}
+
+/* ลูกเล่น: Feature Pills */
+.feature-pills {
+    margin-top: 40px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    animation: fadeInUp 1.5s ease-out;
+}
+.feature-pills span {
+    background-color: var(--white);
+    border: 1px solid var(--accent-cream);
+    color: var(--secondary-blue);
+    padding: 8px 15px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+.feature-pills i {
+    color: var(--primary-orange);
+    margin-right: 5px;
+}
+
+/* ลูกเล่น: Mockup Card (ภาพ CV ตัวอย่าง) */
+.hero-mockup {
+    position: relative;
+    max-width: 45%;
+    padding: 20px;
+    perspective: 1000px;
+}
+
+.cv-card {
+    width: 350px; 
+    height: 450px;
+    background-color: var(--white);
+    border-radius: 15px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    border: 5px solid var(--secondary-blue);
+    transform: rotateY(-10deg) rotateX(5deg);
+    animation: float 4s ease-in-out infinite; 
+    position: relative;
+    left: 50px;
+    
+    background-image: url('../image/example_cv.jpg'); 
+    background-size: cover;
+    background-position: center center;
+}
+
+/*
+==================================================
+ 5. ส่วนท้าย (Footer)
+==================================================
+*/
+footer {
+    padding: 20px 5%;
+    background-color: var(--secondary-blue);
+    color: var(--white);
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/*
+==================================================
+ 6. Responsive Design (ปรับแก้องค์ประกอบทั้งหมด)
+==================================================
+*/
+@media (max-width: 992px) {
+    /* ------------------------------------------- */
+    /* Hero Section: เปลี่ยนจากคอลัมน์เป็นแถว */
+    /* ------------------------------------------- */
+    .hero-section {
+        flex-direction: column; 
+        padding: 40px 5% 40px; 
+        min-height: auto; /* บนจอเล็ก ให้ยืดตามเนื้อหา */
+    }
+
+    .hero-content {
+        max-width: 90%; /* ขยายเนื้อหาให้เกือบเต็มจอ */
+        text-align: center; /* จัดเนื้อหาให้อยู่ตรงกลาง */
+        order: 2; /* ย้ายเนื้อหาลงมาด้านล่าง Mockup */
+        margin-top: 30px;
+    }
+
+    .hero-mockup {
+        max-width: 80%; /* ให้ภาพ Mockup ใหญ่ขึ้น */
+        order: 1; /* ย้าย Mockup ขึ้นไปด้านบน */
+        padding: 0;
+    }
+    
+    /* ------------------------------------------- */
+    /* Mockup: ลดขนาดและปรับตำแหน่ง */
+    /* ------------------------------------------- */
+    .cv-card {
+        width: 300px; /* ลดขนาด Mockup */
+        height: 400px;
+        transform: rotateY(0deg) rotateX(0deg); /* ลบ 3D effect บนจอเล็ก */
+        left: 0; /* จัดให้อยู่ตรงกลาง */
+        margin: 0 auto; /* จัดให้อยู่ตรงกลาง */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* ปรับขนาดข้อความ Hero */
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    .hero-content p {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+    }
+
+    /* จัด Feature Pills ให้อยู่ตรงกลาง */
+    .feature-pills {
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    /* ------------------------------------------- */
+    /* Header (Tablet) */
+    /* ------------------------------------------- */
+    nav {
+        padding: 0 10px;
+    }
+    .btn-secondary {
+        padding: 10px 20px; /* ลดขนาดปุ่ม */
+    }
+}
+
+@media (max-width: 576px) {
+    /* ------------------------------------------- */
+    /* Header (Mobile) */
+    /* ------------------------------------------- */
+    .logo {
+        font-size: 1.5rem;
+    }
+    
+    /* 🚩 แก้ไข: จัดการปุ่มใน Nav ให้เหมาะสมกับจอเล็ก */
+    .auth-links {
+        display: flex; 
+        align-items: center;
+        gap: 5px; 
+    }
+    
+    .btn {
+        padding: 8px 15px; 
+        font-size: 0.8rem;
+    }
+    
+    .btn-secondary {
+        margin-right: 0; 
+    }
+
+    /* ------------------------------------------- */
+    /* Hero Section (Mobile) */
+    /* ------------------------------------------- */
+    .hero-section {
+        padding: 30px 5% 30px;
+    }
+    
+    .hero-content {
+        max-width: 100%;
+    }
+    
+    /* ปรับขนาดข้อความ Hero */
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .btn-cta {
+        font-size: 1.2rem; 
+        padding: 15px 40px;
+    }
+    
+    /* Mockup ให้เล็กลงไปอีก */
+    .hero-mockup {
+        max-width: 100%;
+        margin-top: 20px;
+    }
+    .cv-card {
+        width: 250px; /* เล็กที่สุด */
+        height: 350px;
+    }
+    
+    /* ปรับ Feature Pills */
+    .feature-pills {
+        gap: 8px;
+    }
+    .feature-pills span {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+}

@@ -1,0 +1,208 @@
+/* ======================================================================
+   🎨 CV Professional Hybrid (Pink/Purple Theme) - Fully Fixed + Print A4
+   ใช้คลาส: .cv-pink-purple-theme
+====================================================================== */
+:root {
+    --pp-color-primary: #8A2BE2;
+    --pp-color-accent: #FF69B4;
+    --pp-color-bg: #FFFFFF;
+    --pp-color-text: #333;
+    --pp-color-border: #E6E6FA;
+    --pp-font-main: 'Prompt', sans-serif;
+}
+
+/* 🔲 A4 Preview Section */
+.cv-section {
+    width: 794px;
+    min-height: 1123px;
+    padding: 40px;
+    margin: auto;
+    background: #FFFFFF;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,.15);
+    box-sizing: border-box;
+}
+
+/* 🪟 Modal Overlay */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0,0,0,.55);
+    z-index: 9999;
+    overflow-y: auto;
+    padding: 40px 10px;
+}
+
+/* 💖 MAIN Theme */
+.cv-pink-purple-theme {
+    background-color: var(--pp-color-bg);
+    color: var(--pp-color-text);
+    font-family: var(--pp-font-main);
+    display: flex;
+    flex-direction: column;
+    font-size: 11pt;
+    box-sizing: border-box;
+}
+
+/* HEADER */
+.cv-pink-purple-theme .header {
+    text-align: center;
+    border-bottom: 2px solid var(--pp-color-primary);
+    padding-bottom: 12px;
+    margin-bottom: 15px;
+    position: relative;
+}
+.cv-pink-purple-theme .header h1 {
+    color: var(--pp-color-primary);
+    font-size: 1.8em;
+    margin: 0;
+}
+.cv-pink-purple-theme .header h2 {
+    color: var(--pp-color-accent);
+    font-size: 1.2em;
+    margin: 0;
+}
+
+/* PROFILE IMAGE */
+.cv-pink-purple-theme .profile-photo {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 2px solid var(--pp-color-accent);
+    margin: 10px auto 12px;
+    background-size: cover;
+    background-position: center;
+}
+
+/* SECTION HEADERS */
+.cv-pink-purple-theme h4 {
+    color: var(--pp-color-primary);
+    border-bottom: 1px solid var(--pp-color-border);
+    margin-top: 12px;
+    padding-bottom: 4px;
+    text-transform: uppercase;
+    font-size: 1em;
+}
+
+/* TEXT */
+.cv-pink-purple-theme p,
+.detail-item {
+    margin: 4px 0;
+    font-size: 0.9em;
+    line-height: 1.25;
+}
+.cv-pink-purple-theme .detail-item strong {
+    color: var(--pp-color-accent);
+}
+
+/* SKILLS */
+.cv-pink-purple-theme .cv-prof-skills {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 20px;
+    margin-top: 10px;
+}
+.cv-pink-purple-theme .cv-skill-card {
+    flex: 1;  /* ✅ เท่ากัน 50/50 */
+    min-height: 180px; /* ✅ ให้มีพื้นที่พอสำหรับ tag */
+    display: flex;
+    flex-direction: column;
+}
+.cv-pink-purple-theme .cv-skill-tag {
+    background: #F7E8FF;
+    color: var(--pp-color-primary);
+    border: 1px solid var(--pp-color-border);
+    padding: 4px 10px;
+    border-radius: 14px;
+    font-size: 0.85em;
+    margin: 3px 6px 3px 0;
+    transition: background .2s;
+}
+.cv-pink-purple-theme .cv-skill-tag:hover {
+    background: var(--pp-color-accent);
+    color: #fff;
+}
+
+/* CONTACT */
+.cv-pink-purple-theme .contact-info-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cv-pink-purple-theme a {
+    color: var(--pp-color-primary);
+    text-decoration: none;
+}
+.cv-pink-purple-theme a:hover {
+    text-decoration: underline;
+}
+
+/* 🚫 Prevent scrolling behind modal */
+body.modal-open {
+    overflow: hidden;
+}
+
+/* ---------------------------------------------------- */
+/* --- เพิ่ม: CSS ของ QR Code (เพื่อให้ลอยอยู่มุมขวาบน) --- */
+/* ---------------------------------------------------- */
+
+/* 2. CSS สำหรับกล่อง QR Code */
+.qr-code-box {
+    /* 💡 อ้างอิงกับ position: relative; ใน .header */
+    position: absolute; 
+    top: 10px;        
+    right: 0px;       
+    z-index: 99999!important;
+    width: 110px;     
+    height: auto;     
+    text-align: center;   
+}
+
+/* 3. CSS สำหรับรูปภาพ QR Code */
+.qr-code-box img {
+    width: 100px; 
+    height: 100px;
+    display: block; 
+    margin: 0 auto; 
+    padding: 2px;
+    border: 1px solid var(--mf-color-border); 
+    visibility: visible !important;
+}
+
+/* 4. CSS สำหรับข้อความ Scan ID */
+.qr-code-box .scan-id-text {
+    font-size: 8pt;
+    color: var(--mf-color-accent); /* ใช้สี accent ให้สอดคล้องกับธีม */
+    display: block;
+    line-height: 1.2;
+    margin-top: 3px;
+}
+
+/* ✅ PERFECT PRINT FIX */
+@media print {
+    body.modal-open { overflow: visible !important; }
+
+    .modal {
+        display: block !important;
+        background: none !important;
+        padding: 0 !important;
+        overflow: visible !important;
+    }
+
+    .cv-pink-purple-theme {
+        width: 210mm !important;
+        min-height: 297mm !important;
+        padding: 12mm 15mm;
+        margin: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        background: #FFFFFF !important;
+    }
+
+    .cv-section {
+        page-break-inside: avoid;
+    }
+}
