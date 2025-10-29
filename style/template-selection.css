@@ -197,6 +197,8 @@ html {
     border: 1px solid #888;
     box-shadow: 0 6px 15px rgba(0,0,0,0.25);
     border-radius: 8px;
+    
+    overflow-y: auto; 
     overflow-x: hidden; 
 }
 
@@ -217,8 +219,8 @@ html {
     font-weight: bold; 
     
     position: fixed; 
-    top: 20px;
-    right: 15px;
+    top: 10px; 
+    right: calc(50vw - 425px);
     
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
     cursor: pointer;
