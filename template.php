@@ -197,6 +197,7 @@ $js_data = json_encode($cv_data, JSON_UNESCAPED_UNICODE);
 
 
     <script src="js/template.js"></script>
+    <script src="path/to/qrcode.min.js"></script>
 
 </body>
 </html>

@@ -10,27 +10,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderSkills = (skills) => skills.map(s => `<span class="skill-tag">${s}</span>`).join('');
 
-    function generateQRCodeHtml(data) {
-        const studentName = data.name_th || '';
-        const studentId = data.stu_id ||''; 
-        const universityName = data.edu_university || '';
+    // function generateQRCodeHtml(data) {
+    //     const studentName = data.name_th || '';
+    //     const studentId = data.stu_id ||''; 
+    //     const universityName = data.edu_university || '';
 
-        // 💡 การแก้ไข: แก้ไขการต่อ String และกำหนด URL หลักเป็น Localhost
-        const fullLink = 
-            `http://localhost/cv_system/student_info.php?id=${studentId}`;
-        console.log("Full Link for QR Code:", fullLink);
-        // สร้าง URL สำหรับ QR Code Image
-        const qrCodeUrl = 
-            `https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=${encodeURIComponent(fullLink)}`;
+    //     // 💡 การแก้ไข: แก้ไขการต่อ String และกำหนด URL หลักเป็น Localhost
+    //     const fullLink = 
+    //         `http://localhost/cv_system/student_info.php?id=${studentId}`;
+    //     console.log("Full Link for QR Code:", fullLink);
+    //     // สร้าง URL สำหรับ QR Code Image
+    //     const qrCodeUrl = 
+    //         `https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=${encodeURIComponent(fullLink)}`;
         
-        // แสดงผล
-        return `
-            <div class="qr-code-box">
-            <img src="${qrCodeUrl}" alt="Student QR Code">
+    //     // แสดงผล
+    //     return `
+    //         <div class="qr-code-box">
+    //         <img src="${qrCodeUrl}" alt="Student QR Code">
+    //         <span class="scan-id-text">Scan ID: ${studentId}</span>
+    //         </div>
+    //     `;
+    // }
+    function generateQRCodeHtml(data) {
+    const studentName = data.name_th || '';
+    const studentId = data.stu_id ||''; 
+    const universityName = data.edu_university || '';
+    const fullLink = `http://localhost/cv_system/student_info.php?id=${studentId}`;
+    console.log("Full Link for QR Code:", fullLink);
+
+    // 💡 เปลี่ยนจาก img เป็น div ที่มี id เฉพาะ
+    return `
+        <div class="qr-code-box">
+            <div id="qrCodeContainer-${studentId}"></div> 
             <span class="scan-id-text">Scan ID: ${studentId}</span>
-            </div>
-        `;
-    }
+        </div>
+    `;
+}
 
 
     function generateCVHtml(templateId, data) {
@@ -219,7 +234,18 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Generate และใส่ HTML
             cvPreviewArea.innerHTML = generateCVHtml(templateId, data);
+            
+            const studentId = data.stu_id || '';
+            const qrContainer = document.getElementById(`qrCodeContainer-${studentId}`);
+            const fullLink = `http://localhost/cv_system/student_info.php?id=${studentId}`;
 
+            if (qrContainer) {
+                new QRCode(qrContainer, {
+                    text: fullLink,
+                    width: 100,
+                    height: 100,
+                });
+            }
             // แสดง modal
             modal.style.display = 'block';
 
