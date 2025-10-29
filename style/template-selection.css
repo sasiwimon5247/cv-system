@@ -178,7 +178,7 @@ html {
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden; 
+    overflow: auto; 
     background-color: rgba(0,0,0,0.55); 
 }
 .modal-content {
@@ -198,7 +198,7 @@ html {
     box-shadow: 0 6px 15px rgba(0,0,0,0.25);
     border-radius: 8px;
     
-    overflow-y: auto; 
+    overflow-y: hidden; 
     overflow-x: hidden; 
 }
 
