@@ -1,9 +1,9 @@
 <?php
 // ข้อมูลการเชื่อมต่อฐานข้อมูล
 $db_host = "localhost";
-$db_name = "4700315_cv";
-$db_user = "4700315_cv";
-$db_pass = "1669900522462m";
+$db_name = "cv";
+$db_user = "root";
+$db_pass = "";
 
 try {
     // เชื่อมต่อ PDO + กำหนด charset
