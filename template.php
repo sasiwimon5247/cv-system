@@ -117,6 +117,8 @@ $js_data = json_encode($cv_data, JSON_UNESCAPED_UNICODE);
     <?php
     include('ic/navbar.php');
     ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     
     <header class="page-header">
         <h1>✨ เลือกเทมเพลตสำหรับเรซูเม่ (CV)</h1>
@@ -197,7 +199,6 @@ $js_data = json_encode($cv_data, JSON_UNESCAPED_UNICODE);
 
 
     <script src="js/template.js"></script>
-    <script src="path/to/qrcode.min.js"></script>
 
 </body>
 </html>
