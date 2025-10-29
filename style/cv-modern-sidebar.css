@@ -199,24 +199,46 @@
 
 /* ✅ PRINT FIX (Perfect A4 Output) */
 @media print {
+    /* 1. **สำคัญที่สุด:** กำหนดขนาดหน้ากระดาษ A4 และลบ Margin เริ่มต้นของเบราว์เซอร์ */
+    @page {
+        size: A4 portrait; /* กำหนดขนาดเป็น A4 และการวางแนวตั้ง */
+        margin: 0;         /* ลบระยะขอบเริ่มต้นทั้งหมดของหน้ากระดาษ */
+    }
+
+    /* 2. กำหนดให้ <html> และ <body> ไม่มี Margin/Padding เพื่อความสะอาด */
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
     body.modal-open { overflow: visible !important; }
+
     .modal {
         display: block !important;
         overflow: visible !important;
-        padding: 0;
-        background: none;
+        padding: 0 !important; /* เพิ่ม !important */
+        background: none !important; /* เพิ่ม !important */
     }
+
     .cv-red-theme {
+        /* **สำคัญ:** ใช้ box-sizing เพื่อให้ width (210mm) รวม padding (14mm) เข้าไปด้วย */
+        box-sizing: border-box !important; 
+        
         width: 210mm !important;
         height: 297mm !important;
-        padding: 12mm 14mm;
-        margin: 0;
+        
+        /* Padding นี้จะทำหน้าที่เป็นขอบกระดาษของเนื้อหา CV */
+        padding: 12mm 14mm; 
+        
+        margin: 0 !important; /* เพิ่ม !important เพื่อแทนที่ค่า margin อื่นๆ */
         border: none !important;
-        border-radius: 0;
+        border-radius: 0 !important;
         box-shadow: none !important;
         background-color: #FFFFFF !important;
     }
+
     .cv-section {
+        /* ตรวจสอบให้แน่ใจว่าส่วนนี้ไม่ถูกตัดเมื่อมีการขึ้นหน้าใหม่ */
         page-break-inside: avoid;
     }
 }

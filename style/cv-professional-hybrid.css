@@ -1,145 +1,173 @@
-/* ======================================================================
-   🎨 CV Professional Hybrid (Pink/Purple Theme) - Fully Fixed + Print A4
-   ใช้คลาส: .cv-pink-purple-theme
-====================================================================== */
+/* 🎨 --- VARIABLES --- */
 :root {
-    --pp-color-primary: #8A2BE2;
-    --pp-color-accent: #FF69B4;
-    --pp-color-bg: #FFFFFF;
-    --pp-color-text: #333;
-    --pp-color-border: #E6E6FA;
-    --pp-font-main: 'Prompt', sans-serif;
+    --mf-color-primary: #212121;
+    --mf-color-accent: #616161;
+    --mf-color-bg: #FFFFFF;
+    --mf-color-text: #212121;
+    --mf-color-border: #BDBDBD;
+    --mf-font-main: 'Prompt', sans-serif;
 }
 
-/* 🔲 A4 Preview Section */
+/* 🧾 --- CV SECTION (Preview Outside Modal) --- */
 .cv-section {
     width: 794px;
     min-height: 1123px;
-    padding: 40px;
-    margin: auto;
-    background: #FFFFFF;
+    padding: 50px;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,.15);
+    margin: auto;
     box-sizing: border-box;
 }
 
-/* 🪟 Modal Overlay */
+/* 💡 --- MODAL --- */
 .modal {
     display: none;
     position: fixed;
     inset: 0;
-    background-color: rgba(0,0,0,.55);
     z-index: 9999;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.55);
     overflow-y: auto;
     padding: 40px 10px;
 }
 
-/* 💖 MAIN Theme */
-.cv-pink-purple-theme {
-    background-color: var(--pp-color-bg);
-    color: var(--pp-color-text);
-    font-family: var(--pp-font-main);
+/* ✅ CV inside Modal */
+.modal .cv-minimalist-focus {
+    width: 794px;
+    min-height: 1123px;
+    margin: auto;
+    padding: 50px;
+    background-color: var(--mf-color-bg);
+    border: 2px solid var(--mf-color-border);
+    border-radius: 6px;
     display: flex;
     flex-direction: column;
     font-size: 11pt;
+    overflow: auto;
     box-sizing: border-box;
 }
 
+/* 🧩 --- MAIN CV LAYOUT --- */
+.cv-minimalist-focus {
+    font-family: var(--mf-font-main);
+    color: var(--mf-color-text);
+    display: flex;
+    flex-direction: column;
+}
+
 /* HEADER */
-.cv-pink-purple-theme .header {
+.cv-minimalist-focus .header {
     text-align: center;
-    border-bottom: 2px solid var(--pp-color-primary);
+    border-bottom: 2px solid var(--mf-color-primary);
     padding-bottom: 12px;
     margin-bottom: 15px;
     position: relative;
 }
-.cv-pink-purple-theme .header h1 {
-    color: var(--pp-color-primary);
+.cv-minimalist-focus .header h1 {
+    color: var(--mf-color-primary);
     font-size: 1.8em;
     margin: 0;
 }
-.cv-pink-purple-theme .header h2 {
-    color: var(--pp-color-accent);
+.cv-minimalist-focus .header h2 {
+    color: var(--mf-color-accent);
     font-size: 1.2em;
     margin: 0;
 }
 
-/* PROFILE IMAGE */
-.cv-pink-purple-theme .profile-photo {
+/* PROFILE PHOTO */
+.cv-minimalist-focus .profile-photo {
     width: 110px;
     height: 110px;
     border-radius: 50%;
-    border: 2px solid var(--pp-color-accent);
     margin: 10px auto 12px;
+    border: 2px solid var(--mf-color-accent);
     background-size: cover;
     background-position: center;
 }
 
-/* SECTION HEADERS */
-.cv-pink-purple-theme h4 {
-    color: var(--pp-color-primary);
-    border-bottom: 1px solid var(--pp-color-border);
+/* SECTION TITLE */
+.cv-minimalist-focus h4 {
+    color: var(--mf-color-primary);
+    border-bottom: 1px solid var(--mf-color-border);
     margin-top: 12px;
     padding-bottom: 4px;
-    text-transform: uppercase;
     font-size: 1em;
+    text-transform: uppercase;
 }
 
-/* TEXT */
-.cv-pink-purple-theme p,
+/* TEXT AND DETAILS */
+.cv-minimalist-focus p,
 .detail-item {
     margin: 4px 0;
     font-size: 0.9em;
     line-height: 1.25;
 }
-.cv-pink-purple-theme .detail-item strong {
-    color: var(--pp-color-accent);
+.detail-item strong {
+    font-weight: 600;
+    display: block;
+    color: var(--mf-color-accent);
 }
 
-/* SKILLS */
-.cv-pink-purple-theme .cv-prof-skills {
+/* --- SKILL SECTION --- */
+.cv-prof-skills {
     display: flex;
     flex-direction: row;
     width: 100%;
     gap: 20px;
     margin-top: 10px;
 }
-.cv-pink-purple-theme .cv-skill-card {
+.cv-skill-card {
     flex: 1;  /* ✅ เท่ากัน 50/50 */
     min-height: 180px; /* ✅ ให้มีพื้นที่พอสำหรับ tag */
     display: flex;
     flex-direction: column;
 }
-.cv-pink-purple-theme .cv-skill-tag {
-    background: #F7E8FF;
-    color: var(--pp-color-primary);
-    border: 1px solid var(--pp-color-border);
+.cv-skill-card h5 {
+    font-size: 1em;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+.cv-skill-tag {
+    background-color: #EFEFEF;
+    color: #212121;
     padding: 4px 10px;
     border-radius: 14px;
-    font-size: 0.85em;
-    margin: 3px 6px 3px 0;
-    transition: background .2s;
+    margin: 3px 5px 3px 0;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: background 0.2s;
 }
-.cv-pink-purple-theme .cv-skill-tag:hover {
-    background: var(--pp-color-accent);
-    color: #fff;
+.cv-skill-tag:hover {
+    background-color: #D6D6D6;
 }
 
-/* CONTACT */
-.cv-pink-purple-theme .contact-info-item {
+/* --- CONTACT INFO --- */
+.contact-info-item {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 8px;
 }
-.cv-pink-purple-theme a {
-    color: var(--pp-color-primary);
+.icon {
+    color: var(--mf-color-primary);
+    margin-right: 10px;
+    font-size: 1.2rem;
+    width: 18px;
+    text-align: center;
+}
+.cv-minimalist-focus a {
+    color: var(--mf-color-primary);
     text-decoration: none;
 }
-.cv-pink-purple-theme a:hover {
+.cv-minimalist-focus a:hover {
     text-decoration: underline;
 }
 
-/* 🚫 Prevent scrolling behind modal */
+
+/* ✅ Disable scroll behind modal */
 body.modal-open {
     overflow: hidden;
 }
@@ -157,7 +185,7 @@ body.modal-open {
     z-index: 99999!important;
     width: 110px;     
     height: auto;     
-    text-align: center;   
+    text-align: center;  
 }
 
 /* 3. CSS สำหรับรูปภาพ QR Code */
@@ -180,26 +208,40 @@ body.modal-open {
     margin-top: 3px;
 }
 
-/* ✅ PERFECT PRINT FIX */
 @media print {
-    body.modal-open { overflow: visible !important; }
-
-    .modal {
-        display: block !important;
-        background: none !important;
-        padding: 0 !important;
-        overflow: visible !important;
+    /* กำหนดขนาดหน้ากระดาษและระยะขอบของเอกสารที่พิมพ์ทั้งหมด */
+    @page {
+        size: A4 portrait; /* กำหนดขนาดเป็น A4 และการวางแนวตั้ง */
+        margin: 0;         /* ลบระยะขอบเริ่มต้นทั้งหมดของหน้ากระดาษ */
     }
 
-    .cv-pink-purple-theme {
-        width: 210mm !important;
-        min-height: 297mm !important;
-        padding: 12mm 15mm;
+    /* โค้ดที่คุณมีอยู่เดิม (ปรับปรุงเล็กน้อย) */
+    body.modal-open { overflow: visible !important; }
+    
+    .modal {
+        display: block !important;
+        overflow: visible !important;
+        background: none !important;
+        padding: 0 !important; /* เพิ่ม !important เพื่อความแน่ใจ */
+    }
+
+    .cv-minimalist-focus {
+        /* ใช้มิลลิเมตร (mm) ซึ่งเหมาะกับการพิมพ์ A4 ที่สุด */
+        width: 210mm !important; 
+        height: 297mm !important;
+        /* กำหนด Padding เป็นระยะขอบภายในของเนื้อหา CV */
+        padding: 12mm 14mm; 
         margin: 0 !important;
         border: none !important;
         border-radius: 0 !important;
-        box-shadow: none !important;
         background: #FFFFFF !important;
+        box-shadow: none !important;
+        overflow: visible !important;
+        
+        /* สำคัญ: ต้องมั่นใจว่าเนื้อหาทั้งหมดไม่เกิน 210mm x 297mm
+           โดยรวมขนาด width (210mm) + padding ซ้าย/ขวา (14mm+14mm) แล้วไม่เกิน
+           ถ้าใช้ box-sizing: border-box; จะช่วยให้คำนวณง่ายขึ้นมาก */
+        box-sizing: border-box !important; 
     }
 
     .cv-section {
