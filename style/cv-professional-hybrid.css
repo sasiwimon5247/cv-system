@@ -214,7 +214,7 @@ body.modal-open {
         min-height: 297mm !important; 
         
         /* Padding นี้จะทำหน้าที่เป็นขอบกระดาษของเนื้อหา CV */
-        padding: 1mm 5mm 1mm 5mm;
+        padding: 1mm 1mm 1mm 1mm;
         
         margin: 0 !important;
         border: none !important;
