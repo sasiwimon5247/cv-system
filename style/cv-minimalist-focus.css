@@ -272,6 +272,10 @@ body.modal-open {
     color: #333;
     margin-top: 10px;
 }
+.project-activity-list {
+    margin: 10px 0 20px 0; /* เพิ่มช่องว่างด้านบนและล่าง */
+    padding-left: 20px;
+}
 /* ==================================================== */
 /* --- MOBILE RESPONSIVENESS (Max-width: 600px) --- */
 /* ==================================================== */
@@ -333,7 +337,7 @@ body.modal-open {
         justify-content: flex-start; /* จัดชิดซ้าย */
         margin-bottom: 5px;
     }
-
+    
     /* 5. จัดการ Skills Layout (ให้แสดงเป็นแถวเดียว) */
     .cv-prof-skills {
         flex-direction: column; /* เปลี่ยนจากแนวนอน (row) เป็นแนวตั้ง (column) */

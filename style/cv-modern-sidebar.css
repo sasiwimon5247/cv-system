@@ -266,6 +266,10 @@
     color: #333;
     margin-top: 10px;
 }
+.project-activity-list {
+    margin: 10px 0 20px 0; /* เพิ่มช่องว่างด้านบนและล่าง */
+    padding-left: 20px;
+}
 @media (max-width: 600px) {
     /* 1. การปรับขนาดหลักของ CV Container */
     .modal .cv-red-theme {
