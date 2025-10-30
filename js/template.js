@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // ให้เวลากับการเรนเดอร์ QR Code ก่อนทำการดาวน์โหลด (ถ้าต้องการความแม่นยำสูง)
             setTimeout(() => {
                 const options = {
-                    margin: [1, 5, 1, 5], 
+                    margin: [1, 2, 1, 2], 
                     filename: `CV_${data.name_th}_${templateId}.pdf`,
                     image: { type: 'jpeg', quality: 0.98 },
                     html2canvas: { scale: 1 }, 
@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 100); // หน่วงเวลาเล็กน้อย
         } else {
              const options = {
-                margin: [1, 5, 1, 5], 
+                margin: [1, 2, 1, 2], 
                 filename: `CV_${data.name_th}_${templateId}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { scale: 1 }, 
