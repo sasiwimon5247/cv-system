@@ -223,6 +223,7 @@
         overflow: visible !important;
         box-sizing: border-box !important;
         page-break-after: avoid !important;
+        display: block !important;
     }
 
     .cv-section {
