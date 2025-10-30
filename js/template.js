@@ -151,6 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
 
                         ${projectsSectionHtml} 
+
                         ${activitiesSectionHtml}
 
                         ${recommendationHtml} 
@@ -193,6 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
 
                         ${projectsSectionHtml} 
+
                         ${activitiesSectionHtml}
 
                         ${recommendationHtml} 
@@ -235,6 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
 
                         ${projectsSectionHtml} 
+                        
                         ${activitiesSectionHtml}
 
                         ${recommendationHtml} 
