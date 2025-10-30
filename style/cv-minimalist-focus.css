@@ -35,7 +35,6 @@
 
 /* ✅ CV inside Modal */
 .modal .cv-minimalist-focus {
-   .cv-minimalist-focus {
     width: 210mm; 
     min-height: 297mm; 
     margin: auto;
@@ -45,7 +44,6 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-}
 }
 
 /* 🧩 --- MAIN CV LAYOUT --- */
