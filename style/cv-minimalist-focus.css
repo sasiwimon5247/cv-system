@@ -248,6 +248,32 @@ body.modal-open {
         page-break-inside: avoid;
     }
 }
+/* -------------------------------------- */
+/* Recommendation (New Classes)           */
+/* -------------------------------------- */
+.recommendation-content {
+    margin-bottom: 20px;
+    padding: 0 10px; /* เพิ่ม padding เพื่อให้ข้อความไม่ชิดขอบ */
+}
+
+.recommendation-text {
+    /* สไตล์สำหรับข้อความคำรับรอง */
+    font-style: italic;
+    white-space: pre-wrap; /* เพื่อรักษารูปแบบบรรทัดของข้อความ */
+    font-size: 0.95em;
+    margin-bottom: 5px;
+    border-left: 3px solid #aaa;
+    padding-left: 10px;
+    line-height: 1.4;
+}
+
+.recommendation-teacher {
+    /* สไตล์สำหรับชื่ออาจารย์ผู้รับรอง */
+    text-align: right;
+    font-size: 0.9em;
+    color: #333;
+    margin-top: 10px;
+}
 /* ==================================================== */
 /* --- MOBILE RESPONSIVENESS (Max-width: 600px) --- */
 /* ==================================================== */
