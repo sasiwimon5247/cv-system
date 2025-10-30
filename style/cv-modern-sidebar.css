@@ -298,7 +298,7 @@
     .cv-red-theme .profile-photo {
         width: 80px;
         height: 80px;
-        margin: 5px auto 8px; /* เล็กลงและจัดระยะห่าง */
+        margin: 3mm auto 4mm;
     }
 
     /* 4. การจัดการ QR Code */

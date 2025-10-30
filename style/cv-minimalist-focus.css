@@ -320,7 +320,7 @@ body.modal-open {
     .cv-minimalist-focus .profile-photo {
         width: 80px;
         height: 80px;
-        margin: 0; /* จัดให้อยู่ใน Flexbox */
+        margin: 3mm auto 4mm;
         flex-shrink: 0;
         border: 2px solid var(--mf-color-primary); /* ใช้สีหลัก */
     }

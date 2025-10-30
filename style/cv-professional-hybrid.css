@@ -294,7 +294,7 @@ body.modal-open {
     .cv-pink-purple-theme .profile-photo {
         width: 80px;
         height: 80px;
-        margin: 0;
+        margin: 3mm auto 4mm;
         flex-shrink: 0;
     }
     
