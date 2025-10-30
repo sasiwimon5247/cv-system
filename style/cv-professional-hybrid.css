@@ -9,11 +9,9 @@
 
 /* A4 Preview Section */
 .cv-section {
-    /* ***แก้ไข: เปลี่ยนหน่วยเป็น mm เพื่อความแม่นยำ A4 และใช้ค่าเดียวกับ PDF*** */
     width: 210mm;
     min-height: 297mm;
-    /* ***แก้ไข: ปรับ Padding ให้ใช้ mm และลดลงเล็กน้อย*** */
-    padding: 15mm; 
+    padding: 10mm; 
     margin: auto;
     background: #FFFFFF;
     border-radius: 5px;
@@ -34,12 +32,10 @@
 
 /* A4 Box inside Modal */
 .modal .cv-pink-purple-theme {
-    /* ***แก้ไข: เปลี่ยนหน่วยเป็น mm เพื่อความแม่นยำ A4 และใช้ค่าเดียวกับ PDF*** */
     width: 210mm;
     min-height: 297mm;
     margin: auto;
-    /* ***แก้ไข: ปรับ Padding ให้ใช้ mm และลดลงเล็กน้อย*** */
-    padding: 15mm; 
+    padding: 10mm; 
     box-sizing: border-box;
     border: 2px solid var(--pp-color-border);
     border-radius: 6px;
@@ -162,12 +158,12 @@ body.modal-open {
 
 .qr-code-box {
     position: absolute; 
-    top: 10px;        
-    right: 0px;       
+    top: 10px; 
+    right: 0px; 
     z-index: 99999!important;
-    width: 110px;     
-    height: auto;     
-    text-align: center;   
+    width: 110px; 
+    height: auto; 
+    text-align: center; 
 }
 
 .qr-code-box img {

@@ -12,11 +12,12 @@
 .cv-section {
     width: 210mm; 
     min-height: 297mm; 
-    padding: 14mm;
+    padding: 10mm;
     background-color: #FFFFFF;
     box-shadow: 0 0 10px rgba(0,0,0,0.15);
     border-radius: 5px;
     box-sizing: border-box;
+    margin: auto;
 }
 
 /* ✅ Modal Overlay */
@@ -37,7 +38,7 @@
     width: 210mm;
     min-height: 297mm;
     margin: auto;
-    padding: 14mm;
+    padding: 10mm;
     box-sizing: border-box;
     border: 2px solid var(--rb-color-border);
     border-radius: 6px;
