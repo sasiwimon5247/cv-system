@@ -48,7 +48,7 @@ html {
     align-items: center;
     gap: 8px;
     padding: 8px 15px;
-    background-color: #3498db; /* สีฟ้า */
+    background-color: #094f9b; /* สีฟ้า */
     color: white;
     border: none;
     border-radius: 5px;
@@ -59,7 +59,7 @@ html {
 }
 
 .back-to-fillout-btn:hover {
-    background-color: #2980b9;
+    background-color: #083b72;
 }
 
 .template-selection-main {
@@ -116,7 +116,7 @@ html {
 
 .card-content h3 {
     font-size: 1.05em; 
-    color: #007bff; 
+    color: #094f9b; 
     border-bottom: 1px dashed #eee; 
     padding-bottom: 4px;
     margin-bottom: 6px;
@@ -172,12 +172,12 @@ html {
 
 .btn-preview {
     flex-grow: 1;
-    background-color: #007bff; 
+    background-color: #094f9b; 
     color: white;
 }
 
 .btn-preview:hover {
-    background-color: #0056b3;
+    background-color: #02366d;
     transform: translateY(-1px);
 }
 
