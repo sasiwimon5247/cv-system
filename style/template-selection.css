@@ -36,6 +36,31 @@ html {
     margin: 0 auto;
 }
 
+.back-to-fillout {
+    max-width: 850px;
+    margin: 15px auto 0; /* จัดให้อยู่ตรงกลางและมีระยะห่างด้านบน */
+    padding: 0 10px; /* เพิ่ม padding ด้านข้าง */
+}
+
+.back-to-fillout-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    background-color: #3498db; /* สีฟ้า */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    font-size: 0.9em;
+}
+
+.back-to-fillout-btn:hover {
+    background-color: #2980b9;
+}
+
 .template-selection-main {
     padding: 20px 10px; 
     max-width: 850px; 

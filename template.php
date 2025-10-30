@@ -123,6 +123,12 @@ $js_data = json_encode($cv_data, JSON_UNESCAPED_UNICODE);
         <p>เลือกรูปแบบที่สะท้อนความเป็นคุณมากที่สุด หรือลองดูตัวอย่างเพื่อพิจารณาความเหมาะสม</p>
     </header>
 
+    <div class="back-to-fillout">
+        <a href="fill_out.php" class="back-to-fillout-btn">
+            <i class="fas fa-arrow-left"></i> ย้อนกลับ
+        </a>
+    </div>
+
     <main class="template-selection-main">
         <div class="template-container">
             
