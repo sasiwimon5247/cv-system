@@ -82,7 +82,7 @@ $cv_data = [
     'edu_university_gpa' => fetchDataSingle($conn, 'education_info', 'uni_gpa'),
     
     // แทนที่ 'reference' ด้วยสองคีย์ใหม่
-    'reference_text' => $recommendation_details['certification_text'] ?? '',
+    'reference_text' => $recommendation_details['certificate_text'] ?? '',
     'reference_teacher' => $recommendation_details['teacher_name'] ?? '' // สมมติว่ามีคอลัมน์ teacher_name ในตาราง
 ];
 
