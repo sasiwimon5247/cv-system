@@ -70,13 +70,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const qrCodeHtml = generateQRCodeHtml(data);
         const recommendationHtml = generateRecommendationHtml(); 
         
-        // const experienceHtml = data.work_experience.map(exp => `
-        //     <div class="detail-item">
-        //         <strong>${exp.position} - ${exp.company}</strong>
-        //         <span class="duration">${exp.duration}</span>
-        //         <p>รายละเอียด: ${exp.description}</p>
-        //     </div>
-        // `).join('');
+        const experienceHtml = data.work_experience.map(exp => `
+            <div class="detail-item">
+                <strong>${exp.position} - ${exp.company}</strong>
+                <span class="duration">${exp.duration}</span>
+                <p>รายละเอียด: ${exp.description}</p>
+            </div>
+        `).join('');
 
         const projectsListHtml = data.projects.map(p => `<li><strong>${p.name}</strong>: ${p.description}</li>`).join('');
         const activitiesListHtml = data.activities.map(a => `<li><strong>${a.name}</strong>: ${a.description}</li>`).join('');

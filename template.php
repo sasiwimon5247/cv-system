@@ -87,7 +87,7 @@ $cv_data = [
 ];
 
 // ดึงข้อมูลรายการหลายรายการ
-// $cv_data['work_experience'] = fetchDataMultiple($conn, 'experience_info');
+$cv_data['work_experience'] = fetchDataMultiple($conn, 'experience_info');
 
 $tech_skills_string = fetchDataSingle($conn, 'skills_info', 'technical_skills');
 $cv_data['technical_skills'] = $tech_skills_string ? array_map('trim', explode(',', $tech_skills_string)) : [];
