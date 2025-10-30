@@ -1,5 +1,5 @@
 <?php
-// send_certificate.php
+// send_certificate_updated.php
 
 // เริ่ม session เพื่อใช้งานข้อมูลของผู้ใช้ที่ล็อกอิน (ถ้าจำเป็น)
 session_start();
@@ -21,7 +21,7 @@ const SYSTEM_SENDER_ROLE = 'user';
 
 // 1.2 กำหนด App Password (รหัส 16 ตัว) ที่นี่โดยตรง
 // *** แทนที่ 'YOUR_GMAIL_APP_PASSWORD_16_CHARS' ด้วยรหัส 16 ตัวที่สร้างจาก Google ***
-const SYSTEM_APP_PASSWORD = 'xlyh pttg vnff bksn'; 
+const SYSTEM_APP_PASSWORD = 'cmlq dvkk kvik dial'; 
 
 $sender_email = '';
 $app_password = SYSTEM_APP_PASSWORD; 
@@ -53,46 +53,90 @@ try {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // กรองข้อมูลที่รับมาจากฟอร์ม (เพื่อความปลอดภัย)
-    $fullname      = htmlspecialchars($_POST['fullname'] ?? '');
-    $student_id    = htmlspecialchars($_POST['student_id'] ?? '');
-    $reason        = htmlspecialchars($_POST['reason'] ?? '');
-    $teacher_name  = htmlspecialchars($_POST['teacher_name'] ?? '');
+    $fullname       = htmlspecialchars($_POST['fullname'] ?? '');
+    $student_id     = htmlspecialchars($_POST['student_id'] ?? '');
+    $reason         = htmlspecialchars($_POST['reason'] ?? '');
+    $teacher_name   = htmlspecialchars($_POST['teacher_name'] ?? '');
     // กรองอีเมล
     $teacher_email = filter_var($_POST['teacher_email'] ?? '', FILTER_VALIDATE_EMAIL); 
 
     if (!$teacher_email) {
-        echo "<script>alert('รูปแบบอีเมลอาจารย์ไม่ถูกต้อง'); window.location.href='activities.php';</script>";
+        // ใช้ custom modal แทน alert()
+        // ในระบบจริง ควรใช้ $_SESSION['flash_error'] แล้ว redirect
+        echo "<script>
+            setTimeout(function(){ 
+                const messageBox = document.createElement('div');
+                messageBox.style.cssText = 'position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); padding:20px; background:white; border:1px solid #ccc; z-index:1000; box-shadow:0 0 10px rgba(0,0,0,0.5);';
+                messageBox.innerHTML = 'รูปแบบอีเมลอาจารย์ไม่ถูกต้อง';
+                document.body.appendChild(messageBox);
+                setTimeout(function(){ 
+                    messageBox.remove();
+                    window.location.href='activities.php';
+                }, 3000); 
+            }, 10);
+        </script>";
+        exit;
+    }
+
+    // ต้องมี user_id ของนักศึกษาที่ล็อกอินอยู่
+    $student_user_id = $_SESSION['user_id'] ?? null; 
+    
+    // ตรวจสอบว่ามีการล็อกอินหรือไม่
+    if (!$student_user_id) {
+        // ใช้ custom modal แทน alert()
+        echo "<script>
+            setTimeout(function(){ 
+                const messageBox = document.createElement('div');
+                messageBox.style.cssText = 'position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); padding:20px; background:white; border:1px solid #ccc; z-index:1000; box-shadow:0 0 10px rgba(0,0,0,0.5);';
+                messageBox.innerHTML = 'กรุณาเข้าสู่ระบบก่อนดำเนินการต่อ';
+                document.body.appendChild(messageBox);
+                setTimeout(function(){ 
+                    messageBox.remove();
+                    window.location.href='login.php'; // เปลี่ยนเป็นหน้าล็อกอิน
+                }, 3000); 
+            }, 10);
+        </script>";
         exit;
     }
 
     // 1. สร้าง Token (32 ตัวอักษร)
-$token = bin2hex(random_bytes(16)); // สร้างรหัสที่ไม่ซ้ำกัน 32 ตัว
+    $token = bin2hex(random_bytes(16)); // สร้างรหัสที่ไม่ซ้ำกัน 32 ตัว
 
-// 2. บันทึกคำขอลงในตาราง certificate_requests
-try {
-    // ต้องมี user_id ของนักศึกษาที่ล็อกอินอยู่
-    $student_user_id = $_SESSION['user_id']; 
+    // 2. บันทึกคำขอลงในตาราง certificate_requests
+    try {
+        $stmt_request = $conn->prepare("
+            INSERT INTO certificate_requests 
+            (user_id, teacher_email, reason, request_token, status, requested_at) 
+            VALUES (?, ?, ?, ?, 'PENDING', NOW())
+        ");
+        $stmt_request->execute([
+            $student_user_id,
+            $teacher_email,
+            $reason,
+            $token
+        ]);
+        
+    } catch (PDOException $e) {
+        error_log("DB Insert Error: " . $e->getMessage());
+        // ใช้ custom modal แทน alert()
+        echo "<script>
+            setTimeout(function(){ 
+                const messageBox = document.createElement('div');
+                messageBox.style.cssText = 'position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); padding:20px; background:white; border:1px solid #ccc; z-index:1000; box-shadow:0 0 10px rgba(0,0,0,0.5);';
+                messageBox.innerHTML = 'เกิดข้อผิดพลาดในการบันทึกคำขอ: " . addslashes($e->getMessage()) . "';
+                document.body.appendChild(messageBox);
+                setTimeout(function(){ 
+                    messageBox.remove();
+                    window.location.href='activities.php';
+                }, 3000); 
+            }, 10);
+        </script>";
+        exit;
+    }
 
-    $stmt_request = $conn->prepare("
-        INSERT INTO certificate_requests 
-        (user_id, teacher_email, reason, request_token, status, requested_at) 
-        VALUES (?, ?, ?, ?, 'PENDING', NOW())
-    ");
-    $stmt_request->execute([
-        $student_user_id,
-        $teacher_email,
-        $reason,
-        $token
-    ]);
-    
-} catch (PDOException $e) {
-    error_log("DB Insert Error: " . $e->getMessage());
-    echo "<script>alert('เกิดข้อผิดพลาดในการบันทึกคำขอ: " . $e->getMessage() . "'); window.location.href='activities.php';</script>";
-    exit;
-}
-
-    $base_url = "http://yourwebsite.com"; 
-    // ตรวจสอบชื่อไฟล์ certificate_form.php ให้ถูกต้องตามที่คุณสร้าง
+    // 3. เตรียมลิงก์สำหรับอาจารย์
+    $base_url = "http://localhost/cv_system/certificate_form.php"; 
+    // ใช้ชื่อไฟล์ certificate_form.php ที่สร้างไว้ก่อนหน้า
     $cert_link = $base_url . "/certificate_form.php?token=" . $token; 
 
     $mail = new PHPMailer(true);
@@ -120,27 +164,95 @@ try {
         // ผู้รับ
         $mail->addAddress($teacher_email, $teacher_name);
 
-        // เนื้อหาอีเมล
-        $mail->isHTML(false); // plain text
-        $mail->Subject = "คำขอใบรับรองจากนักศึกษา - $fullname";
-        $mail->Body    = "
-        เรียนคุณอาจารย์ $teacher_name,
+        // เนื้อหาอีเมล: เปลี่ยนเป็น HTML เพื่อให้ลิงก์กดได้ง่ายขึ้น
+        $mail->isHTML(true); 
+        $mail->Subject = "คำขอใบรับรอง (Recommendation Letter) จากนักศึกษา - $fullname";
+        
+        // ************************************************************
+        // ปรับปรุงเนื้อหาอีเมลเพื่อใส่ลิงก์
+        // ************************************************************
+        $mail->Body = "
+            <html>
+            <head>
+                <style>
+                    body { font-family: Tahoma, sans-serif; line-height: 1.6; }
+                    .button {
+                        display: inline-block;
+                        padding: 10px 20px;
+                        margin-top: 20px;
+                        background-color: #007bff;
+                        color: white !important; 
+                        text-decoration: none;
+                        border-radius: 5px;
+                    }
+                    .note {
+                        margin-top: 30px;
+                        padding: 15px;
+                        border-left: 5px solid #ffc107;
+                        background-color: #fff3cd;
+                        color: #856404;
+                    }
+                </style>
+            </head>
+            <body>
+                <p><strong>เรียน อาจารย์/ผู้รับรอง $teacher_name,</strong></p>
 
-        นักศึกษา $fullname ($student_id) ต้องการขอคำรับรอง
-        เหตุผล: $reason
+                <p>นักศึกษา <strong>$fullname ($student_id)</strong> ได้ส่งคำขอให้ท่านกรอกคำรับรอง (Recommendation Letter) ผ่านระบบ CV System</p>
+                
+                <p><strong>เหตุผลในการขอ:</strong><br>" . nl2br(htmlspecialchars($reason)) . "</p>
 
-        กรุณาพิจารณา
+                <p>ท่านสามารถคลิกลิงก์ด้านล่างเพื่อเข้าสู่แบบฟอร์มกรอกคำรับรองได้ทันที</p>
 
-        ขอบคุณครับ/ค่ะ
-        CV System
-                ";
+                <p>
+                    <a href=\"$cert_link\" class=\"button\">คลิกเพื่อกรอกคำรับรอง</a>
+                </p>
+
+                <div class=\"note\">
+                    <p><strong>หมายเหตุ:</strong> ลิงก์นี้มีความปลอดภัยและถูกสร้างขึ้นสำหรับคำขอนี้โดยเฉพาะ หลังจากที่ท่านบันทึกคำรับรองแล้ว ลิงก์จะไม่สามารถใช้งานได้อีก</p>
+                    <p>หากปุ่มด้านบนไม่สามารถกดได้ กรุณาคัดลอกลิงก์นี้ไปวางในเบราว์เซอร์: <br> $cert_link</p>
+                </div>
+
+                <p>ขอบคุณครับ/ค่ะ</p>
+                <p>ด้วยความเคารพ,<br>CV System</p>
+            </body>
+            </html>
+        ";
+        
+        // เนื้อหาสำรองแบบ Plain Text (สำหรับอีเมลที่ไม่รองรับ HTML)
+        $mail->AltBody = "เรียนคุณอาจารย์ $teacher_name,\n\nนักศึกษา $fullname ($student_id) ต้องการขอคำรับรอง\nเหตุผล: $reason\n\nกรุณาคลิกลิงก์ต่อไปนี้เพื่อกรอกคำรับรอง: \n$cert_link\n\nขอบคุณครับ/ค่ะ\nCV System";
 
         $mail->send();
-        echo "<script>alert('ส่งคำขอเรียบร้อยแล้ว'); window.location.href='activities.php';</script>";
+        
+        // ใช้ custom modal แทน alert()
+        echo "<script>
+            setTimeout(function(){ 
+                const messageBox = document.createElement('div');
+                messageBox.style.cssText = 'position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); padding:20px; background:white; border:1px solid #28a745; z-index:1000; box-shadow:0 0 10px rgba(0,0,0,0.5); color:#28a745; font-weight:bold;';
+                messageBox.innerHTML = 'ส่งคำขอเรียบร้อยแล้ว: อาจารย์จะได้รับอีเมลพร้อมลิงก์กรอกคำรับรอง';
+                document.body.appendChild(messageBox);
+                setTimeout(function(){ 
+                    messageBox.remove();
+                    window.location.href='activities.php';
+                }, 3000); 
+            }, 10);
+        </script>";
+        
     } catch (Exception $e) {
         // แสดง Error ที่ละเอียดขึ้น
         error_log("PHPMailer Error: " . $mail->ErrorInfo);
-        echo "<script>alert('ไม่สามารถส่งอีเมลได้: " . addslashes($mail->ErrorInfo) . "'); window.location.href='activities.php';</script>";
+        // ใช้ custom modal แทน alert()
+        echo "<script>
+            setTimeout(function(){ 
+                const messageBox = document.createElement('div');
+                messageBox.style.cssText = 'position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); padding:20px; background:white; border:1px solid #dc3545; z-index:1000; box-shadow:0 0 10px rgba(0,0,0,0.5); color:#dc3545; font-weight:bold;';
+                messageBox.innerHTML = 'ไม่สามารถส่งอีเมลได้: " . addslashes($mail->ErrorInfo) . "';
+                document.body.appendChild(messageBox);
+                setTimeout(function(){ 
+                    messageBox.remove();
+                    window.location.href='activities.php';
+                }, 3000); 
+            }, 10);
+        </script>";
     }
 } else {
     // ป้องกันการเข้าถึงโดยตรง
