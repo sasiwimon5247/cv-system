@@ -1,4 +1,3 @@
-
 :root {
     --pp-color-primary: #8A2BE2;
     --pp-color-accent: #FF69B4;
@@ -8,11 +7,13 @@
     --pp-font-main: 'Prompt', sans-serif;
 }
 
-/* 🔲 A4 Preview Section */
+/* A4 Preview Section */
 .cv-section {
-    width: 794px;
-    min-height: 1123px;
-    padding: 40px;
+    /* ***แก้ไข: เปลี่ยนหน่วยเป็น mm เพื่อความแม่นยำ A4 และใช้ค่าเดียวกับ PDF*** */
+    width: 210mm;
+    min-height: 297mm;
+    /* ***แก้ไข: ปรับ Padding ให้ใช้ mm และลดลงเล็กน้อย*** */
+    padding: 15mm; 
     margin: auto;
     background: #FFFFFF;
     border-radius: 5px;
@@ -20,7 +21,7 @@
     box-sizing: border-box;
 }
 
-/* 🪟 Modal Overlay */
+/* Modal Overlay */
 .modal {
     display: none;
     position: fixed;
@@ -31,7 +32,21 @@
     padding: 40px 10px;
 }
 
-/* 💖 MAIN Theme */
+/* A4 Box inside Modal */
+.modal .cv-pink-purple-theme {
+    /* ***แก้ไข: เปลี่ยนหน่วยเป็น mm เพื่อความแม่นยำ A4 และใช้ค่าเดียวกับ PDF*** */
+    width: 210mm;
+    min-height: 297mm;
+    margin: auto;
+    /* ***แก้ไข: ปรับ Padding ให้ใช้ mm และลดลงเล็กน้อย*** */
+    padding: 15mm; 
+    box-sizing: border-box;
+    border: 2px solid var(--pp-color-border);
+    border-radius: 6px;
+    background-color: var(--pp-color-bg);
+}
+
+/* MAIN Theme */
 .cv-pink-purple-theme {
     background-color: var(--pp-color-bg);
     color: var(--pp-color-text);
@@ -102,8 +117,8 @@
     margin-top: 10px;
 }
 .cv-pink-purple-theme .cv-skill-card {
-    flex: 1;  /* ✅ เท่ากัน 50/50 */
-    min-height: 180px; /* ✅ ให้มีพื้นที่พอสำหรับ tag */
+    flex: 1; 
+    min-height: 180px; 
     display: flex;
     flex-direction: column;
 }
@@ -136,28 +151,25 @@
     text-decoration: underline;
 }
 
-/* 🚫 Prevent scrolling behind modal */
+/* Prevent scrolling behind modal */
 body.modal-open {
     overflow: hidden;
 }
 
 /* ---------------------------------------------------- */
-/* --- เพิ่ม: CSS ของ QR Code (เพื่อให้ลอยอยู่มุมขวาบน) --- */
+/* --- CSS ของ QR Code (เพื่อให้ลอยอยู่มุมขวาบน) --- */
 /* ---------------------------------------------------- */
 
-/* 2. CSS สำหรับกล่อง QR Code */
 .qr-code-box {
-    /* 💡 อ้างอิงกับ position: relative; ใน .header */
     position: absolute; 
-    top: 10px;        
-    right: 0px;       
+    top: 10px;        
+    right: 0px;       
     z-index: 99999!important;
-    width: 110px;     
-    height: auto;     
-    text-align: center;   
+    width: 110px;     
+    height: auto;     
+    text-align: center;   
 }
 
-/* 3. CSS สำหรับรูปภาพ QR Code */
 .qr-code-box img {
     width: 100px; 
     height: 100px;
@@ -168,24 +180,22 @@ body.modal-open {
     visibility: visible !important;
 }
 
-/* 4. CSS สำหรับข้อความ Scan ID */
 .qr-code-box .scan-id-text {
     font-size: 8pt;
-    color: var(--mf-color-accent); /* ใช้สี accent ให้สอดคล้องกับธีม */
+    color: var(--mf-color-accent); 
     display: block;
     line-height: 1.2;
     margin-top: 3px;
 }
 
-/* ✅ PERFECT PRINT FIX */
+/* PERFECT PRINT FIX */
 @media print {
-    /* 1. สำคัญที่สุด: กำหนดขนาดหน้ากระดาษ A4 และลบ Margin เริ่มต้นของเบราว์เซอร์ */
+    
     @page {
         size: A4 portrait;
         margin: 0; 
     }
     
-    /* 2. กำหนดให้ <body> และ <html> ไม่มี Margin/Padding */
     html, body {
         margin: 0 !important;
         padding: 0 !important;
@@ -202,14 +212,13 @@ body.modal-open {
     }
 
     .cv-pink-purple-theme {
-        /* เพิ่ม box-sizing: border-box เพื่อแก้ปัญหาการคำนวณขนาด */
         box-sizing: border-box !important; 
         
         /* A4 = 210mm x 297mm */
         width: 210mm !important; 
         min-height: 297mm !important; 
         
-        /* padding: 12mm 15mm; (Padding นี้จะถูกรวมใน 210mm เพราะใช้ box-sizing: border-box) */
+        /* Padding นี้จะทำหน้าที่เป็นขอบกระดาษของเนื้อหา CV */
         padding: 12mm 15mm; 
         
         margin: 0 !important;
@@ -224,24 +233,22 @@ body.modal-open {
     }
 }
 /* -------------------------------------- */
-/* Recommendation (New Classes)           */
+/* Recommendation (New Classes)           */
 /* -------------------------------------- */
 .recommendation-content {
     margin-bottom: 10px;
-    padding: 0 10px; /* เพิ่ม padding เพื่อให้ข้อความไม่ชิดขอบ */
+    padding: 0 10px; 
 }
 
 .recommendation-text {
-    /* สไตล์สำหรับข้อความคำรับรอง */
     font-style: italic;
-    white-space: pre-wrap; /* เพื่อรักษารูปแบบบรรทัดของข้อความ */
+    white-space: pre-wrap; 
     font-size: 0.95em;
     margin-bottom: 5px;
     padding-left: 10px;
 }
 
 .recommendation-teacher {
-    /* สไตล์สำหรับชื่ออาจารย์ผู้รับรอง */
     text-align: right;
     font-size: 0.9em;
     color: #333;
@@ -254,72 +261,58 @@ body.modal-open {
 /* ==================================================== */
 
 @media (max-width: 600px) {
-    /* 1. การปรับขนาดหลักของ CV Container ใน Modal */
+    
     .modal .cv-pink-purple-theme {
-        width: 100% !important; /* ให้เต็มความกว้างหน้าจอ */
-        min-height: auto; /* ไม่ต้องยึดสัดส่วน A4 */
+        width: 100% !important; 
+        min-height: auto; 
         margin: 0; 
-        padding: 20px 15px; /* ลด Padding โดยรวม */
+        padding: 20px 15px; 
         border: none; 
         box-shadow: none;
     }
 
-    /* 2. การปรับขนาดตัวอักษรและ Header */
     .cv-pink-purple-theme {
-        font-size: 10pt; /* ลดขนาดฟอนต์โดยรวม */
+        font-size: 10pt; 
     }
     
-    .cv-pink-purple-theme .header {
-        text-align: left; /* จัดหัวข้อชิดซ้าย */
-        padding-bottom: 8px;
-        margin-bottom: 10px;
-    }
-    .cv-pink-purple-theme .header h1 {
-        font-size: 1.4em; /* ลดขนาดชื่อ */
-    }
-    .cv-pink-purple-theme .header h2 {
-        font-size: 1.1em; /* ลดขนาดตำแหน่ง */
-    }
-
-    /* 3. การจัดการรูปภาพ Profile */
-    .cv-pink-purple-theme .profile-photo {
-        width: 80px;
-        height: 80px;
-        margin: 0 0 10px 0; /* ย้ายไปชิดซ้ายเพื่อความเข้ากันกับ Header */
-    }
-    
-    /* ปรับ Layout Header ให้รูปภาพอยู่ข้างชื่อ */
     .cv-pink-purple-theme .header {
         display: flex;
         flex-direction: row;
         align-items: flex-start;
         text-align: left;
         gap: 15px;
-        border-bottom: none; /* ลบเส้นแบ่ง */
+        border-bottom: none; 
+        padding-bottom: 8px;
+        margin-bottom: 10px;
     }
     .cv-pink-purple-theme .header hgroup {
-        /* Grouping H1 และ H2 */
         flex-grow: 1;
         margin-top: 5px;
     }
+    .cv-pink-purple-theme .header h1 {
+        font-size: 1.4em; 
+    }
+    .cv-pink-purple-theme .header h2 {
+        font-size: 1.1em; 
+    }
+
     .cv-pink-purple-theme .profile-photo {
+        width: 80px;
+        height: 80px;
         margin: 0;
         flex-shrink: 0;
     }
-
-    /* 4. จัดการ Skills Layout (ให้แสดงเป็นแถวเดียว) */
+    
     .cv-pink-purple-theme .cv-prof-skills {
-        flex-direction: column; /* เปลี่ยนจากแนวนอน (row) เป็นแนวตั้ง (column) */
-        gap: 15px; /* เพิ่มระยะห่างระหว่าง Skill Card */
+        flex-direction: column; 
+        gap: 15px; 
     }
     .cv-pink-purple-theme .cv-skill-card {
-        flex: auto; /* ไม่ต้องแบ่งพื้นที่ 50/50 อีกต่อไป */
+        flex: auto; 
         min-height: auto;
     }
 
-    /* 5. การจัดการ Contact Info (ให้จัดเป็นแนวตั้ง) */
     .cv-pink-purple-theme .contact-info-item {
-        /* ลบ justify-content: center; */
         justify-content: flex-start;
     }
     .cv-pink-purple-theme .icon {
@@ -327,12 +320,10 @@ body.modal-open {
         width: 15px;
     }
 
-    /* 6. การจัดการ QR Code (ซ่อนไปเลย หรือจัดให้อยู่ด้านล่าง) */
     .qr-code-box {
-        display: none; /* ซ่อน QR code บนมือถือเพื่อประหยัดพื้นที่ */
+        display: none; 
     }
     
-    /* 7. ปรับขนาดส่วนอื่นๆ */
     .cv-pink-purple-theme h4 {
         margin-top: 10px;
         font-size: 0.9em;
@@ -341,7 +332,6 @@ body.modal-open {
         font-size: 0.9em;
     }
     
-    /* 8. Fix Modal Padding */
     .modal {
         padding: 10px 5px;
     }

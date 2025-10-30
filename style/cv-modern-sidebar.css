@@ -10,9 +10,9 @@
 
 /* ✅ A4 Preview Outside Modal */
 .cv-section {
-    width: 794px; 
-    min-height: 1123px; 
-    padding: 50px;
+    width: 210mm; 
+    min-height: 297mm; 
+    padding: 14mm;
     background-color: #FFFFFF;
     box-shadow: 0 0 10px rgba(0,0,0,0.15);
     border-radius: 5px;
@@ -34,10 +34,10 @@
 
 /* ✅ A4 Box inside Modal */
 .modal .cv-red-theme {
-    width: 794px;
-    min-height: 1123px;
+    width: 210mm;
+    min-height: 297mm;
     margin: auto;
-    padding: 50px;
+    padding: 14mm;
     box-sizing: border-box;
     border: 2px solid var(--rb-color-border);
     border-radius: 6px;
