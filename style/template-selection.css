@@ -24,6 +24,7 @@ html {
 }
 
 .page-header h1 {
+    font-family: 'Prompt', sans-serif;
     font-size: 1.6em; 
     color: #ff9900;
     margin-bottom: 5px;
