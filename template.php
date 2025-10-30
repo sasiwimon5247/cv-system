@@ -95,8 +95,33 @@ $cv_data['technical_skills'] = $tech_skills_string ? array_map('trim', explode('
 $soft_skills_string = fetchDataSingle($conn, 'skills_info', 'soft_skills');
 $cv_data['soft_skills'] = $soft_skills_string ? array_map('trim', explode(',', $soft_skills_string)) : [];
 
-$cv_data['projects']= fetchDataSingle($conn, 'activities_info', 'project'); 
-$cv_data['activities'] = fetchDataSingle($conn, 'activities_info', 'activity'); 
+$all_activities_data = fetchDataMultiple($conn, 'activities_info'); 
+$projects_list = [];
+$activities_list = [];
+
+foreach ($all_activities_data as $item) {
+    // 💡 Project Logic: ถ้าคอลัมน์ 'project' มีข้อมูล 
+    if (!empty($item['project'])) {
+        // สร้าง Object ที่มีแค่ description (ใช้ Project เป็นรายละเอียดหลัก)
+        $description = $item['project'] . (!empty($item['activity']) ? ' (' . $item['activity'] . ')' : '');
+
+        $projects_list[] = [
+            'description' => $description
+        ];
+    } 
+    
+    // 💡 Activity Logic: ถ้าคอลัมน์ 'activity' มีข้อมูล แต่ 'project' ว่าง
+    elseif (!empty($item['activity'])) {
+        // สร้าง Object ที่มีแค่ description (ใช้ Activity เป็นรายละเอียด)
+        $activities_list[] = [
+            'description' => $item['activity']
+        ];
+    }
+}
+
+// 4. กำหนดค่าสุดท้ายให้กับ $cv_data
+$cv_data['projects'] = $projects_list;
+$cv_data['activities'] = $activities_list;
 
 
 // เตรียมข้อมูลสำหรับ JS
