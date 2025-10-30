@@ -247,17 +247,7 @@ body.modal-open {
     color: #333;
     margin-top: 10px;
 }
-.project-list,
-.activity-list {
-    margin: 5px 0 15px 0;
-    padding-left: 25px;
-}
-.project-list li,
-.activity-list li {
-    margin-bottom: 5px;
-    font-size: 0.9em;
-    line-height: 1.3;
-}
+
 
 /* ==================================================== */
 /* --- MOBILE RESPONSIVENESS (Max-width: 600px) --- */
