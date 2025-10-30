@@ -256,7 +256,6 @@
     white-space: pre-wrap; /* เพื่อรักษารูปแบบบรรทัดของข้อความ */
     font-size: 0.95em;
     margin-bottom: 5px;
-    border-left: 3px solid #aaa;
     padding-left: 10px;
 }
 
