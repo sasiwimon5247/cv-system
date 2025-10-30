@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 100); // หน่วงเวลาเล็กน้อย
         } else {
              const options = {
-                margin: [2, 10, 20, 10], 
+                margin: [2, 5, 5, 5], 
                 filename: `CV_${data.name_th}_${templateId}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { scale: 2 }, 
