@@ -59,8 +59,8 @@
 .cv-red-theme .header {
     text-align: center;
     border-bottom: 3px solid var(--rb-color-primary);
-    padding-bottom: 12px;
-    margin-bottom: 15px;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
     position: relative;
 }
 .cv-red-theme .header h1 {
@@ -95,9 +95,9 @@
     text-transform: uppercase;
 }
 .cv-red-theme p, .detail-item {
-    margin: 4px 0;
-    font-size: 0.9em;
-    line-height: 1.25;
+    margin: 2px 0;
+    font-size: 0.8em;
+    line-height: 1.2;
 }
 .cv-red-theme .detail-item strong {
     display: block;
@@ -334,8 +334,8 @@
         font-size: 0.9em;
     }
     .cv-red-theme p, .detail-item {
-        font-size: 0.85em;
-        line-height: 1.4;
+        font-size: 0.8em;
+        line-height: 1.2;
     }
 
     /* 7. Fix สำหรับการแสดงผลที่ถูกซ่อนไป */

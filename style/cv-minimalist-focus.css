@@ -59,8 +59,8 @@
 .cv-minimalist-focus .header {
     text-align: center;
     border-bottom: 2px solid var(--mf-color-primary);
-    padding-bottom: 12px;
-    margin-bottom: 15px;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
     position: relative;
 }
 .cv-minimalist-focus .header h1 {
@@ -98,9 +98,9 @@
 /* TEXT AND DETAILS */
 .cv-minimalist-focus p,
 .detail-item {
-    margin: 4px 0;
-    font-size: 0.9em;
-    line-height: 1.25;
+    margin: 2px 0;
+    font-size: 0.8em;
+    line-height: 1;
 }
 .detail-item strong {
     font-weight: 600;
@@ -359,7 +359,7 @@ body.modal-open {
         font-size: 1em;
     }
     .cv-minimalist-focus p, .detail-item {
-        font-size: 0.9em;
+        font-size: 0.8em;
     }
     
     /* 8. Fix Modal Padding */
