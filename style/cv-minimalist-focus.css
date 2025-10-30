@@ -202,10 +202,6 @@ body.modal-open {
         margin: 0!important;
     }
 
-    html, body {
-        background-color: #FFFFFF !important; /* ✅ เพิ่ม: พื้นหลังของหน้าทั้งหมดเป็นสีขาว */
-    }
-
     body.modal-open {
         overflow: visible !important;
 
@@ -225,7 +221,6 @@ body.modal-open {
         margin: 0 !important;
         border: none !important;
         border-radius: 0 !important;
-        background: #FFFFFF !important;
         box-shadow: none !important;
         overflow: visible !important;
         box-sizing: border-box !important;
