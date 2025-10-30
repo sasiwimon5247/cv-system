@@ -1,4 +1,3 @@
-
 :root {
     --mf-color-primary: #212121;
     --mf-color-accent: #616161;
@@ -8,7 +7,6 @@
     --mf-font-main: 'Prompt', sans-serif;
 }
 
-/* 🧾 --- CV SECTION (Preview Outside Modal) --- */
 .cv-section {
     width: 210mm;
     min-height: 297mm; 
@@ -19,7 +17,6 @@
     box-sizing: border-box;
 }
 
-/* 💡 --- MODAL --- */
 .modal {
     display: none;
     position: fixed;
@@ -32,7 +29,6 @@
     padding: 40px 10px;
 }
 
-/* ✅ CV inside Modal */
 .modal .cv-minimalist-focus {
     width: 210mm; 
     min-height: 297mm; 
@@ -45,17 +41,15 @@
     box-sizing: border-box;
 }
 
-/* 🧩 --- MAIN CV LAYOUT --- */
 .cv-minimalist-focus {
     font-family: var(--mf-font-main);
     color: var(--mf-color-text);
     display: flex;
     flex-direction: column;
-    font-size: 9.5pt;
+    font-size: 9.5pt; 
     box-sizing: border-box;
 }
 
-/* HEADER */
 .cv-minimalist-focus .header {
     text-align: center;
     border-bottom: 2px solid var(--mf-color-primary);
@@ -74,7 +68,6 @@
     margin: 0;
 }
 
-/* PROFILE PHOTO */
 .cv-minimalist-focus .profile-photo {
     width: 110px;
     height: 110px;
@@ -85,22 +78,20 @@
     background-position: center;
 }
 
-/* SECTION TITLE */
 .cv-minimalist-focus h4 {
     color: var(--mf-color-primary);
     border-bottom: 1px solid var(--mf-color-border);
-    margin-top: 12px;
-    padding-bottom: 4px;
+    margin-top: 8px;
+    padding-bottom: 3px;
     font-size: 1em;
     text-transform: uppercase;
 }
 
-/* TEXT AND DETAILS */
 .cv-minimalist-focus p,
 .detail-item {
-    margin: 2px 0;
-    font-size: 0.8em;
-    line-height: 1;
+    margin: 1px 0;
+    font-size: 0.78em; 
+    line-height: 1.1; 
 }
 .detail-item strong {
     font-weight: 600;
@@ -108,7 +99,6 @@
     color: var(--mf-color-accent);
 }
 
-/* --- SKILL SECTION --- */
 .cv-prof-skills {
     display: flex;
     flex-direction: row;
@@ -117,8 +107,8 @@
     margin-top: 10px;
 }
 .cv-skill-card {
-    flex: 1;  /* ✅ เท่ากัน 50/50 */
-    min-height: 180px; /* ✅ ให้มีพื้นที่พอสำหรับ tag */
+    flex: 1;
+    min-height: 180px;
     display: flex;
     flex-direction: column;
 }
@@ -142,12 +132,11 @@
     background-color: #D6D6D6;
 }
 
-/* --- CONTACT INFO --- */
 .contact-info-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
 }
 .icon {
     color: var(--mf-color-primary);
@@ -164,19 +153,11 @@
     text-decoration: underline;
 }
 
-
-/* ✅ Disable scroll behind modal */
 body.modal-open {
     overflow: hidden;
 }
 
-/* ---------------------------------------------------- */
-/* --- เพิ่ม: CSS ของ QR Code (เพื่อให้ลอยอยู่มุมขวาบน) --- */
-/* ---------------------------------------------------- */
-
-/* 2. CSS สำหรับกล่อง QR Code */
 .qr-code-box {
-    /* 💡 อ้างอิงกับ position: relative; ใน .header */
     position: absolute; 
     top: 10px;        
     right: 0px;       
@@ -186,7 +167,6 @@ body.modal-open {
     text-align: center;  
 }
 
-/* 3. CSS สำหรับรูปภาพ QR Code */
 .qr-code-box img {
     width: 100px; 
     height: 100px;
@@ -197,37 +177,32 @@ body.modal-open {
     visibility: visible !important;
 }
 
-/* 4. CSS สำหรับข้อความ Scan ID */
 .qr-code-box .scan-id-text {
     font-size: 8pt;
-    color: var(--mf-color-accent); /* ใช้สี accent ให้สอดคล้องกับธีม */
+    color: var(--mf-color-accent);
     display: block;
     line-height: 1.2;
     margin-top: 3px;
 }
 
 @media print {
-    /* กำหนดขนาดหน้ากระดาษและระยะขอบของเอกสารที่พิมพ์ทั้งหมด */
     @page {
-        size: A4 portrait; /* กำหนดขนาดเป็น A4 และการวางแนวตั้ง */
-        margin: 0;         /* ลบระยะขอบเริ่มต้นทั้งหมดของหน้ากระดาษ */
+        size: A4 portrait;
+        margin: 0;
     }
 
-    /* โค้ดที่คุณมีอยู่เดิม (ปรับปรุงเล็กน้อย) */
     body.modal-open { overflow: visible !important; }
     
     .modal {
         display: block !important;
         overflow: visible !important;
         background: none !important;
-        padding: 0 !important; /* เพิ่ม !important เพื่อความแน่ใจ */
+        padding: 0 !important;
     }
 
     .cv-minimalist-focus {
-        /* ใช้มิลลิเมตร (mm) ซึ่งเหมาะกับการพิมพ์ A4 ที่สุด */
         width: 210mm !important; 
         height: 297mm !important;
-        /* กำหนด Padding เป็นระยะขอบภายในของเนื้อหา CV */
         padding: 1mm 1mm 1mm 1mm;
         margin: 0 !important;
         border: none !important;
@@ -235,10 +210,6 @@ body.modal-open {
         background: #FFFFFF !important;
         box-shadow: none !important;
         overflow: visible !important;
-        
-        /* สำคัญ: ต้องมั่นใจว่าเนื้อหาทั้งหมดไม่เกิน 210mm x 297mm
-           โดยรวมขนาด width (210mm) + padding ซ้าย/ขวา (14mm+14mm) แล้วไม่เกิน
-           ถ้าใช้ box-sizing: border-box; จะช่วยให้คำนวณง่ายขึ้นมาก */
         box-sizing: border-box !important; 
     }
 
@@ -246,123 +217,105 @@ body.modal-open {
         page-break-inside: avoid;
     }
 }
-/* -------------------------------------- */
-/* Recommendation (New Classes)           */
-/* -------------------------------------- */
+
 .recommendation-content {
     margin-bottom: 10px;
-    padding: 0 10px; /* เพิ่ม padding เพื่อให้ข้อความไม่ชิดขอบ */
+    padding: 0 10px;
 }
 
 .recommendation-text {
-    /* สไตล์สำหรับข้อความคำรับรอง */
     font-style: italic;
-    white-space: pre-wrap; /* เพื่อรักษารูปแบบบรรทัดของข้อความ */
-    font-size: 0.95em;
+    white-space: pre-wrap;
+    font-size: 0.8em;
     margin-bottom: 5px;
     padding-left: 10px;
 }
 
 .recommendation-teacher {
-    /* สไตล์สำหรับชื่ออาจารย์ผู้รับรอง */
     text-align: right;
-    font-size: 0.9em;
+    font-size: 0.85em;
     color: #333;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
-/* ==================================================== */
-/* --- MOBILE RESPONSIVENESS (Max-width: 600px) --- */
-/* ==================================================== */
-
 @media (max-width: 600px) {
-    /* 1. การปรับขนาดหลักของ CV Container ใน Modal */
     .modal .cv-minimalist-focus {
-        width: 100% !important; /* ให้เต็มความกว้างหน้าจอ */
-        min-height: auto; /* ไม่ต้องยึดสัดส่วน A4 */
+        width: 100% !important;
+        min-height: auto;
         margin: 0; 
-        padding: 20px 15px; /* ลด Padding โดยรวม */
+        padding: 20px 15px;
         border: none; 
         border-radius: 0;
         box-shadow: none;
-        overflow: visible; /* ให้เนื้อหาสามารถไหลออกได้ตามปกติ */
+        overflow: visible;
     }
 
-    /* 2. การปรับขนาดตัวอักษรและ Header */
     .cv-minimalist-focus {
-        font-size: 10pt; /* ลดขนาดฟอนต์โดยรวม */
+        font-size: 10pt;
     }
     
-    /* จัด Layout Header ให้รูปภาพอยู่ข้างชื่อ */
     .cv-minimalist-focus .header {
         display: flex;
         flex-direction: row;
         align-items: flex-start;
         text-align: left;
         gap: 15px;
-        border-bottom: none; /* ลบเส้นแบ่ง */
+        border-bottom: none;
         padding-bottom: 3px;
         padding-top: 5mm;
         margin-bottom: 5px;
     }
     
-    /* Grouping H1 และ H2 */
     .cv-minimalist-focus .header hgroup { 
         flex-grow: 1;
         margin-top: 5px;
     }
     .cv-minimalist-focus .header h1 {
-        font-size: 1.4em; /* ลดขนาดชื่อ */
+        font-size: 1.4em;
     }
     .cv-minimalist-focus .header h2 {
-        font-size: 1.1em; /* ลดขนาดตำแหน่ง */
+        font-size: 1.1em;
         color: var(--mf-color-accent);
     }
     
-    /* 3. การจัดการรูปภาพ Profile */
     .cv-minimalist-focus .profile-photo {
         width: 80px;
         height: 80px;
         margin: 0 auto 12px;
         flex-shrink: 0;
-        border: 2px solid var(--mf-color-primary); /* ใช้สีหลัก */
+        border: 2px solid var(--mf-color-primary);
     }
     
-    /* 4. การจัดการ Contact Info (ให้จัดเป็นแนวตั้ง/ชิดซ้าย) */
     .contact-info-item {
-        justify-content: flex-start; /* จัดชิดซ้าย */
+        justify-content: flex-start;
         margin-bottom: 5px;
     }
     
-    /* 5. จัดการ Skills Layout (ให้แสดงเป็นแถวเดียว) */
     .cv-prof-skills {
-        flex-direction: column; /* เปลี่ยนจากแนวนอน (row) เป็นแนวตั้ง (column) */
+        flex-direction: column;
         gap: 15px; 
     }
     .cv-skill-card {
-        flex: auto; /* ไม่ต้องแบ่งพื้นที่ 50/50 อีกต่อไป */
+        flex: auto;
         min-height: auto;
     }
     .cv-skill-tag {
-        font-size: 0.8em; /* ลดขนาด Tag เล็กน้อย */
+        font-size: 0.8em;
         padding: 3px 8px;
     }
 
-    /* 6. การจัดการ QR Code (ซ่อนบนมือถือ) */
     .qr-code-box {
-        display: none; /* ซ่อน QR code บนมือถือเพื่อประหยัดพื้นที่ */
+        display: none;
     }
     
-    /* 7. ปรับขนาดส่วนอื่นๆ */
     .cv-minimalist-focus h4 {
-        margin-top: 15px; /* เพิ่มระยะห่างด้านบน */
+        margin-top: 15px;
         font-size: 1em;
     }
     .cv-minimalist-focus p, .detail-item {
         font-size: 0.8em;
     }
     
-    /* 8. Fix Modal Padding */
     .modal {
         padding: 10px 5px;
     }
