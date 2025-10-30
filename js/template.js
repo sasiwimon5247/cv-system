@@ -78,9 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `).join('');
 
-        const projectsListHtml = data.projects.map(p => `<li><strong>${p.name}</strong>: ${p.description}</li>`).join('');
-        const activitiesListHtml = data.activities.map(a => `<li><strong>${a.name}</strong>: ${a.description}</li>`).join('');
-
         const projectsSectionHtml = data.projects.length > 0 ? `
             <h4>โปรเจกต์</h4>
             <ul class="project-list">${projectsListHtml}</ul>
@@ -237,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
 
                         ${projectsSectionHtml} 
-                        
+
                         ${activitiesSectionHtml}
 
                         ${recommendationHtml} 
