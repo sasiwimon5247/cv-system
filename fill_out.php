@@ -38,10 +38,6 @@ include('ic/navbar.php');
 ?>
 <div class="container mt-4">
 
-    <?php if (!empty($flash_success)): ?>
-    <div class="alert alert-success"><?=htmlspecialchars($flash_success)?></div>
-    <?php endif; ?>
-
     <div class="row main-content-row">
         
         <div class="col-lg-4 col-md-12 mb-4">
