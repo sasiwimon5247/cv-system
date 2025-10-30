@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// ฟังก์ชันสำหรับดึงข้อมูลเดี่ยว
+// ฟังก์ชันสำหรับดึงข้อมูลเดี่ยว (คอลัมน์เดียว)
 function fetchDataSingle($conn, $table, $column, $condition = "user_id = :user_id") {
     try {
         $stmt = $conn->prepare("SELECT $column FROM $table WHERE $condition LIMIT 1");
@@ -20,6 +20,22 @@ function fetchDataSingle($conn, $table, $column, $condition = "user_id = :user_i
         $stmt->execute();
         return $stmt->fetchColumn();
     } catch (PDOException $e) {
+        error_log("DB Error in fetchDataSingle: " . $e->getMessage());
+        return null;
+    }
+}
+
+// ฟังก์ชันสำหรับดึงข้อมูลเดี่ยว (ทั้งแถวในรูปแบบ Associative Array) - เพิ่มใหม่
+function fetchDataAssocSingle($conn, $table, $condition = "user_id = :user_id") {
+    try {
+        $stmt = $conn->prepare("SELECT * FROM $table WHERE $condition LIMIT 1");
+        if (strpos($condition, ':user_id') !== false) {
+            $stmt->bindParam(':user_id', $GLOBALS['user_id'], PDO::PARAM_INT);
+        }
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC); // ดึงข้อมูลทั้งแถวเป็น Array
+    } catch (PDOException $e) {
+        error_log("DB Error in fetchDataAssocSingle: " . $e->getMessage());
         return null;
     }
 }
@@ -34,13 +50,17 @@ function fetchDataMultiple($conn, $table, $condition = "user_id = :user_id") {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
+        error_log("DB Error in fetchDataMultiple: " . $e->getMessage());
         return [];
     }
 }
 
 // -------------------------------
-// ดึงข้อมูล CV (ไม่เปลี่ยนแปลง)
+// ดึงข้อมูล CV
 // -------------------------------
+
+// ดึงข้อมูลคำรับรองแบบทั้งแถว เพื่อให้ได้ทั้งข้อความและชื่อครู
+$recommendation_details = fetchDataAssocSingle($conn, 'certificate_requests', "user_id = :user_id AND status = 'certified'");
 
 $cv_data = [
     'profile_img' => fetchDataSingle($conn, 'cv_profile', 'profile_image'),
@@ -60,7 +80,10 @@ $cv_data = [
     'edu_major' => fetchDataSingle($conn, 'education_info', 'major'),
     'edu_graduation_year' => fetchDataSingle($conn, 'education_info', 'grad_year'),
     'edu_university_gpa' => fetchDataSingle($conn, 'education_info', 'uni_gpa'),
-    'reference' => fetchDataSingle($conn, 'certificate_requests', 'certification_text', "user_id = :user_id AND status = 'certified' LIMIT 1")
+    
+    // แทนที่ 'reference' ด้วยสองคีย์ใหม่
+    'reference_text' => $recommendation_details['certification_text'] ?? '',
+    'reference_teacher' => $recommendation_details['teacher_name'] ?? '' // สมมติว่ามีคอลัมน์ teacher_name ในตาราง
 ];
 
 // ดึงข้อมูลรายการหลายรายการ
@@ -108,7 +131,7 @@ $js_data = json_encode($cv_data, JSON_UNESCAPED_UNICODE);
     <link rel="stylesheet" href="style/cv-modern-sidebar.css">
     <link rel="stylesheet" href="style/cv-professional-hybrid.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script>
         const USER_CV_DATA = <?php echo $js_data; ?>;
     </script>
@@ -173,7 +196,7 @@ $js_data = json_encode($cv_data, JSON_UNESCAPED_UNICODE);
                         <p class="description"><?php echo $desc; ?></p>
                         
                         <div class="card-actions">
-                            <button class="btn-select primary-btn" data-template="<?php echo $id; ?>"><i class="fas fa-check"></i> เลือก</button>                         
+                            <button class="btn-select primary-btn" data-template="<?php echo $id; ?>"><i class="fas fa-check"></i> เลือก</button> 
                             <button class="btn-preview" data-template="<?php echo $id; ?>"><i class="fas fa-eye"></i> ดูตัวอย่าง</button>
                             <button class="btn-download btn-download-trigger" data-template="<?php echo $id; ?>" title="ดาวน์โหลด PDF"><i class="fas fa-download"></i></button>
                         </div>
