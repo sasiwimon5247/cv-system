@@ -78,9 +78,18 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `).join('');
 
-        const projectsHtml = data.projects.map(p => `<li><strong>${p.name}</strong>: ${p.description}</li>`).join('');
-        const activitiesHtml = data.activities.map(a => `<li>${a}</li>`).join('');
-        const projectAndActivitiesHtml = `<ul class="project-activity-list">${projectsHtml}${activitiesHtml}</ul>`;
+        const projectsListHtml = data.projects.map(p => `<li><strong>${p.name}</strong>: ${p.description}</li>`).join('');
+        const activitiesListHtml = data.activities.map(a => `<li>${a}</li>`).join('');
+
+        const projectsSectionHtml = data.projects.length > 0 ? `
+            <h4>โปรเจกต์</h4>
+            <ul class="project-activity-list">${projectsListHtml}</ul>
+        ` : '';
+
+        const activitiesSectionHtml = data.activities.length > 0 ? `
+            <h4>กิจกรรม</h4>
+            <ul class="project-activity-list">${activitiesListHtml}</ul>
+        ` : '';
 
         const educationContent = `
             <div class="detail-item">
@@ -141,8 +150,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
 
-                        <h4>โปรเจกต์ / กิจกรรม</h4>
-                        ${projectAndActivitiesHtml}
+                        ${projectsSectionHtml} 
+                        ${activitiesSectionHtml}
 
                         ${recommendationHtml} 
 
@@ -183,8 +192,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
 
-                        <h4>โปรเจกต์ / กิจกรรม</h4>
-                        ${projectAndActivitiesHtml}
+                        ${projectsSectionHtml} 
+                        ${activitiesSectionHtml}
 
                         ${recommendationHtml} 
 
@@ -225,8 +234,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
 
-                        <h4>โปรเจกต์ / กิจกรรม</h4>
-                        ${projectAndActivitiesHtml}
+                        ${projectsSectionHtml} 
+                        ${activitiesSectionHtml}
 
                         ${recommendationHtml} 
 
