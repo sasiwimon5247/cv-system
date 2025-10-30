@@ -80,8 +80,8 @@ $cv_data = [
     'edu_major' => fetchDataSingle($conn, 'education_info', 'major'),
     'edu_graduation_year' => fetchDataSingle($conn, 'education_info', 'grad_year'),
     'edu_university_gpa' => fetchDataSingle($conn, 'education_info', 'uni_gpa'),
-    'activities' => fetchDataSingle($conn, 'activities_info', 'activity'),
-    'projects' => fetchDataSingle($conn, 'activities_info', 'project'),
+    'activity' => fetchDataSingle($conn, 'activities_info', 'activity'),
+    'project' => fetchDataSingle($conn, 'activities_info', 'project'),
     'reference_text' => $recommendation_details['certificate_text'] ?? '',
     'reference_teacher' => $recommendation_details['teacher_name'] ?? '' 
 ];
@@ -94,35 +94,6 @@ $cv_data['technical_skills'] = $tech_skills_string ? array_map('trim', explode('
 
 $soft_skills_string = fetchDataSingle($conn, 'skills_info', 'soft_skills');
 $cv_data['soft_skills'] = $soft_skills_string ? array_map('trim', explode(',', $soft_skills_string)) : [];
-
-$all_activities_data = fetchDataMultiple($conn, 'activities_info'); 
-$projects_list = [];
-$activities_list = [];
-
-foreach ($all_activities_data as $item) {
-    // 💡 Project Logic: ถ้าคอลัมน์ 'project' มีข้อมูล 
-    if (!empty($item['project'])) {
-        // สร้าง Object ที่มีแค่ description (ใช้ Project เป็นรายละเอียดหลัก)
-        $description = $item['project'] . (!empty($item['activity']) ? ' (' . $item['activity'] . ')' : '');
-
-        $projects_list[] = [
-            'description' => $description
-        ];
-    } 
-    
-    // 💡 Activity Logic: ถ้าคอลัมน์ 'activity' มีข้อมูล แต่ 'project' ว่าง
-    elseif (!empty($item['activity'])) {
-        // สร้าง Object ที่มีแค่ description (ใช้ Activity เป็นรายละเอียด)
-        $activities_list[] = [
-            'description' => $item['activity']
-        ];
-    }
-}
-
-// 4. กำหนดค่าสุดท้ายให้กับ $cv_data
-$cv_data['projects'] = $projects_list;
-$cv_data['activities'] = $activities_list;
-
 
 // เตรียมข้อมูลสำหรับ JS
 foreach ($cv_data as $key => $value) {

@@ -78,31 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `).join('');
 
-        const projectsListHtml = Array.isArray(data.projects) ? data.projects.map(p => `
-            <li>
-                ${p.description || 'ไม่มีรายละเอียดโปรเจกต์'}
-            </li>
-        `).join('') : '';
-
-        // --- Activities List HTML (แสดงเฉพาะรายละเอียด) ---
-        const activitiesListHtml = Array.isArray(data.activities) ? data.activities.map(a => `
-            <li>
-                ${a.description || 'ไม่มีรายละเอียดกิจกรรม'}
-            </li>
-        `).join('') : '';
-
-        // --- Project Section HTML (ใช้ projectsListHtml ที่แก้ไขแล้ว) ---
-        const projectsSectionHtml = data.projects.length > 0 ? `
-            <h4>โปรเจกต์</h4>
-            <ul class="project-list">${projectsListHtml}</ul>
-        ` : '';
-
-        // --- Activity Section HTML (ใช้ activitiesListHtml ที่แก้ไขแล้ว) ---
-        const activitiesSectionHtml = data.activities.length > 0 ? `
-            <h4>กิจกรรม</h4>
-            <ul class="activity-list">${activitiesListHtml}</ul>
-        ` : '';
-
         const educationContent = `
             <div class="detail-item">
                 <strong>อุดมศึกษา: ${data.edu_university}</strong>
@@ -162,9 +137,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
 
-                        ${projectsSectionHtml} 
+                        <h4>โปรเจค</h4>
+                        <p>${data.project}</p>
 
-                        ${activitiesSectionHtml}
+                        <h4>กิจกรรม</h4>
+                        <p>${data.activity}</p>
 
                         ${recommendationHtml} 
 
@@ -205,9 +182,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
 
-                        ${projectsSectionHtml} 
+                        <h4>โปรเจค</h4>
+                        <p>${data.project}</p>
 
-                        ${activitiesSectionHtml}
+                        <h4>กิจกรรม</h4>
+                        <p>${data.activity}</p>
 
                         ${recommendationHtml} 
 
@@ -248,9 +227,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
 
-                        ${projectsSectionHtml} 
+                        <h4>โปรเจค</h4>
+                        <p>${data.project}</p>
 
-                        ${activitiesSectionHtml}
+                        <h4>กิจกรรม</h4>
+                        <p>${data.activity}</p>
 
                         ${recommendationHtml} 
 
