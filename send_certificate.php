@@ -53,8 +53,8 @@ try {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // กรองข้อมูลที่รับมาจากฟอร์ม (เพื่อความปลอดภัย)
-    $fullname       = htmlspecialchars($_POST['full_name'] ?? '');
-    $student_id     = htmlspecialchars($_POST['stu_id'] ?? '');
+    $full_name       = htmlspecialchars($_POST['full_name'] ?? '');
+    $stu_id     = htmlspecialchars($_POST['stu_id'] ?? '');
     $reason         = htmlspecialchars($_POST['reason'] ?? '');
     $teacher_name   = htmlspecialchars($_POST['teacher_name'] ?? '');
     // กรองอีเมล
@@ -159,14 +159,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mail->CharSet = 'UTF-8';
 
         // ผู้ส่ง (ใช้ email ที่ดึงจาก DB)
-        $mail->setFrom($sender_email, 'CV System'); 
+        $mail->setFrom($sender_email, 'CV DEV'); 
 
         // ผู้รับ
         $mail->addAddress($teacher_email, $teacher_name);
 
         // เนื้อหาอีเมล: เปลี่ยนเป็น HTML เพื่อให้ลิงก์กดได้ง่ายขึ้น
         $mail->isHTML(true); 
-        $mail->Subject = "คำขอใบรับรอง (Recommendation Letter) จากนักศึกษา - $fullname";
+        $mail->Subject = "คำขอใบรับรอง (Recommendation Letter) จากนักศึกษา - $full_name";
         
         // ************************************************************
         // ปรับปรุงเนื้อหาอีเมลเพื่อใส่ลิงก์
@@ -197,7 +197,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <body>
                 <p><strong>เรียน อาจารย์/ผู้รับรอง $teacher_name,</strong></p>
 
-                <p>นักศึกษา <strong>$fullname ($student_id)</strong> ได้ส่งคำขอให้ท่านกรอกคำรับรอง (Recommendation Letter) ผ่านระบบ CV System</p>
+                <p>นักศึกษา <strong>$full_name ($stu_id)</strong> ได้ส่งคำขอให้ท่านกรอกคำรับรอง (Recommendation Letter) ผ่านระบบ CV DEV</p>
                 
                 <p><strong>เหตุผลในการขอ:</strong><br>" . nl2br(htmlspecialchars($reason)) . "</p>
 
@@ -219,7 +219,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ";
         
         // เนื้อหาสำรองแบบ Plain Text (สำหรับอีเมลที่ไม่รองรับ HTML)
-        $mail->AltBody = "เรียนคุณอาจารย์ $teacher_name,\n\nนักศึกษา $fullname ($student_id) ต้องการขอคำรับรอง\nเหตุผล: $reason\n\nกรุณาคลิกลิงก์ต่อไปนี้เพื่อกรอกคำรับรอง: \n$cert_link\n\nขอบคุณครับ/ค่ะ\nCV System";
+        $mail->AltBody = "เรียนคุณอาจารย์ $teacher_name,\n\nนักศึกษา $full_name ($stu_id) ต้องการขอคำรับรอง\nเหตุผล: $reason\n\nกรุณาคลิกลิงก์ต่อไปนี้เพื่อกรอกคำรับรอง: \n$cert_link\n\nขอบคุณครับ/ค่ะ\nCV System";
 
         $mail->send();
         

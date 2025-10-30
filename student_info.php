@@ -1,16 +1,16 @@
 <?php
 require_once 'config.php'; 
-$student_id = isset($_GET['id']) ? trim($_GET['id']) : ''; 
+$stu_id = isset($_GET['id']) ? trim($_GET['id']) : ''; 
 if (!isset($conn)) {
     $status_color = '#F4A261'; 
     $status_text = '⚠️ ไม่สามารถตรวจสอบข้อมูลฐานข้อมูลได้';
     $display_name = 'ฐานข้อมูลไม่พร้อมใช้งาน';
     $display_uni = 'โปรดติดต่อผู้ดูแลระบบ';
-    $display_id = $student_id . ' (DB Error)';
+    $display_id = $stu_id . ' (DB Error)';
 } else {
     $student_data = null;
 
-    if (!empty($student_id)) {
+    if (!empty($stu_id)) {
         $sql = "
             SELECT 
                 p.full_name,
@@ -18,13 +18,13 @@ if (!isset($conn)) {
                 e.stu_id
             FROM education_info e
             INNER JOIN personal_info p ON p.user_id = e.user_id 
-            WHERE e.stu_id = :student_id
+            WHERE e.stu_id = :stu_id
             LIMIT 1
         ";
         
         // 💡 เปลี่ยนไปใช้ PDO Prepared Statement เพื่อความปลอดภัย
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':student_id', $student_id, PDO::PARAM_STR);
+        $stmt->bindParam(':stu_id', $stu_id, PDO::PARAM_STR);
         $stmt->execute();
         
         $student_data = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -41,7 +41,7 @@ if (!isset($conn)) {
         // ไม่พบข้อมูลใน DB แต่รับค่าจาก URL มาได้
         $display_name = isset($_GET['name']) ? htmlspecialchars($_GET['name']) : 'ไม่พบชื่อในระบบ';
         $display_uni = isset($_GET['uni']) ? htmlspecialchars($_GET['uni']) : 'ไม่พบสถาบันในระบบ';
-        $display_id = empty($student_id) ? '(ไม่พบรหัส)' : $student_id . ' (รหัสไม่ตรงกับในระบบ)';
+        $display_id = empty($stu_id) ? '(ไม่พบรหัส)' : $stu_id . ' (รหัสไม่ตรงกับในระบบ)';
         $status_color = '#DC3545'; // สีแดง = ไม่พบ
         $status_text = '❌ ไม่พบข้อมูลนิสิตในระบบ';
     }

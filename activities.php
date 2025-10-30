@@ -13,7 +13,7 @@ $success_msg = "";
 $error_msg = "";
 
 // ถ้ามีการ submit
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['fullname'])) { 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['full_name'])) { 
     // เช็คว่าไม่ใช่การส่งจากฟอร์ม modal
     $activities = $_POST['activity'] ?? [];
     $projects   = $_POST['project'] ?? [];
@@ -126,11 +126,11 @@ $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <div class="modal-body">
         <div class="mb-3">
           <label class="form-label">ชื่อ-นามสกุล</label>
-          <input type="text" name="fullname" class="form-control" required>
+          <input type="text" name="full_name" class="form-control" required>
         </div>
         <div class="mb-3">
           <label class="form-label">รหัสนิสิต</label>
-          <input type="text" name="student_id" class="form-control" required>
+          <input type="text" name="stu_id" class="form-control" required>
         </div>
         <div class="mb-3">
           <label class="form-label">เหตุผลที่ต้องการเอกสาร</label>
