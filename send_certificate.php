@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // 3. เตรียมลิงก์สำหรับอาจารย์
-    $base_url = "http://localhost/cv_system/certificate_form.php"; 
+    $base_url = "http://localhost/cv_system"; 
     // ใช้ชื่อไฟล์ certificate_form.php ที่สร้างไว้ก่อนหน้า
     $cert_link = $base_url . "/certificate_form.php?token=" . $token; 
 
