@@ -89,7 +89,7 @@ try {
         UPDATE certificate_requests
         SET 
             teacher_name = ?, 
-            certification_text = ?, 
+            certificate_text = ?, 
             status = 'COMPLETED',
             certified_at = NOW()
         WHERE id = ? AND request_token = ?
