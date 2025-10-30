@@ -195,7 +195,7 @@
 @media print {
     @page {
         size: A4 portrait;
-        margin: 0;
+        margin: 0 !important;
     }
 
     html,
@@ -229,11 +229,11 @@
     }
 
     .cv-section {
-        width: 210mm;
-        min-height: 297mm; 
-        padding: 0mm; 
-        box-sizing: border-box;
-        page-break-inside: avoid;
+        width: 210mm !important;
+        min-height: 297mm !important;
+        padding: 0mm !important;
+        box-sizing: border-box !important;
+        page-break-inside: avoid !important;
     }
 }
 
