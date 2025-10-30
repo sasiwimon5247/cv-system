@@ -41,9 +41,6 @@ include('ic/navbar.php');
     <?php if (!empty($flash_success)): ?>
     <div class="alert alert-success"><?=htmlspecialchars($flash_success)?></div>
     <?php endif; ?>
-    <?php if (!empty($flash_error)): ?>
-    <div class="alert alert-danger"><?=htmlspecialchars($flash_error)?></div>
-    <?php endif; ?>
 
     <div class="row main-content-row">
         
