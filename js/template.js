@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="detail-item">
                 <strong>อุดมศึกษา: ${data.edu_university}</strong>
                 <span class="duration">คาดจบ: ${data.edu_graduation_year}</span>
-                <p>${data.edu_degree} (${data.edu_major})</p>
+                <p>${data.edu_degree} : ${data.edu_faculty} (${data.edu_major})</p>
                 <p style="margin: 0; font-size: 0.9em;">เกรดเฉลี่ย: ${data.edu_university_gpa}</p>
             </div>
             <div class="detail-item">

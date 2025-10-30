@@ -78,6 +78,7 @@ $cv_data = [
     'stu_id' => fetchDataSingle($conn, 'education_info', 'stu_id'),
     'edu_degree' => fetchDataSingle($conn, 'education_info', 'degree'),
     'edu_major' => fetchDataSingle($conn, 'education_info', 'major'),
+    'edu_faculty' => fetchDataSingle($conn, 'education_info', 'faculty'),
     'edu_graduation_year' => fetchDataSingle($conn, 'education_info', 'grad_year'),
     'edu_university_gpa' => fetchDataSingle($conn, 'education_info', 'uni_gpa'),
     'activity' => fetchDataSingle($conn, 'activities_info', 'activity'),

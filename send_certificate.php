@@ -180,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         display: inline-block;
                         padding: 10px 20px;
                         margin-top: 20px;
-                        background-color: #007bff;
+                        background-color: #094f9b;
                         color: white !important; 
                         text-decoration: none;
                         border-radius: 5px;
@@ -188,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     .note {
                         margin-top: 30px;
                         padding: 15px;
-                        border-left: 5px solid #ffc107;
+                        border-left: 5px solid #ff914d;
                         background-color: #fff3cd;
                         color: #856404;
                     }
@@ -219,7 +219,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ";
         
         // เนื้อหาสำรองแบบ Plain Text (สำหรับอีเมลที่ไม่รองรับ HTML)
-        $mail->AltBody = "เรียนคุณอาจารย์ $teacher_name,\n\nนักศึกษา $full_name ($stu_id) ต้องการขอคำรับรอง\nเหตุผล: $reason\n\nกรุณาคลิกลิงก์ต่อไปนี้เพื่อกรอกคำรับรอง: \n$cert_link\n\nขอบคุณครับ/ค่ะ\nCV System";
+        $mail->AltBody = "เรียนคุณอาจารย์ $teacher_name,\n\nนักศึกษา $full_name ($stu_id) คณะ $edu_faculty สาขา $edu_major ต้องการขอคำรับรอง\nเหตุผล: $reason\n\nกรุณาคลิกลิงก์ต่อไปนี้เพื่อกรอกคำรับรอง: \n$cert_link\n\nขอบคุณครับ/ค่ะ\nCV System";
 
         $mail->send();
         
