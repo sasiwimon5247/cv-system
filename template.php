@@ -60,7 +60,7 @@ function fetchDataMultiple($conn, $table, $condition = "user_id = :user_id") {
 // -------------------------------
 
 // ดึงข้อมูลคำรับรองแบบทั้งแถว เพื่อให้ได้ทั้งข้อความและชื่อครู
-$recommendation_details = fetchDataAssocSingle($conn, 'certificate_requests', "user_id = :user_id AND status = 'certified'");
+$recommendation_details = fetchDataAssocSingle($conn, 'certificate_requests', "user_id = :user_id AND status = 'completed'");
 
 $cv_data = [
     'profile_img' => fetchDataSingle($conn, 'cv_profile', 'profile_image'),
