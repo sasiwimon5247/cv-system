@@ -80,7 +80,7 @@
 .cv-pink-purple-theme h4 {
     color: var(--pp-color-primary);
     border-bottom: 1px solid var(--pp-color-border);
-    margin-top: 15px;
+    margin-top: 10px;
     padding-bottom: 3px;
     text-transform: uppercase;
     font-size: 1em;
@@ -88,16 +88,16 @@
 
 .cv-pink-purple-theme p,
 .detail-item {
-    margin: 4px 0;
-    font-size: 0.9em;
-    line-height: 1.5;
+    margin: 3px 0;
+    font-size: 0.85em;
+    line-height: 1.4;
 }
 
 .cv-pink-purple-theme .detail-item strong {
     color: var(--pp-color-accent);
     font-weight: 700;
     display: block;
-    margin-top: 5px;
+    margin-top: 3px;
 }
 
 .cv-pink-purple-theme .cv-prof-skills {

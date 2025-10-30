@@ -82,7 +82,7 @@
 .cv-minimalist-focus h4 {
     color: var(--mf-color-primary);
     border-bottom: 1px solid var(--mf-color-border);
-    margin-top: 15px;
+    margin-top: 10px;
     padding-bottom: 3px;
     font-size: 1em;
     text-transform: uppercase;
@@ -90,16 +90,16 @@
 
 .cv-minimalist-focus p,
 .detail-item {
-    margin: 4px 0;
-    font-size: 0.9em;
-    line-height: 1.5;
+    margin: 3px 0;
+    font-size: 0.85em;
+    line-height: 1.4;
 }
 
 .detail-item strong {
     font-weight: 700;
     display: block;
     color: var(--mf-color-accent);
-    margin-top: 5px;
+    margin-top: 3px;
 }
 
 .cv-prof-skills {
