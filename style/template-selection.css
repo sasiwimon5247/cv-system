@@ -58,7 +58,7 @@ html {
     display: flex;
     flex-direction: column; 
     
-    min-height: 420px; 
+    min-height: 440px; 
     
     border: 1px solid #ffe6c7; 
 }
@@ -75,7 +75,8 @@ html {
 
 .template-thumbnail-wrapper img {
     width: 100%;
-    height: auto;
+    height: 220px;
+    object-fit: cover;
     display: block;
     border-radius: 6px;
     border: 1px solid #ffe6c7;
@@ -99,7 +100,10 @@ html {
     color: #7f8c8d;
     font-size: 0.75em; 
     margin-bottom: 8px;
-    min-height: 40px;
+    height: 38px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
 }
 
 .card-actions {
