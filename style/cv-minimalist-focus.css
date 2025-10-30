@@ -53,7 +53,7 @@
 .cv-minimalist-focus .header {
     text-align: center;
     border-bottom: 2px solid var(--mf-color-primary);
-    padding-bottom: 8px;
+    padding-bottom: 6px;
     margin-bottom: 10px;
     position: relative;
 }
@@ -203,7 +203,7 @@ body.modal-open {
     .cv-minimalist-focus {
         width: 210mm !important; 
         height: 297mm !important;
-        padding: 1mm 1mm 1mm 1mm;
+        padding: 0mm !important;
         margin: 0 !important;
         border: none !important;
         border-radius: 0 !important;
@@ -214,6 +214,10 @@ body.modal-open {
     }
 
     .cv-section {
+        width: 210mm;
+        min-height: 297mm; 
+        padding: 0mm; 
+        box-sizing: border-box;
         page-break-inside: avoid;
     }
 }
