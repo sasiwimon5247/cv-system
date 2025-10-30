@@ -80,14 +80,14 @@ $cv_data = [
     'edu_major' => fetchDataSingle($conn, 'education_info', 'major'),
     'edu_graduation_year' => fetchDataSingle($conn, 'education_info', 'grad_year'),
     'edu_university_gpa' => fetchDataSingle($conn, 'education_info', 'uni_gpa'),
-    'activities' => fetchDataSingle($conn, 'activities_info', 'activity'),
-    'projects' => fetchDataSingle($conn, 'activities_info', 'project'),
+    'activities' => [], 
+    'projects' => [],
     'reference_text' => $recommendation_details['certificate_text'] ?? '',
     'reference_teacher' => $recommendation_details['teacher_name'] ?? '' 
 ];
 
 // ดึงข้อมูลรายการหลายรายการ
-$cv_data['work_experience'] = fetchDataMultiple($conn, 'experience_info');
+// $cv_data['work_experience'] = fetchDataMultiple($conn, 'experience_info');
 
 $tech_skills_string = fetchDataSingle($conn, 'skills_info', 'technical_skills');
 $cv_data['technical_skills'] = $tech_skills_string ? array_map('trim', explode(',', $tech_skills_string)) : [];
@@ -95,14 +95,24 @@ $cv_data['technical_skills'] = $tech_skills_string ? array_map('trim', explode('
 $soft_skills_string = fetchDataSingle($conn, 'skills_info', 'soft_skills');
 $cv_data['soft_skills'] = $soft_skills_string ? array_map('trim', explode(',', $soft_skills_string)) : [];
 
-$all_activities = fetchDataMultiple($conn, 'activities_info');
+$all_activities_data = fetchDataMultiple($conn, 'activities_info'); // ใช้ชื่อตัวแปรที่ชัดเจนขึ้น
 $projects_list = [];
 $activities_list = [];
-foreach ($all_activities as $item) {
-    if (!empty($item['activity']) && !empty($item['project'])) {
-        $projects_list[] = ['name' => $item['activity'], 'description' => $item['project']];
+
+foreach ($all_activities_data as $item) {
+    if (!empty($item['project'])) {
+        // หากมีคอลัมน์ 'project' ให้ถือเป็น Project (Project มักจะมีชื่อและรายละเอียด)
+        $projects_list[] = [
+            'name' => $item['activity'] ?? $item['project'], // ใช้ activity เป็นชื่อหลัก หรือ project
+            'description' => $item['project']
+        ];
     } elseif (!empty($item['activity'])) {
-        $activities_list[] = $item['activity'];
+        // หากมีแค่ 'activity' ให้ถือเป็น Activity 
+        // 💡 แก้ไข: ต้องแปลง String ให้เป็น Object {name, description} ตามที่ JS คาดหวัง
+        $activities_list[] = [
+            'name' => $item['activity'], 
+            'description' => '' // ถ้าไม่มีรายละเอียด ใส่ค่าว่างไว้
+        ];
     }
 }
 $cv_data['projects'] = $projects_list;
