@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // ให้เวลากับการเรนเดอร์ QR Code ก่อนทำการดาวน์โหลด (ถ้าต้องการความแม่นยำสูง)
             setTimeout(() => {
                 const options = {
-                    margin: [20, 10, 20, 10], 
+                    margin: [2, 5, 5, 5], 
                     filename: `CV_${data.name_th}_${templateId}.pdf`,
                     image: { type: 'jpeg', quality: 0.98 },
                     html2canvas: { scale: 2 }, 
