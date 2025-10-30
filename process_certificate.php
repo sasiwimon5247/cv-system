@@ -3,121 +3,113 @@ session_start();
 require_once('config.php'); 
 
 // ----------------------------------------------------
-// 1. ตรวจสอบ Token
+// ฟังก์ชันสำหรับแสดงผลลัพธ์และออกจากระบบ
 // ----------------------------------------------------
-$token = $_GET['token'] ?? '';
-$error_message = null;
-$request_info = null;
-$request_id = 0; // กำหนดค่าเริ่มต้นเป็น 0
+function showResult($message, $is_success = false) {
+    // กำหนดสีและหัวข้อตามผลลัพธ์
+    $color = $is_success ? 'bg-green-100 border-green-400 text-green-700' : 'bg-red-100 border-red-400 text-red-700';
+    $title_text = $is_success ? 'สำเร็จ!' : 'เกิดข้อผิดพลาด!';
 
-if (empty($token) || strlen($token) !== 32) {
-    $error_message = "ลิงก์คำรับรองไม่ถูกต้องหรือขาด Token";
-} else {
-    try {
-        // 2. ดึงข้อมูลคำขอและสถานะของนักศึกษา
-        // แก้ไข: ใช้ JOIN personal_info (p) เพื่อดึงชื่อ (full_name)
-        $stmt = $conn->prepare("
-            SELECT 
-                cr.id, cr.user_id, cr.teacher_email, cr.reason, cr.status,
-                p.full_name AS student_full_name, 
-                p.email AS student_email
-            FROM certificate_requests cr
-            JOIN personal_info p ON cr.user_id = p.user_id
-            WHERE cr.request_token = ?
-        ");
-        $stmt->execute([$token]);
-        $request_info = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if (!$request_info) {
-            $error_message = "ไม่พบคำขอใบรับรองนี้ในระบบ หรือลิงก์ถูกยกเลิกแล้ว";
-        } elseif ($request_info['status'] === 'COMPLETED') {
-            $error_message = "คำรับรองนี้ถูกกรอกและบันทึกเรียบร้อยแล้ว";
-        } else {
-            // โหลดข้อมูลสำเร็จ กำหนดค่าตัวแปรสำคัญ
-            $student_name = $request_info['student_full_name'];
-            $request_id = $request_info['id']; // <--- สำคัญ: กำหนดค่า ID ตรงนี้
-            $reason = $request_info['reason'];
-        }
-
-    } catch (PDOException $e) {
-        // ข้อผิดพลาดในการค้นหาในฐานข้อมูล: 1054 Unknown column 'u.fullname' (แก้ไขโดยใช้ 'p.full_name')
-        $error_message = "ข้อผิดพลาดในการค้นหาในฐานข้อมูล: " . $e->getMessage();
-        error_log("DB Error in certificate_form: " . $e->getMessage());
-    }
+    // แสดง HTML เพื่อแจ้งผู้ใช้
+    echo "<!DOCTYPE html>
+    <html lang=\"th\">
+    <head>
+        <meta charset=\"UTF-8\">
+        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+        <title>ผลลัพธ์การบันทึกคำรับรอง</title>
+        <script src=\"https://cdn.tailwindcss.com\"></script>
+        <style> .font-inter { font-family: 'Inter', sans-serif; } </style>
+    </head>
+    <body class=\"bg-gray-100 flex items-center justify-center min-h-screen font-inter\">
+        <div class=\"w-full max-w-xl bg-white p-8 rounded-xl shadow-2xl border-t-4 border-indigo-500 text-center\">
+            <h1 class=\"text-3xl font-extrabold text-indigo-700 mb-6\">
+                ผลลัพธ์การบันทึกคำรับรอง
+            </h1>
+            <div class=\"$color px-4 py-3 rounded-lg relative mb-6\">
+                <strong class=\"font-bold block text-xl mb-2\">$title_text</strong>
+                <span class=\"block text-lg\">" . htmlspecialchars($message) . "</span>
+            </div>
+            <a href=\"#\" onclick=\"window.close()\" class=\"mt-4 inline-block px-6 py-2 bg-gray-500 text-white font-semibold rounded-lg hover:bg-gray-600 transition duration-300\">
+                ปิดหน้านี้
+            </a>
+        </div>
+    </body>
+    </html>";
+    exit;
 }
+
+// ----------------------------------------------------
+// 2. รับค่าจากฟอร์ม (POST)
+// ----------------------------------------------------
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    // ตรวจสอบว่าเป็น POST request หรือไม่
+    showResult("วิธีการส่งข้อมูลไม่ถูกต้อง (ต้องเป็น POST)");
+}
+
+$token = $_POST['token'] ?? '';
+$request_id = $_POST['request_id'] ?? 0;
+$teacher_name = $_POST['teacher_name'] ?? '';
+$certificate_text = $_POST['certificate_text'] ?? '';
+
+// ----------------------------------------------------
+// 3. ตรวจสอบข้อมูลเบื้องต้น
+// ----------------------------------------------------
+if (empty($token) || strlen($token) !== 32) {
+    // ข้อผิดพลาดที่เกิดจากภาพล่าสุด
+    showResult("ลิงก์คำรับรองไม่ถูกต้องหรือขาด Token");
+}
+
+if (empty($request_id) || empty($teacher_name) || empty($certificate_text)) {
+    showResult("ข้อมูลไม่ครบถ้วน: ต้องกรอกชื่อผู้รับรอง, เนื้อหาคำรับรอง, และ ID คำขอต้องมีค่า");
+}
+
+// ----------------------------------------------------
+// 4. ประมวลผลและบันทึกข้อมูลลงฐานข้อมูล
+// ----------------------------------------------------
+try {
+    // 4.1 ตรวจสอบความถูกต้องของ Token และ ID คำขอ (ป้องกันการแอบอ้าง)
+    $stmt = $conn->prepare("
+        SELECT status
+        FROM certificate_requests 
+        WHERE id = ? AND request_token = ?
+    ");
+    $stmt->execute([$request_id, $token]);
+    $request = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$request) {
+        showResult("ไม่พบคำขอใบรับรองที่ตรงกับ ID และ Token ที่ให้มา");
+    }
+
+    if ($request['status'] === 'COMPLETED') {
+        showResult("คำรับรองนี้ถูกกรอกและบันทึกเรียบร้อยแล้วก่อนหน้านี้", true);
+    }
+    
+    // 4.2 อัปเดตคำขอ: บันทึกข้อมูลคำรับรอง, ชื่อผู้รับรอง, เปลี่ยนสถานะ และบันทึกเวลา
+    $stmt = $conn->prepare("
+        UPDATE certificate_requests
+        SET 
+            teacher_name = ?, 
+            certification_text = ?, 
+            status = 'COMPLETED',
+            certified_at = NOW()
+        WHERE id = ? AND request_token = ?
+    ");
+    $stmt->execute([
+        $teacher_name, 
+        $certificate_text, 
+        $request_id, 
+        $token
+    ]);
+
+    if ($stmt->rowCount() > 0) {
+        showResult("บันทึกคำรับรองเสร็จสมบูรณ์แล้ว ขอบคุณมากครับ/ค่ะ", true);
+    } else {
+        showResult("ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง");
+    }
+
+} catch (PDOException $e) {
+    showResult("ข้อผิดพลาดในการบันทึกฐานข้อมูล: " . $e->getMessage());
+    error_log("DB Error in process_certificate: " . $e->getMessage());
+}
+
 ?>
-<!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แบบฟอร์มกรอกคำรับรอง</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .font-inter { font-family: 'Inter', sans-serif; }
-    </style>
-</head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen font-inter">
-
-    <div class="w-full max-w-3xl bg-white p-8 rounded-xl shadow-2xl border-t-4 border-indigo-500">
-        <h1 class="text-3xl font-extrabold text-center text-indigo-700 mb-8">
-            แบบฟอร์มกรอกคำรับรอง (Recommendation Letter)
-        </h1>
-
-        <?php if (isset($error_message)): ?>
-            <!-- แสดงข้อความ Error -->
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative mb-6">
-                <strong class="font-bold">เกิดข้อผิดพลาด:</strong>
-                <span class="block sm:inline"><?php echo htmlspecialchars($error_message); ?></span>
-            </div>
-        <?php else: ?>
-            <!-- แสดงฟอร์มเมื่อไม่มีข้อผิดพลาดและสถานะเป็น PENDING -->
-            <div class="bg-indigo-50 border-l-4 border-indigo-500 text-indigo-700 p-4 rounded-md mb-6 shadow-sm">
-                <p class="font-bold text-lg mb-1">คำขอจากนักศึกษา:</p>
-                <p>นักศึกษา: <span class="font-semibold text-gray-800"><?php echo htmlspecialchars($student_name ?? 'N/A'); ?></span></p>
-                <p>เหตุผลในการขอ: <span class="text-gray-600"><?php echo nl2br(htmlspecialchars($reason ?? 'N/A')); ?></span></p>
-            </div>
-
-            <form action="process_certificate.php" method="POST" class="space-y-6">
-                
-                <!-- ข้อมูลสำคัญที่ต้องส่งไปประมวลผล (ซ่อนไว้) -->
-                <!-- *** สำคัญ: ตัวแปร $request_id ถูกกำหนดค่าแล้วใน PHP ด้านบน *** -->
-                <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
-                <input type="hidden" name="request_id" value="<?php echo htmlspecialchars($request_id); ?>"> 
-
-                <!-- ส่วนกรอกข้อมูลคำรับรอง -->
-                <div>
-                    <label for="certificate_text" class="block text-sm font-medium text-gray-700 mb-2">
-                        เนื้อหาคำรับรอง (Recommendation Content):
-                    </label>
-                    <textarea 
-                        id="certificate_text" 
-                        name="certificate_text" 
-                        rows="12" 
-                        required 
-                        class="w-full p-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 shadow-inner resize-none"
-                        placeholder="กรุณากรอกรายละเอียดคำรับรองที่นี่..."
-                    ></textarea>
-                </div>
-                
-                <!-- ปุ่มบันทึก -->
-                <div class="flex justify-center pt-6">
-                    <button 
-                        type="submit" 
-                        class="w-full sm:w-auto px-8 py-3 bg-indigo-600 text-white font-bold text-lg rounded-lg shadow-xl hover:bg-indigo-700 transition duration-300 ease-in-out transform hover:scale-[1.02]"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-2" viewBox="0 0 20 20" fill="currentColor">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v5a1 1 0 102 0V7z" clip-rule="evenodd" />
-                          <path d="M7.707 9.293a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414l3-3a1 1 0 011.414 0zM12.293 9.293a1 1 0 00-1.414 0l-3 3a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" />
-                        </svg>
-                        บันทึกคำรับรอง
-                    </button>
-                </div>
-
-            </form>
-
-        <?php endif; ?>
-
-    </div>
-</body>
-</html>
