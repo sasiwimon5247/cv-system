@@ -80,10 +80,10 @@ $cv_data = [
     'edu_major' => fetchDataSingle($conn, 'education_info', 'major'),
     'edu_graduation_year' => fetchDataSingle($conn, 'education_info', 'grad_year'),
     'edu_university_gpa' => fetchDataSingle($conn, 'education_info', 'uni_gpa'),
-    
-    // แทนที่ 'reference' ด้วยสองคีย์ใหม่
+    'activities' => fetchDataSingle($conn, 'activities_info', 'activity'),
+    'projects' => fetchDataSingle($conn, 'activities_info', 'project'),
     'reference_text' => $recommendation_details['certificate_text'] ?? '',
-    'reference_teacher' => $recommendation_details['teacher_name'] ?? '' // สมมติว่ามีคอลัมน์ teacher_name ในตาราง
+    'reference_teacher' => $recommendation_details['teacher_name'] ?? '' 
 ];
 
 // ดึงข้อมูลรายการหลายรายการ
