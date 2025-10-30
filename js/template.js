@@ -83,12 +83,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const projectsSectionHtml = data.projects.length > 0 ? `
             <h4>โปรเจกต์</h4>
-            <ul class="project-activity-list">${projectsListHtml}</ul>
+            <p>${projectsListHtml}</p>
         ` : '';
 
         const activitiesSectionHtml = data.activities.length > 0 ? `
             <h4>กิจกรรม</h4>
-            <ul class="project-activity-list">${activitiesListHtml}</ul>
+            <p>${activitiesListHtml}</p>
         ` : '';
 
         const educationContent = `
