@@ -22,6 +22,8 @@ if (empty($token) || strlen($token) !== 32) {
                 u.id as user_id, 
                 p.full_name, 
                 e.stu_id 
+                e.faculty, 
+                e.major
             FROM certificate_requests cr
             JOIN users u ON cr.user_id = u.id
             JOIN personal_info p ON u.id = p.user_id
