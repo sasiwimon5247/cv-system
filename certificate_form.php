@@ -12,13 +12,13 @@ if (empty($token) || strlen($token) !== 32) {
 } else {
     try {
         // 1. ตรวจสอบ Token และดึงข้อมูลคำขอ
-        // ดึงชื่อเต็มจาก personal_info (p.full_name) และรหัสนิสิตจาก education_info (e.student_id)
+        // ดึงชื่อเต็มจาก personal_info (p.full_name) และรหัสนิสิตจาก education_info (e.stu_id)
         $stmt_request = $conn->prepare("
             SELECT 
                 cr.id as request_id, cr.status, cr.reason, 
                 u.id as user_id, 
                 p.full_name, 
-                e.student_id 
+                e.stu_id 
             FROM certificate_requests cr
             JOIN users u ON cr.user_id = u.id
             JOIN personal_info p ON u.id = p.user_id
@@ -109,7 +109,7 @@ if (empty($token) || strlen($token) !== 32) {
             <!-- ข้อมูลนักศึกษา -->
             <div class="info-box">
                 <p class="mb-1"><strong>คำขอจาก:</strong> <?= htmlspecialchars($student_data['full_name']) ?></p>
-                <p class="mb-1"><strong>รหัสนิสิต:</strong> <?= htmlspecialchars($student_data['student_id']) ?></p>
+                <p class="mb-1"><strong>รหัสนิสิต:</strong> <?= htmlspecialchars($student_data['stu_id']) ?></p>
                 <p class="mb-0"><strong>เหตุผลที่ต้องการเอกสาร:</strong> <?= nl2br(htmlspecialchars($student_data['reason'])) ?></p>
             </div>
             
