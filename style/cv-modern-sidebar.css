@@ -242,3 +242,77 @@
         page-break-inside: avoid;
     }
 }
+@media (max-width: 600px) {
+    /* 1. การปรับขนาดหลักของ CV Container */
+    .modal .cv-red-theme {
+        width: 100% !important; /* ให้เต็มความกว้างหน้าจอ */
+        min-height: auto; /* ไม่จำเป็นต้องรักษาสัดส่วน A4 */
+        margin: 0; /* ชิดขอบบนและล่าง */
+        padding: 20px; /* ลด Padding โดยรวม */
+        border: none; /* ลบขอบออกเพื่อความเรียบง่าย */
+        box-shadow: none;
+    }
+
+    /* 2. การปรับขนาดตัวอักษรและ Header */
+    .cv-red-theme {
+        font-size: 10pt; /* ลดขนาดฟอนต์โดยรวม */
+    }
+    
+    .cv-red-theme .header {
+        padding-bottom: 8px;
+        margin-bottom: 10px;
+    }
+    .cv-red-theme .header h1 {
+        font-size: 1.5em; /* ลดขนาดชื่อ */
+    }
+    .cv-red-theme .header h2 {
+        font-size: 1em; /* ลดขนาดตำแหน่ง */
+    }
+
+    /* 3. การจัดการรูปภาพ Profile */
+    .cv-red-theme .profile-photo {
+        width: 80px;
+        height: 80px;
+        margin: 5px auto 8px; /* เล็กลงและจัดระยะห่าง */
+    }
+
+    /* 4. การจัดการ QR Code */
+    .qr-code-box {
+        /* ย้าย QR Code ไปอยู่ด้านล่าง Header แทนที่จะลอยอยู่ข้างชื่อ */
+        position: static; 
+        margin-top: 10px;
+        width: 100px; 
+        height: auto; 
+        float: right; /* จัดให้อยู่ด้านขวาของพื้นที่ */
+    }
+    .cv-red-theme .header {
+        /* เพื่อให้ QR Code ไม่ชนกับชื่อ ให้จัดข้อความให้ชิดซ้าย */
+        text-align: left;
+    }
+
+    /* 5. จัดการ Skills Layout (ให้แสดงเป็นแถวเดียว (Single Column)) */
+    .cv-red-theme .cv-prof-skills {
+        flex-direction: column; /* เปลี่ยนจากแนวนอนเป็นแนวตั้ง */
+        gap: 0; /* ลบระยะห่างระหว่างคอลัมน์ออก */
+    }
+    .cv-red-theme .cv-skill-card {
+        flex: auto; /* ไม่ต้องแบ่งพื้นที่ 50/50 อีกต่อไป */
+        min-height: auto; /* ไม่ต้องกำหนด min-height */
+        margin-bottom: 10px; /* เพิ่มระยะห่างระหว่าง Skill Card */
+    }
+
+    /* 6. การปรับขนาดส่วนต่างๆ ทั่วไป */
+    .cv-red-theme h4 {
+        margin-top: 8px;
+        font-size: 0.9em;
+    }
+    .cv-red-theme p, .detail-item {
+        font-size: 0.85em;
+        line-height: 1.4;
+    }
+
+    /* 7. Fix สำหรับการแสดงผลที่ถูกซ่อนไป */
+    .modal {
+        padding: 20px 10px;
+    }
+}

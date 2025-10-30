@@ -224,3 +224,100 @@ body.modal-open {
     }
 }
 
+/* ==================================================== */
+/* --- MOBILE RESPONSIVENESS (Max-width: 600px) --- */
+/* ==================================================== */
+
+@media (max-width: 600px) {
+    /* 1. การปรับขนาดหลักของ CV Container ใน Modal */
+    .modal .cv-pink-purple-theme {
+        width: 100% !important; /* ให้เต็มความกว้างหน้าจอ */
+        min-height: auto; /* ไม่ต้องยึดสัดส่วน A4 */
+        margin: 0; 
+        padding: 20px 15px; /* ลด Padding โดยรวม */
+        border: none; 
+        box-shadow: none;
+    }
+
+    /* 2. การปรับขนาดตัวอักษรและ Header */
+    .cv-pink-purple-theme {
+        font-size: 10pt; /* ลดขนาดฟอนต์โดยรวม */
+    }
+    
+    .cv-pink-purple-theme .header {
+        text-align: left; /* จัดหัวข้อชิดซ้าย */
+        padding-bottom: 8px;
+        margin-bottom: 10px;
+    }
+    .cv-pink-purple-theme .header h1 {
+        font-size: 1.4em; /* ลดขนาดชื่อ */
+    }
+    .cv-pink-purple-theme .header h2 {
+        font-size: 1.1em; /* ลดขนาดตำแหน่ง */
+    }
+
+    /* 3. การจัดการรูปภาพ Profile */
+    .cv-pink-purple-theme .profile-photo {
+        width: 80px;
+        height: 80px;
+        margin: 0 0 10px 0; /* ย้ายไปชิดซ้ายเพื่อความเข้ากันกับ Header */
+    }
+    
+    /* ปรับ Layout Header ให้รูปภาพอยู่ข้างชื่อ */
+    .cv-pink-purple-theme .header {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        text-align: left;
+        gap: 15px;
+        border-bottom: none; /* ลบเส้นแบ่ง */
+    }
+    .cv-pink-purple-theme .header hgroup {
+        /* Grouping H1 และ H2 */
+        flex-grow: 1;
+        margin-top: 5px;
+    }
+    .cv-pink-purple-theme .profile-photo {
+        margin: 0;
+        flex-shrink: 0;
+    }
+
+    /* 4. จัดการ Skills Layout (ให้แสดงเป็นแถวเดียว) */
+    .cv-pink-purple-theme .cv-prof-skills {
+        flex-direction: column; /* เปลี่ยนจากแนวนอน (row) เป็นแนวตั้ง (column) */
+        gap: 15px; /* เพิ่มระยะห่างระหว่าง Skill Card */
+    }
+    .cv-pink-purple-theme .cv-skill-card {
+        flex: auto; /* ไม่ต้องแบ่งพื้นที่ 50/50 อีกต่อไป */
+        min-height: auto;
+    }
+
+    /* 5. การจัดการ Contact Info (ให้จัดเป็นแนวตั้ง) */
+    .cv-pink-purple-theme .contact-info-item {
+        /* ลบ justify-content: center; */
+        justify-content: flex-start;
+    }
+    .cv-pink-purple-theme .icon {
+        font-size: 1em;
+        width: 15px;
+    }
+
+    /* 6. การจัดการ QR Code (ซ่อนไปเลย หรือจัดให้อยู่ด้านล่าง) */
+    .qr-code-box {
+        display: none; /* ซ่อน QR code บนมือถือเพื่อประหยัดพื้นที่ */
+    }
+    
+    /* 7. ปรับขนาดส่วนอื่นๆ */
+    .cv-pink-purple-theme h4 {
+        margin-top: 10px;
+        font-size: 0.9em;
+    }
+    .cv-pink-purple-theme p, .detail-item {
+        font-size: 0.9em;
+    }
+    
+    /* 8. Fix Modal Padding */
+    .modal {
+        padding: 10px 5px;
+    }
+}

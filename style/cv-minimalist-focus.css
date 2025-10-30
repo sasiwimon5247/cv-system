@@ -248,3 +248,98 @@ body.modal-open {
         page-break-inside: avoid;
     }
 }
+/* ==================================================== */
+/* --- MOBILE RESPONSIVENESS (Max-width: 600px) --- */
+/* ==================================================== */
+
+@media (max-width: 600px) {
+    /* 1. การปรับขนาดหลักของ CV Container ใน Modal */
+    .modal .cv-minimalist-focus {
+        width: 100% !important; /* ให้เต็มความกว้างหน้าจอ */
+        min-height: auto; /* ไม่ต้องยึดสัดส่วน A4 */
+        margin: 0; 
+        padding: 20px 15px; /* ลด Padding โดยรวม */
+        border: none; 
+        border-radius: 0;
+        box-shadow: none;
+        overflow: visible; /* ให้เนื้อหาสามารถไหลออกได้ตามปกติ */
+    }
+
+    /* 2. การปรับขนาดตัวอักษรและ Header */
+    .cv-minimalist-focus {
+        font-size: 10pt; /* ลดขนาดฟอนต์โดยรวม */
+    }
+    
+    /* จัด Layout Header ให้รูปภาพอยู่ข้างชื่อ */
+    .cv-minimalist-focus .header {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        text-align: left;
+        gap: 15px;
+        border-bottom: none; /* ลบเส้นแบ่ง */
+        padding-bottom: 0;
+        margin-bottom: 15px;
+    }
+    
+    /* Grouping H1 และ H2 */
+    .cv-minimalist-focus .header hgroup { 
+        flex-grow: 1;
+        margin-top: 5px;
+    }
+    .cv-minimalist-focus .header h1 {
+        font-size: 1.4em; /* ลดขนาดชื่อ */
+    }
+    .cv-minimalist-focus .header h2 {
+        font-size: 1.1em; /* ลดขนาดตำแหน่ง */
+        color: var(--mf-color-accent);
+    }
+    
+    /* 3. การจัดการรูปภาพ Profile */
+    .cv-minimalist-focus .profile-photo {
+        width: 80px;
+        height: 80px;
+        margin: 0; /* จัดให้อยู่ใน Flexbox */
+        flex-shrink: 0;
+        border: 2px solid var(--mf-color-primary); /* ใช้สีหลัก */
+    }
+    
+    /* 4. การจัดการ Contact Info (ให้จัดเป็นแนวตั้ง/ชิดซ้าย) */
+    .contact-info-item {
+        justify-content: flex-start; /* จัดชิดซ้าย */
+        margin-bottom: 5px;
+    }
+
+    /* 5. จัดการ Skills Layout (ให้แสดงเป็นแถวเดียว) */
+    .cv-prof-skills {
+        flex-direction: column; /* เปลี่ยนจากแนวนอน (row) เป็นแนวตั้ง (column) */
+        gap: 15px; 
+    }
+    .cv-skill-card {
+        flex: auto; /* ไม่ต้องแบ่งพื้นที่ 50/50 อีกต่อไป */
+        min-height: auto;
+    }
+    .cv-skill-tag {
+        font-size: 0.8em; /* ลดขนาด Tag เล็กน้อย */
+        padding: 3px 8px;
+    }
+
+    /* 6. การจัดการ QR Code (ซ่อนบนมือถือ) */
+    .qr-code-box {
+        display: none; /* ซ่อน QR code บนมือถือเพื่อประหยัดพื้นที่ */
+    }
+    
+    /* 7. ปรับขนาดส่วนอื่นๆ */
+    .cv-minimalist-focus h4 {
+        margin-top: 15px; /* เพิ่มระยะห่างด้านบน */
+        font-size: 1em;
+    }
+    .cv-minimalist-focus p, .detail-item {
+        font-size: 0.9em;
+    }
+    
+    /* 8. Fix Modal Padding */
+    .modal {
+        padding: 10px 5px;
+    }
+}
