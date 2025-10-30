@@ -1,125 +1,161 @@
 <?php
-session_start();
+// สมมติว่าไฟล์ config.php มีการเชื่อมต่อ PDO ที่ชื่อว่า $conn
 require_once('config.php'); 
 
-// ----------------------------------------------------
-// ฟังก์ชันสำหรับแสดงผลลัพธ์และออกจากระบบ
-// ----------------------------------------------------
-function showResult($message, $is_success = false) {
-    // กำหนดสีและหัวข้อตามผลลัพธ์
-    $color = $is_success ? 'bg-green-100 border-green-400 text-green-700' : 'bg-red-100 border-red-400 text-red-700';
-    $title_text = $is_success ? 'สำเร็จ!' : 'เกิดข้อผิดพลาด!';
+$token = $_GET['token'] ?? '';
+$error_message = "";
+$student_data = null;
+$activities_data = [];
 
-    // แสดง HTML เพื่อแจ้งผู้ใช้
-    echo "<!DOCTYPE html>
-    <html lang=\"th\">
-    <head>
-        <meta charset=\"UTF-8\">
-        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-        <title>ผลลัพธ์การบันทึกคำรับรอง</title>
-        <script src=\"https://cdn.tailwindcss.com\"></script>
-        <style> .font-inter { font-family: 'Inter', sans-serif; } </style>
-    </head>
-    <body class=\"bg-gray-100 flex items-center justify-center min-h-screen font-inter\">
-        <div class=\"w-full max-w-xl bg-white p-8 rounded-xl shadow-2xl border-t-4 border-indigo-500 text-center\">
-            <h1 class=\"text-3xl font-extrabold text-center text-indigo-700 mb-6\">
-                ผลลัพธ์การบันทึกคำรับรอง
-            </h1>
-            <div class=\"$color px-4 py-3 rounded-lg relative mb-6\">
-                <strong class=\"font-bold block text-xl mb-2\">$title_text</strong>
-                <span class=\"block text-lg\">" . htmlspecialchars($message) . "</span>
-            </div>
-            <!-- ปุ่ม ปิดหน้านี้ สามารถใช้ history.back() หรือ window.close() -->
-            <a href=\"#\" onclick=\"window.history.back()\" class=\"mt-4 inline-block px-6 py-2 bg-gray-500 text-white font-semibold rounded-lg hover:bg-gray-600 transition duration-300\">
-                ย้อนกลับไปหน้าฟอร์ม
-            </a>
-        </div>
-    </body>
-    </html>";
-    exit;
-}
-
-// ----------------------------------------------------
-// 2. รับค่าจากฟอร์ม (POST)
-// ----------------------------------------------------
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    showResult("วิธีการส่งข้อมูลไม่ถูกต้อง (ต้องเป็น POST)");
-}
-
-// แก้ไข: เปลี่ยนจาก $_POST['token'] เป็น $_POST['request_token'] เพื่อให้ตรงกับ certificate_form.php
-$token = $_POST['request_token'] ?? '';
-$request_id = $_POST['request_id'] ?? 0;
-$teacher_name = $_POST['teacher_name'] ?? '';
-// แก้ไข: เปลี่ยนจาก $_POST['certificate_text'] เป็น $_POST['recommendation_content']
-$certificate_text = $_POST['recommendation_content'] ?? '';
-
-// ----------------------------------------------------
-// *** DEBUGGING BLOCK: แสดงค่าที่รับมาเพื่อยืนยันว่า Token ถูกส่งมาหรือไม่ ***
-// หากต้องการตรวจสอบ ให้ลบ // ออกจากบรรทัดด้านล่าง และบันทึก
-// บรรทัดนี้จะถูกลบออกเมื่อการแก้ไขสำเร็จ 
-// showResult("DEBUG - Token: " . $token . ", ID: " . $request_id . ", Name: " . $teacher_name, true);
-// ----------------------------------------------------
-
-
-// ----------------------------------------------------
-// 3. ตรวจสอบข้อมูลเบื้องต้น
-// ----------------------------------------------------
+// ------------------------------------------------------------------------
+// ส่วนที่ 1: ตรวจสอบ Token และดึงข้อมูล
+// ------------------------------------------------------------------------
 if (empty($token) || strlen($token) !== 32) {
-    // โค้ดจะมาถึงตรงนี้ ถ้า $token เป็นค่าว่างหรือความยาวไม่ตรง (ยืนยันว่าเกิดจาก input ไม่ถูกส่งมา)
-    showResult("ลิงก์คำรับรองไม่ถูกต้องหรือขาด Token"); 
-}
+    $error_message = "ลิงก์คำรับรองไม่ถูกต้องหรือขาด Token";
+} else {
+    try {
+        // 1. ตรวจสอบ Token และดึงข้อมูลคำขอ
+        // ดึงชื่อเต็มจาก personal_info (p.full_name) และรหัสนิสิตจาก education_info (e.stu_id)
+        $stmt_request = $conn->prepare("
+            SELECT 
+                cr.id as request_id, cr.status, cr.reason, 
+                u.id as user_id, 
+                p.full_name, 
+                e.stu_id 
+            FROM certificate_requests cr
+            JOIN users u ON cr.user_id = u.id
+            JOIN personal_info p ON u.id = p.user_id
+            JOIN education_info e ON u.id = e.user_id
+            WHERE cr.request_token = ? AND cr.status = 'PENDING'
+        ");
+        $stmt_request->execute([$token]);
+        $request_info = $stmt_request->fetch(PDO::FETCH_ASSOC);
 
-if (empty($request_id) || empty($teacher_name) || empty($certificate_text)) {
-    showResult("ข้อมูลไม่ครบถ้วน: ต้องกรอกชื่อผู้รับรอง, เนื้อหาคำรับรอง, และ ID คำขอต้องมีค่า");
-}
+        if (!$request_info) {
+            // ตรวจสอบสถานะถ้าไม่ใช่ PENDING
+            $stmt_status = $conn->prepare("SELECT status FROM certificate_requests WHERE request_token = ?");
+            $stmt_status->execute([$token]);
+            $status_check = $stmt_status->fetch(PDO::FETCH_ASSOC);
+            
+            if ($status_check && $status_check['status'] === 'COMPLETED') {
+                $error_message = "คำรับรองนี้ถูกกรอกและส่งไปแล้ว";
+            } else {
+                $error_message = "ลิงก์คำรับรองไม่ถูกต้องหรือไม่พบคำขอที่รอการดำเนินการ";
+            }
+        } else {
+            // หากพบและสถานะเป็น PENDING
+            $student_data = $request_info;
+            $user_id = $student_data['user_id'];
 
-// ----------------------------------------------------
-// 4. ประมวลผลและบันทึกข้อมูลลงฐานข้อมูล
-// ----------------------------------------------------
-try {
-    // 4.1 ตรวจสอบความถูกต้องของ Token และ ID คำขอ
-    $stmt = $conn->prepare("
-        SELECT status
-        FROM certificate_requests 
-        WHERE id = ? AND request_token = ?
-    ");
-    $stmt->execute([$request_id, $token]);
-    $request = $stmt->fetch(PDO::FETCH_ASSOC);
+            // 2. ดึงข้อมูลกิจกรรม/โปรเจค ของนักศึกษา
+            $stmt_activities = $conn->prepare("SELECT activity, project FROM activities_info WHERE user_id = ?");
+            $stmt_activities->execute([$user_id]);
+            $activities_data = $stmt_activities->fetchAll(PDO::FETCH_ASSOC);
+        }
 
-    if (!$request) {
-        showResult("ไม่พบคำขอใบรับรองที่ตรงกับ ID และ Token ที่ให้มาในฐานข้อมูล");
+    } catch (PDOException $e) {
+        // บันทึก Error ที่เกิดจากฐานข้อมูล
+        error_log("Database Error in certificate_form: " . $e->getMessage());
+        $error_message = "เกิดข้อผิดพลาดในการดึงข้อมูล: " . htmlspecialchars($e->getMessage());
     }
-
-    if ($request['status'] === 'COMPLETED') {
-        showResult("คำรับรองนี้ถูกกรอกและบันทึกเรียบร้อยแล้วก่อนหน้านี้", true);
-    }
-    
-    // 4.2 อัปเดตคำขอ: บันทึกข้อมูลคำรับรอง, ชื่อผู้รับรอง, เปลี่ยนสถานะ
-    $stmt = $conn->prepare("
-        UPDATE certificate_requests
-        SET 
-            teacher_name = ?, 
-            certification_text = ?, 
-            status = 'COMPLETED',
-            certified_at = NOW()
-        WHERE id = ? AND request_token = ?
-    ");
-    $stmt->execute([
-        $teacher_name, 
-        $certificate_text, 
-        $request_id, 
-        $token
-    ]);
-
-    if ($stmt->rowCount() > 0) {
-        showResult("บันทึกคำรับรองเสร็จสมบูรณ์แล้ว", true);
-    } else {
-        // อาจเกิดขึ้นเมื่อไม่มีแถวใดถูกอัปเดต (เช่น Token ถูกอัปเดตไปแล้วหรือ ID ไม่ตรง)
-        showResult("ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง");
-    }
-
-} catch (PDOException $e) {
-    showResult("ข้อผิดพลาดในการบันทึกฐานข้อมูล: " . $e->getMessage());
-    error_log("DB Error in process_certificate: " . $e->getMessage());
 }
 ?>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบฟอร์มกรอกคำรับรอง</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #f4f7f6; }
+        .form-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        .section-header {
+            color: #3f51b5;
+            border-bottom: 2px solid #3f51b5;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .info-box {
+            background-color: #e3f2fd;
+            border-left: 5px solid #2196f3;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+        .activity-item {
+            border: 1px solid #cfd8dc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2 class="section-header">แบบฟอร์มกรอกคำรับรอง (Recommendation Letter)</h2>
+
+        <?php if ($error_message): ?>
+            <!-- แสดงข้อความ Error -->
+            <div class="alert alert-danger p-4" role="alert">
+                <?= htmlspecialchars($error_message) ?>
+            </div>
+        <?php elseif ($student_data): ?>
+            <!-- ข้อมูลนักศึกษา -->
+            <div class="info-box">
+                <p class="mb-1"><strong>คำขอจาก:</strong> <?= htmlspecialchars($student_data['full_name']) ?></p>
+                <p class="mb-1"><strong>รหัสนิสิต:</strong> <?= htmlspecialchars($student_data['stu_id']) ?></p>
+                <p class="mb-0"><strong>เหตุผลที่ต้องการเอกสาร:</strong> <?= nl2br(htmlspecialchars($student_data['reason'])) ?></p>
+            </div>
+            
+            <!-- แสดงกิจกรรมและโปรเจค -->
+            <?php if (!empty($activities_data)): ?>
+                <h5 class="section-header">กิจกรรม/โปรเจคที่เกี่ยวข้อง (จาก CV นักศึกษา)</h5>
+                <?php foreach ($activities_data as $activity_item): ?>
+                    <div class="activity-item">
+                        <p class="mb-1"><strong>กิจกรรม:</strong> <?= htmlspecialchars($activity_item['activity']) ?: '-' ?></p>
+                        <p class="mb-0"><strong>โปรเจค:</strong> <?= htmlspecialchars($activity_item['project']) ?: '-' ?></p>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            
+            <hr class="my-4">
+
+            <!-- ฟอร์มกรอกคำรับรอง -->
+            <h4 class="text-success mb-3">ส่วนสำหรับอาจารย์/ผู้รับรอง</h4>
+            <!-- action="process_certificate.php" จะส่งข้อมูลไปที่ไฟล์ประมวลผล -->
+            <form action="process_certificate.php" method="post"> 
+                <!-- ชื่อฟิลด์ request_token และ request_id ตรงกับที่ process_certificate.php ต้องการ -->
+                <input type="hidden" name="request_token" value="<?= htmlspecialchars($token) ?>"> 
+                <input type="hidden" name="request_id" value="<?= htmlspecialchars($student_data['request_id']) ?>">
+                
+                <!-- ฟิลด์สำหรับชื่ออาจารย์ -->
+                <div class="mb-3">
+                    <label for="teacher_name" class="form-label">ชื่อ-นามสกุลอาจารย์/ผู้รับรอง</label>
+                    <input type="text" class="form-control" id="teacher_name" name="teacher_name" required>
+                </div>
+                
+                <!-- ชื่อฟิลด์ recommendation_content ตรงกับที่ process_certificate.php ต้องการ -->
+                <div class="mb-3">
+                    <label for="recommendation_content" class="form-label">เนื้อหาคำรับรอง (Recommendation Letter)</label>
+                    <textarea class="form-control" id="recommendation_content" name="recommendation_content" rows="10" required placeholder="กรุณากรอกคำรับรองอย่างละเอียด..."></textarea>
+                </div>
+                
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-success btn-lg">บันทึกและส่งคำรับรอง</button>
+                </div>
+            </form>
+
+        <?php endif; ?>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

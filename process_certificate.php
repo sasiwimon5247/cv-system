@@ -43,18 +43,22 @@ function showResult($message, $is_success = false) {
 // 2. รับค่าจากฟอร์ม (POST)
 // ----------------------------------------------------
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    showResult("วิธีการส่งข้อมูลไม่ถูกต้อง (ต้องเป็น POST)");
+    // แก้ไขข้อความเพื่อบอกให้ชัดเจนว่าเกิดจาก GET Request
+    showResult("เกิดข้อผิดพลาด: ต้องส่งข้อมูลผ่านฟอร์มเท่านั้น (POST Request)", false);
 }
 
-$token = $_POST['token'] ?? '';
+// แก้ไข: เปลี่ยนจาก $_POST['token'] เป็น $_POST['request_token'] เพื่อให้ตรงกับ certificate_form.php
+$token = $_POST['request_token'] ?? '';
 $request_id = $_POST['request_id'] ?? 0;
 $teacher_name = $_POST['teacher_name'] ?? '';
-$certificate_text = $_POST['certificate_text'] ?? '';
+// แก้ไข: เปลี่ยนจาก $_POST['certificate_text'] เป็น $_POST['recommendation_content']
+$certificate_text = $_POST['recommendation_content'] ?? '';
 
 // ----------------------------------------------------
 // *** DEBUGGING BLOCK: แสดงค่าที่รับมาเพื่อยืนยันว่า Token ถูกส่งมาหรือไม่ ***
 // หากต้องการตรวจสอบ ให้ลบ // ออกจากบรรทัดด้านล่าง และบันทึก
-// showResult("DEBUG - Token: " . $token . ", ID: " . $request_id . ", Name: " . $teacher_name, true);
+// บรรทัดนี้จะถูกลบออกเมื่อการแก้ไขสำเร็จ 
+// showResult("DEBUG - ข้อมูลที่ได้รับ:<br>Token: " . $token . "<br>ID: " . $request_id . "<br>Name: " . $teacher_name . "<br>Content Length: " . strlen($certificate_text) . " ตัวอักษร", true);
 // ----------------------------------------------------
 
 
