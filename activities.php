@@ -105,17 +105,16 @@ $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
 
         <button type="button" id="addActivities" class="btn-add">+ เพิ่มกิจกรรม/โปรเจค</button>
-        <button type="button" id="requestCertificate" class="btn-certificate" data-bs-toggle="modal" data-bs-target="#certificateModal">
-            ขอใบรับรอง
-        </button>
 
         <div class="d-flex justify-content-between mt-3">
             <button type="submit" class="btn-save">บันทึกข้อมูล</button>
             <a href="fill_out.php" class="btn-back">ย้อนกลับ</a>
         </div>
     </form>
+    <div class="text-end">
+      <button type="button" id="requestCertificate" class="btn-certificate" data-bs-toggle="modal" data-bs-target="#certificateModal">ขอใบรับรอง</button>
+    </div>
 </div>
-
 <!-- Modal ขอใบรับรอง (อยู่นอกฟอร์มหลัก) -->
 <div class="modal fade" id="certificateModal" tabindex="-1" aria-labelledby="certificateModalLabel" aria-hidden="true">
   <div class="modal-dialog">
