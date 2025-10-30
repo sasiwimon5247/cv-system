@@ -75,6 +75,7 @@ main {
 
 /* ===== ปุ่มขอใบรับรอง ===== */
 .btn-certificate {
+  margin-top: 20px;
   background-color: #094f9b;
   border: none;
   border-radius: 12px;
@@ -85,7 +86,6 @@ main {
 }
 
 .btn-certificate:hover {
-  margin-top: 30px;
   background-color: #003f82;
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 63, 130, 0.3);
