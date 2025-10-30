@@ -53,8 +53,8 @@ try {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // กรองข้อมูลที่รับมาจากฟอร์ม (เพื่อความปลอดภัย)
-    $fullname       = htmlspecialchars($_POST['fullname'] ?? '');
-    $student_id     = htmlspecialchars($_POST['student_id'] ?? '');
+    $fullname       = htmlspecialchars($_POST['full_name'] ?? '');
+    $student_id     = htmlspecialchars($_POST['stu_id'] ?? '');
     $reason         = htmlspecialchars($_POST['reason'] ?? '');
     $teacher_name   = htmlspecialchars($_POST['teacher_name'] ?? '');
     // กรองอีเมล
