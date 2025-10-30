@@ -299,8 +299,9 @@ body.modal-open {
         text-align: left;
         gap: 15px;
         border-bottom: none; /* ลบเส้นแบ่ง */
-        padding-bottom: 0;
-        margin-bottom: 15px;
+        padding-bottom: 3px;
+        padding-top: 5mm;
+        margin-bottom: 5px;
     }
     
     /* Grouping H1 และ H2 */

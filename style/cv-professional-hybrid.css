@@ -277,8 +277,9 @@ body.modal-open {
         text-align: left;
         gap: 15px;
         border-bottom: none; 
-        padding-bottom: 8px;
-        margin-bottom: 10px;
+        padding-bottom: 3px;
+        padding-top: 5mm;
+        margin-bottom: 5px;
     }
     .cv-pink-purple-theme .header hgroup {
         flex-grow: 1;
