@@ -46,7 +46,7 @@
     color: var(--mf-color-text);
     display: flex;
     flex-direction: column;
-    font-size: 9.5pt; 
+    font-size: 10.5pt;
     box-sizing: border-box;
 }
 
@@ -57,11 +57,13 @@
     margin-bottom: 10px;
     position: relative;
 }
+
 .cv-minimalist-focus .header h1 {
     color: var(--mf-color-primary);
     font-size: 1.8em;
     margin: 0;
 }
+
 .cv-minimalist-focus .header h2 {
     color: var(--mf-color-accent);
     font-size: 1.2em;
@@ -81,7 +83,7 @@
 .cv-minimalist-focus h4 {
     color: var(--mf-color-primary);
     border-bottom: 1px solid var(--mf-color-border);
-    margin-top: 8px;
+    margin-top: 15px;
     padding-bottom: 3px;
     font-size: 1em;
     text-transform: uppercase;
@@ -89,14 +91,16 @@
 
 .cv-minimalist-focus p,
 .detail-item {
-    margin: 1px 0;
-    font-size: 0.78em; 
-    line-height: 1.1; 
+    margin: 4px 0;
+    font-size: 0.9em;
+    line-height: 1.5;
 }
+
 .detail-item strong {
-    font-weight: 600;
+    font-weight: 700;
     display: block;
     color: var(--mf-color-accent);
+    margin-top: 5px;
 }
 
 .cv-prof-skills {
@@ -105,19 +109,23 @@
     width: 100%;
     gap: 20px;
     margin-top: 10px;
+    margin-bottom: 0;
 }
+
 .cv-skill-card {
     flex: 1;
-    min-height: 180px;
+    min-height: auto;
     display: flex;
     flex-direction: column;
 }
+
 .cv-skill-card h5 {
     font-size: 1em;
     font-weight: 600;
     margin-bottom: 8px;
     text-transform: uppercase;
 }
+
 .cv-skill-tag {
     background-color: #EFEFEF;
     color: #212121;
@@ -128,6 +136,7 @@
     font-weight: 500;
     transition: background 0.2s;
 }
+
 .cv-skill-tag:hover {
     background-color: #D6D6D6;
 }
@@ -138,6 +147,7 @@
     justify-content: center;
     margin-bottom: 5px;
 }
+
 .icon {
     color: var(--mf-color-primary);
     margin-right: 10px;
@@ -145,10 +155,12 @@
     width: 18px;
     text-align: center;
 }
+
 .cv-minimalist-focus a {
     color: var(--mf-color-primary);
     text-decoration: none;
 }
+
 .cv-minimalist-focus a:hover {
     text-decoration: underline;
 }
@@ -158,22 +170,22 @@ body.modal-open {
 }
 
 .qr-code-box {
-    position: absolute; 
-    top: 10px;        
-    right: 0px;       
+    position: absolute;
+    top: 10px;
+    right: 0px;
     z-index: 99999!important;
-    width: 110px;     
-    height: auto;     
-    text-align: center;  
+    width: 110px;
+    height: auto;
+    text-align: center;
 }
 
 .qr-code-box img {
-    width: 100px; 
+    width: 100px;
     height: 100px;
-    display: block; 
-    margin: 0 auto; 
+    display: block;
+    margin: 0 auto;
     padding: 2px;
-    border: 1px solid var(--mf-color-border); 
+    border: 1px solid var(--mf-color-border);
     visibility: visible !important;
 }
 
@@ -191,8 +203,10 @@ body.modal-open {
         margin: 0!important;
     }
 
-    body.modal-open { overflow: visible !important; }
-    
+    body.modal-open {
+        overflow: visible !important;
+    }
+
     .modal {
         display: block !important;
         overflow: visible !important;
@@ -201,7 +215,7 @@ body.modal-open {
     }
 
     .cv-minimalist-focus {
-        width: 210mm !important; 
+        width: 210mm !important;
         height: 297mm !important;
         padding: 0mm !important;
         margin: 0 !important;
@@ -210,13 +224,13 @@ body.modal-open {
         background: #FFFFFF !important;
         box-shadow: none !important;
         overflow: visible !important;
-        box-sizing: border-box !important; 
+        box-sizing: border-box !important;
     }
 
     .cv-section {
         width: 210mm!important;
         min-height: 297mm !important;
-        padding: 0mm!important; 
+        padding: 0mm!important;
         box-sizing: border-box!important;
         page-break-inside: avoid!important;
     }
@@ -246,9 +260,9 @@ body.modal-open {
     .modal .cv-minimalist-focus {
         width: 100% !important;
         min-height: auto;
-        margin: 0; 
+        margin: 0;
         padding: 20px 15px;
-        border: none; 
+        border: none;
         border-radius: 0;
         box-shadow: none;
         overflow: visible;
@@ -257,7 +271,7 @@ body.modal-open {
     .cv-minimalist-focus {
         font-size: 10pt;
     }
-    
+
     .cv-minimalist-focus .header {
         display: flex;
         flex-direction: row;
@@ -269,19 +283,21 @@ body.modal-open {
         padding-top: 5mm;
         margin-bottom: 5px;
     }
-    
-    .cv-minimalist-focus .header hgroup { 
+
+    .cv-minimalist-focus .header hgroup {
         flex-grow: 1;
         margin-top: 5px;
     }
+
     .cv-minimalist-focus .header h1 {
         font-size: 1.4em;
     }
+
     .cv-minimalist-focus .header h2 {
         font-size: 1.1em;
         color: var(--mf-color-accent);
     }
-    
+
     .cv-minimalist-focus .profile-photo {
         width: 80px;
         height: 80px;
@@ -289,20 +305,22 @@ body.modal-open {
         flex-shrink: 0;
         border: 2px solid var(--mf-color-primary);
     }
-    
+
     .contact-info-item {
         justify-content: flex-start;
         margin-bottom: 5px;
     }
-    
+
     .cv-prof-skills {
         flex-direction: column;
-        gap: 15px; 
+        gap: 15px;
     }
+
     .cv-skill-card {
         flex: auto;
         min-height: auto;
     }
+
     .cv-skill-tag {
         font-size: 0.8em;
         padding: 3px 8px;
@@ -311,15 +329,16 @@ body.modal-open {
     .qr-code-box {
         display: none;
     }
-    
+
     .cv-minimalist-focus h4 {
         margin-top: 15px;
         font-size: 1em;
     }
+
     .cv-minimalist-focus p, .detail-item {
         font-size: 0.8em;
     }
-    
+
     .modal {
         padding: 10px 5px;
     }
