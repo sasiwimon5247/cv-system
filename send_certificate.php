@@ -219,7 +219,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ";
         
         // เนื้อหาสำรองแบบ Plain Text (สำหรับอีเมลที่ไม่รองรับ HTML)
-        $mail->AltBody = "เรียนคุณอาจารย์ $teacher_name,\n\nนักศึกษา $full_name ($stu_id) คณะ $edu_faculty สาขา $edu_major ต้องการขอคำรับรอง\nเหตุผล: $reason\n\nกรุณาคลิกลิงก์ต่อไปนี้เพื่อกรอกคำรับรอง: \n$cert_link\n\nขอบคุณครับ/ค่ะ\nCV System";
+        $mail->AltBody = "เรียนคุณอาจารย์ $teacher_name,\n\nนักศึกษา $full_name ($stu_id) คณะ $faculty สาขา $major ต้องการขอคำรับรอง\nเหตุผล: $reason\n\nกรุณาคลิกลิงก์ต่อไปนี้เพื่อกรอกคำรับรอง: \n$cert_link\n\nขอบคุณครับ/ค่ะ\nCV System";
 
         $mail->send();
         

@@ -113,8 +113,8 @@ if (empty($token) || strlen($token) !== 32) {
             <div class="info-box">
                 <p class="mb-1"><strong>คำขอจาก:</strong> <?= htmlspecialchars($student_data['full_name']) ?></p>
                 <p class="mb-1"><strong>รหัสนิสิต:</strong> <?= htmlspecialchars($student_data['stu_id']) ?></p>
-                <p class="mb-1"><strong>คณะ:</strong> <?= htmlspecialchars($student_data['edu_faculty']) ?></p>
-                <p class="mb-1"><strong>สาขา:</strong> <?= htmlspecialchars($student_data['edu_major']) ?></p>
+                <p class="mb-1"><strong>คณะ:</strong> <?= htmlspecialchars($student_data['faculty']) ?></p>
+                <p class="mb-1"><strong>สาขา:</strong> <?= htmlspecialchars($student_data['major']) ?></p>
                 <p class="mb-0"><strong>เหตุผลที่ต้องการเอกสาร:</strong> <?= nl2br(htmlspecialchars($student_data['reason'])) ?></p>
             </div>
             
