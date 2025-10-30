@@ -80,8 +80,8 @@ $cv_data = [
     'edu_major' => fetchDataSingle($conn, 'education_info', 'major'),
     'edu_graduation_year' => fetchDataSingle($conn, 'education_info', 'grad_year'),
     'edu_university_gpa' => fetchDataSingle($conn, 'education_info', 'uni_gpa'),
-    'activities' => [], 
-    'projects' => [],
+    'activities' => fetchDataSingle($conn, 'activities_info', 'activity'),
+    'projects' => fetchDataSingle($conn, 'activities_info', 'project'),
     'reference_text' => $recommendation_details['certificate_text'] ?? '',
     'reference_teacher' => $recommendation_details['teacher_name'] ?? '' 
 ];
@@ -95,41 +95,9 @@ $cv_data['technical_skills'] = $tech_skills_string ? array_map('trim', explode('
 $soft_skills_string = fetchDataSingle($conn, 'skills_info', 'soft_skills');
 $cv_data['soft_skills'] = $soft_skills_string ? array_map('trim', explode(',', $soft_skills_string)) : [];
 
-$all_activities_data = fetchDataMultiple($conn, 'activities_info'); 
-$projects_list = [];
-$activities_list = [];
+$cv_data['projects']= fetchDataSingle($conn, 'activities_info', 'project'); 
+$cv_data['activities'] = fetchDataSingle($conn, 'activities_info', 'activity'); 
 
-foreach ($all_activities_data as $item) {
-    // 💡 Scenario 1: รายการที่มีข้อมูลในคอลัมน์ 'project' ถือเป็น Project
-    if (!empty($item['project'])) {
-        
-        // เราจะรวม 'activity' และ 'project' เป็นรายละเอียดเดียวกัน
-        $combined_description = trim($item['activity'] . ' ' . $item['project']);
-
-        $projects_list[] = [
-            // ต้องมี 'name' เสมอ, อาจต้องดึงมาจากคอลัมน์อื่น (สมมติว่ามีคอลัมน์ 'title') 
-            // หรือใช้ค่าคงที่ถ้าไม่มีคอลัมน์ชื่อเฉพาะ
-            'name' => $item['title'] ?? 'โครงการที่เข้าร่วม', // <--- ต้องปรับตามชื่อคอลัมน์จริงที่ใช้เป็น 'ชื่อ'
-            'description' => $combined_description
-        ];
-        
-    } 
-    // 💡 Scenario 2: รายการที่มีข้อมูลในคอลัมน์ 'activity' แต่ไม่มี 'project' ถือเป็น Activity
-    // หรือถ้าคุณมีรายการกิจกรรมที่มีแต่ 'activity' เป็นรายละเอียด
-    elseif (!empty($item['activity'])) {
-        
-        // ต้องสร้างเป็น Object {name, description} เพื่อให้ JS ทำงานได้
-        $activities_list[] = [
-            // ต้องมี 'name' เสมอ
-            'name' => $item['title'] ?? 'กิจกรรมอื่นๆ', // <--- ต้องปรับตามชื่อคอลัมน์จริงที่ใช้เป็น 'ชื่อ'
-            'description' => $item['activity']
-        ];
-    }
-}
-
-// 4. กำหนดค่าสุดท้ายให้กับ $cv_data
-$cv_data['projects'] = $projects_list;
-$cv_data['activities'] = $activities_list;
 
 // เตรียมข้อมูลสำหรับ JS
 foreach ($cv_data as $key => $value) {
