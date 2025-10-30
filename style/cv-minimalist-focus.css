@@ -51,6 +51,8 @@
     color: var(--mf-color-text);
     display: flex;
     flex-direction: column;
+    font-size: 9.5pt;
+    box-sizing: border-box;
 }
 
 /* HEADER */
