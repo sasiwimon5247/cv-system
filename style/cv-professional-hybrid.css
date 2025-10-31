@@ -29,8 +29,8 @@
 .modal .cv-pink-purple-theme {
     width: 210mm;
     min-height: 297mm;
-    margin: 0 auto; 
-    padding: 0 10mm 10mm 10mm; 
+    margin: 0 auto;
+    padding: 0 10mm 10mm 10mm;
     box-sizing: border-box;
     border: 2px solid var(--pp-color-border);
     border-radius: 6px;
@@ -157,7 +157,7 @@ body.modal-open {
     position: absolute;
     top: 10px;
     right: 0px;
-    z-index: 99999!important;
+    z-index: 99999 !important;
     width: 110px;
     height: auto;
     text-align: center;
@@ -184,7 +184,7 @@ body.modal-open {
 @media print {
     @page {
         size: A4 portrait;
-        margin: 0 !important; /* 🔹 ไม่มีระยะขอบกระดาษ */
+        margin: 0 !important;
     }
 
     html, body {
@@ -197,8 +197,8 @@ body.modal-open {
 
     .modal {
         display: block !important;
-        margin: 0 !important; /* 🔹 ตัด margin ทั้งหมด */
-        padding: 0 !important; /* 🔹 ตัด padding ทั้งหมด */
+        margin: 0 !important;
+        padding: 0 !important;
         background: none !important;
         overflow: visible !important;
     }
@@ -206,8 +206,8 @@ body.modal-open {
     .cv-pink-purple-theme {
         width: 210mm !important;
         min-height: 297mm !important;
-        padding: 0 10mm 10mm 10mm !important; /* 🔹 ไม่มีช่องว่างด้านบน */
-        margin: 0 auto !important; /* 🔹 กึ่งกลางแนวตั้ง-แนวนอน */
+        padding: 10mm 10mm 10mm 10mm !important;
+        margin: 0 auto !important;
         border: none !important;
         border-radius: 0 !important;
         box-shadow: none !important;
@@ -256,9 +256,11 @@ body.modal-open {
         border: none;
         box-shadow: none;
     }
+
     .cv-pink-purple-theme {
         font-size: 10pt;
     }
+
     .cv-pink-purple-theme .header {
         display: flex;
         flex-direction: row;
@@ -270,47 +272,60 @@ body.modal-open {
         padding-top: 5mm;
         margin-bottom: 5px;
     }
+
     .cv-pink-purple-theme .header hgroup {
         flex-grow: 1;
         margin-top: 5px;
     }
+
     .cv-pink-purple-theme .header h1 {
         font-size: 1.4em;
     }
+
     .cv-pink-purple-theme .header h2 {
         font-size: 1.1em;
     }
+
     .cv-pink-purple-theme .profile-photo {
         width: 80px;
         height: 80px;
         margin: 0 auto 12px;
         flex-shrink: 0;
     }
+
     .cv-pink-purple-theme .cv-prof-skills {
         flex-direction: column;
         gap: 15px;
     }
+
     .cv-pink-purple-theme .cv-skill-card {
         flex: auto;
         min-height: auto;
     }
+
     .cv-pink-purple-theme .contact-info-item {
         justify-content: flex-start;
     }
+
     .cv-pink-purple-theme .icon {
         font-size: 1em;
         width: 15px;
     }
+
     .qr-code-box {
         display: none;
     }
+
     .cv-pink-purple-theme h4 {
         margin-top: 10px;
         font-size: 0.9em;
     }
-    .cv-pink-purple-theme p, .detail-item {
+
+    .cv-pink-purple-theme p,
+    .detail-item {
         font-size: 0.8em;
     }
+
     .modal {
         padding: 10px 5px;
     }
