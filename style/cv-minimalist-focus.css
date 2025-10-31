@@ -10,7 +10,7 @@
 .cv-section {
     width: 210mm;
     min-height: 297mm; 
-    padding: 10mm;
+    padding: 1mm;
     background-color: #FFFFFF;
     border-radius: 5px;
     box-sizing: border-box;
@@ -32,7 +32,7 @@
     width: 210mm; 
     min-height: 297mm; 
     margin: auto;
-    padding: 10mm;
+    padding: 1mm;
     font-family: var(--mf-font-main);
     color: var(--mf-color-text);
     display: flex;
@@ -225,7 +225,7 @@ body.modal-open {
     .cv-minimalist-focus {
         width: 210mm !important;
         min-height: 297mm !important;
-        padding: 10mm !important;
+        padding: 1mm !important;
         margin: 0 !important;
         border: none !important;
         border-radius: 0 !important;
