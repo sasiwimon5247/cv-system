@@ -10,7 +10,7 @@
 .cv-section {
     width: 210mm;
     min-height: 297mm;
-    padding: 1mm;
+    padding: 10mm;
     background-color: #FFFFFF;
     border-radius: 5px;
     box-sizing: border-box;
@@ -32,7 +32,7 @@
     width: 210mm;
     min-height: 297mm;
     margin: auto;
-    padding: 1mm; /* ปรับ padding ให้คล้ายตัวอย่างที่สอง */
+    padding: 10mm; /* ปรับ padding ให้คล้ายตัวอย่างที่สอง */
     box-sizing: border-box;
     border: 2px solid var(--pp-color-border);
     border-radius: 6px;
@@ -227,7 +227,7 @@
     .cv-pink-purple-theme {
         width: 210mm !important;
         min-height: 297mm !important;
-        padding: 1mm !important; /* ปรับ padding เป็น 10mm */
+        padding: 10mm !important; /* ปรับ padding เป็น 10mm */
         margin: 0 !important; /* ปรับ margin เป็น 0 */
         border: none !important;
         border-radius: 0 !important;

@@ -10,7 +10,7 @@
 .cv-section {
     width: 210mm; 
     min-height: 297mm; 
-    padding: 1mm;
+    padding: 10mm;
     background-color: #FFFFFF;
     border-radius: 5px;
     box-sizing: border-box;
@@ -32,7 +32,7 @@
     width: 210mm;
     min-height: 297mm;
     margin: auto;
-    padding: 1mm;
+    padding: 10mm;
     box-sizing: border-box;
     border: 2px solid var(--rb-color-border);
     border-radius: 6px;
@@ -223,7 +223,7 @@
     .cv-red-theme {
         width: 210mm !important;
         min-height: 297mm !important;
-        padding: 1mm !important;
+        padding: 10mm !important;
         margin: 0 !important;
         border: none !important;
         border-radius: 0 !important;
