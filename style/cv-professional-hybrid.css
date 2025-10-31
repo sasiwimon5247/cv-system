@@ -37,13 +37,17 @@
     background-color: var(--pp-color-bg);
 }
 
+/* -------------------------------------------------------------------- */
+/* *** ส่วนที่ 1: ปรับปรุงขนาดตัวอักษรและระยะห่างเพื่อประหยัดพื้นที่ *** */
+/* -------------------------------------------------------------------- */
 .cv-pink-purple-theme {
     background-color: var(--pp-color-bg);
     color: var(--pp-color-text);
     font-family: var(--pp-font-main);
     display: flex;
     flex-direction: column;
-    font-size: 10.5pt;
+    /* ปรับลดขนาดตัวอักษรหลักเล็กน้อย */
+    font-size: 10pt; /* เดิม 10.5pt */
     box-sizing: border-box;
 }
 
@@ -51,28 +55,28 @@
     text-align: center;
     border-bottom: 2px solid var(--pp-color-primary);
     padding-bottom: 6px;
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* ลดระยะห่างด้านล่าง */
     position: relative;
 }
 
 .cv-pink-purple-theme .header h1 {
     color: var(--pp-color-primary);
-    font-size: 1.8em;
+    font-size: 1.7em; /* ลดขนาดหัวข้อชื่อ */
     margin: 0;
 }
 
 .cv-pink-purple-theme .header h2 {
     color: var(--pp-color-accent);
-    font-size: 1.2em;
+    font-size: 1.1em; /* ลดขนาดหัวข้อรอง */
     margin: 0;
 }
 
 .cv-pink-purple-theme .profile-photo {
-    width: 110px;
-    height: 110px;
+    width: 100px; /* ลดขนาดรูป */
+    height: 100px; /* ลดขนาดรูป */
     border-radius: 50%;
     border: 2px solid var(--pp-color-accent);
-    margin: 0 auto 10px;
+    margin: 0 auto 8px; /* ลดระยะห่างด้านล่าง */
     background-size: cover;
     background-position: center;
 }
@@ -80,17 +84,17 @@
 .cv-pink-purple-theme h4 {
     color: var(--pp-color-primary);
     border-bottom: 1px solid var(--pp-color-border);
-    margin-top: 10px;
-    padding-bottom: 3px;
+    margin-top: 8px; /* ลดระยะห่างด้านบน */
+    padding-bottom: 2px; /* ลด padding */
     text-transform: uppercase;
-    font-size: 1em;
+    font-size: 0.95em; /* ลดขนาดหัวข้อส่วน */
 }
 
 .cv-pink-purple-theme p,
 .detail-item {
-    margin: 3px 0;
-    font-size: 0.85em;
-    line-height: 1.4;
+    margin: 2px 0; /* ลดระยะห่างแนวตั้ง */
+    font-size: 0.8em; /* เดิม 0.85em */
+    line-height: 1.3; /* ลด line-height เพื่อประหยัดพื้นที่ */
 }
 
 .cv-pink-purple-theme .detail-item strong {
@@ -104,8 +108,8 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    gap: 20px;
-    margin-top: 10px;
+    gap: 15px; /* ลดช่องว่างระหว่างคอลัมน์ */
+    margin-top: 8px; /* ลดระยะห่างด้านบน */
     margin-bottom: 0;
 }
 
@@ -120,10 +124,10 @@
     background: #F7E8FF;
     color: var(--pp-color-primary);
     border: 1px solid var(--pp-color-border);
-    padding: 4px 10px;
+    padding: 3px 8px; /* ลด padding */
     border-radius: 14px;
-    font-size: 0.85em;
-    margin: 3px 6px 3px 0;
+    font-size: 0.8em; /* ลดขนาดตัวอักษรใน tag */
+    margin: 2px 5px 2px 0; /* ลดระยะห่าง */
     transition: background .2s;
 }
 
@@ -133,10 +137,10 @@
 }
 
 .cv-pink-purple-theme .contact-info-item {
-    font-size: 0.85em;
+    font-size: 0.8em; /* ลดขนาดตัวอักษร */
     display: flex;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 4px; /* ลดระยะห่าง */
     justify-content: center;
 }
 
@@ -158,14 +162,14 @@ body.modal-open {
     top: 10px;
     right: 0px;
     z-index: 99999!important;
-    width: 110px;
+    width: 100px; /* ลดความกว้าง */
     height: auto;
     text-align: center;
 }
 
 .qr-code-box img {
-    width: 100px;
-    height: 100px;
+    width: 90px; /* ลดขนาด QR code */
+    height: 90px; /* ลดขนาด QR code */
     display: block;
     margin: 0 auto;
     padding: 2px;
@@ -174,13 +178,16 @@ body.modal-open {
 }
 
 .qr-code-box .scan-id-text {
-    font-size: 8pt;
+    font-size: 7.5pt; /* ลดขนาดตัวอักษร */
     color: var(--pp-color-accent);
     display: block;
-    line-height: 1.2;
-    margin-top: 3px;
+    line-height: 1.1;
+    margin-top: 2px;
 }
 
+/* -------------------------------------------------------------------- */
+/* *** ส่วนที่ 2: การจัดการในโหมดพิมพ์ (@media print) *** */
+/* -------------------------------------------------------------------- */
 @media print {
     @page {
         size: A4 portrait;
@@ -215,8 +222,15 @@ body.modal-open {
         box-sizing: border-box !important;
         page-break-after: avoid !important;
         display: block !important;
+        /* *** บังคับใช้ขนาดตัวอักษรที่เล็กกว่าเดิมในการพิมพ์ *** */
+        font-size: 9.5pt !important; 
     }
-
+    .cv-pink-purple-theme p, 
+    .detail-item,
+    .recommendation-text {
+        /* *** บังคับใช้ line-height ที่กระชับเป็นพิเศษในการพิมพ์ *** */
+        line-height: 1.25 !important;
+    }
     .cv-section {
         width: auto!important;
         min-height: auto !important;
@@ -226,26 +240,33 @@ body.modal-open {
     }
 }
 
+/* -------------------------------------------------------------------- */
+/* *** ส่วนที่ 3: สไตล์สำหรับคำรับรอง (Recommendation) *** */
+/* -------------------------------------------------------------------- */
 .recommendation-content {
-    margin-bottom: 10px;
-    padding: 0 10px;
+    margin-bottom: 8px; /* ลดระยะห่าง */
+    padding: 0 8px; /* ลด padding */
 }
 
 .recommendation-text {
     font-style: italic;
     white-space: pre-wrap;
-    font-size: 0.8em;
+    /* *** ปรับลดขนาดตัวอักษรคำรับรองเป็นพิเศษ *** */
+    font-size: 0.75em; /* เดิม 0.8em */
     margin-bottom: 5px;
-    padding-left: 10px;
+    padding-left: 8px;
 }
 
 .recommendation-teacher {
     text-align: right;
-    font-size: 0.85em;
+    font-size: 0.8em; /* ลดขนาดตัวอักษร */
     color: #333;
     margin-top: 5px;
 }
 
+/* -------------------------------------------------------------------- */
+/* *** ส่วนที่ 4: การจัดการในโหมดมือถือ (Mobile View) *** */
+/* -------------------------------------------------------------------- */
 @media (max-width: 600px) {
     .modal .cv-pink-purple-theme {
         width: 100% !important;
