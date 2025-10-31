@@ -43,7 +43,7 @@
     font-family: var(--pp-font-main);
     background-color: var(--pp-color-bg);
     color: var(--pp-color-text);
-    font-size: 10.5pt;
+    font-size: 8.5pt;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
