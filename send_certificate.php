@@ -220,7 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <body>
                 <p><strong>เรียน อาจารย์/ผู้รับรอง $teacher_name,</strong></p>
 
-                <p>นักศึกษา <strong>$full_name ($stu_id)</strong> ได้ส่งคำขอให้ท่านกรอกคำรับรอง (Recommendation Letter) ผ่านระบบ CV DEV</p>
+                <p>นักศึกษา <strong>$full_name ($stu_id) คณะ $faculty สาขา $major</strong> ได้ส่งคำขอให้ท่านกรอกคำรับรอง (Recommendation Letter) ผ่านระบบ CV DEV</p>
                 
                 <p><strong>เหตุผลในการขอ:</strong><br>" . nl2br(htmlspecialchars($reason)) . "</p>
 
