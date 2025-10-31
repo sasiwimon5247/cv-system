@@ -250,7 +250,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<script>
             setTimeout(function(){ 
                 const messageBox = document.createElement('div');
-                messageBox.style.cssText = 'position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); padding:20px; background:white; border:1px solid #28a745; z-index:1000; box-shadow:0 0 10px rgba(0,0,0,0.5); color:#28a745; font-weight:bold;';
+                messageBox.style.cssText = 'position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); padding:20px; background:white; border:1px solid #05315C; z-index:1000; box-shadow:0 0 10px rgba(0,0,0,0.5); color:#28a745; font-weight:bold;';
                 messageBox.innerHTML = 'ส่งคำขอเรียบร้อยแล้ว: อาจารย์จะได้รับอีเมลพร้อมลิงก์กรอกคำรับรอง';
                 document.body.appendChild(messageBox);
                 setTimeout(function(){ 
