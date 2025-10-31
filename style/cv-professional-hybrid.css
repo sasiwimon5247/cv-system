@@ -29,8 +29,8 @@
 .modal .cv-pink-purple-theme {
     width: 210mm;
     min-height: 297mm;
-    margin: auto;
-    padding: 5mm 10mm 10mm 10mm;
+    margin: 0 auto; 
+    padding: 0 10mm 10mm 10mm; 
     box-sizing: border-box;
     border: 2px solid var(--pp-color-border);
     border-radius: 6px;
@@ -184,31 +184,30 @@ body.modal-open {
 @media print {
     @page {
         size: A4 portrait;
+        margin: 0 !important; /* 🔹 ไม่มีระยะขอบกระดาษ */
+    }
+
+    html, body {
         margin: 0 !important;
+        padding: 0 !important;
+        width: 210mm;
+        height: 297mm;
+        overflow: hidden !important;
     }
-    html, 
-    body {
-       margin: 0 !important;
-       padding: 0 !important; 
-       width: 210mm;
-       height: 297mm;
-       overflow: hidden !important; 
-    }
-    body.modal-open {
-        overflow: visible !important;
-    }
+
     .modal {
         display: block !important;
-        margin-top: 0 !important;
-        padding-top: 0 !important;
+        margin: 0 !important; /* 🔹 ตัด margin ทั้งหมด */
+        padding: 0 !important; /* 🔹 ตัด padding ทั้งหมด */
         background: none !important;
         overflow: visible !important;
     }
+
     .cv-pink-purple-theme {
         width: 210mm !important;
         min-height: 297mm !important;
-        padding-top: 0 !important;
-        margin-top: 0 !important;
+        padding: 0 10mm 10mm 10mm !important; /* 🔹 ไม่มีช่องว่างด้านบน */
+        margin: 0 auto !important; /* 🔹 กึ่งกลางแนวตั้ง-แนวนอน */
         border: none !important;
         border-radius: 0 !important;
         box-shadow: none !important;
@@ -219,12 +218,12 @@ body.modal-open {
     }
 
     .cv-section {
-        width: auto!important;
+        width: auto !important;
         min-height: auto !important;
-        padding-top: 0!important;
-        margin-top: 0 !important;
-        box-sizing: border-box!important;
-        page-break-inside: avoid!important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+        page-break-inside: avoid !important;
     }
 }
 
