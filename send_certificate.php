@@ -98,7 +98,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </script>";
         exit;
     }
+  
+    $faculty = '';
+    $major = '';
+    try {
+        // 1. ดึงข้อมูล faculty และ major
+        $stmt_edu = $conn->prepare("
+            SELECT faculty, major 
+            FROM education_info 
+            WHERE user_id = ?
+        ");
+        $stmt_edu->execute([$student_user_id]);
+        $edu_info = $stmt_edu->fetch(PDO::FETCH_ASSOC);
 
+        if ($edu_info) {
+            // 2. กำหนดค่าตัวแปร $faculty และ $major
+            $faculty = htmlspecialchars($edu_info['faculty'] ?? '');
+            $major = htmlspecialchars($edu_info['major'] ?? '');
+        } else {
+            error_log("Education info not found for user ID: " . $student_user_id);
+        }
+    } catch (PDOException $e) {
+        error_log("DB Fetch Education Info Error: " . $e->getMessage());
+        // ไม่หยุดการทำงาน แต่ $faculty และ $major จะยังคงเป็นค่าว่าง ('')
+    }
     // 1. สร้าง Token (32 ตัวอักษร)
     $token = bin2hex(random_bytes(16)); // สร้างรหัสที่ไม่ซ้ำกัน 32 ตัว
 
