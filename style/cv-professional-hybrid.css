@@ -1,9 +1,9 @@
 :root {
-    --pp-color-primary: #8A2BE2;
-    --pp-color-accent: #FF69B4;
-    --pp-color-bg: #FFFFFF;
-    --pp-color-text: #333;
-    --pp-color-border: #E6E6FA;
+    --pp-color-primary: #8A2BE2; /* สีเดิม: ม่วงน้ำเงิน */
+    --pp-color-accent: #FF69B4; /* สีเดิม: ชมพู */
+    --pp-color-bg: #FFFFFF;    /* สีเดิม: ขาว */
+    --pp-color-text: #333;      /* สีเดิม: เทาเข้ม */
+    --pp-color-border: #E6E6FA; /* สีเดิม: ม่วงอ่อน */
     --pp-font-main: 'Prompt', sans-serif;
 }
 
@@ -11,7 +11,7 @@
     width: 210mm;
     min-height: 297mm;
     padding: 10mm;
-    background: #FFFFFF;
+    background-color: #FFFFFF;
     border-radius: 5px;
     box-sizing: border-box;
 }
@@ -19,18 +19,20 @@
 .modal {
     display: none;
     position: fixed;
-    inset: 0;
-    background-color: rgba(0,0,0,.55);
     z-index: 9999;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.55);
     overflow-y: auto;
-    padding: 10px 10px;
+    padding: 40px 10px; /* ปรับ padding ให้คล้ายตัวอย่างที่สอง */
 }
 
 .modal .cv-pink-purple-theme {
     width: 210mm;
     min-height: 297mm;
     margin: auto;
-    padding: 0mm 10mm 10mm 10mm;
+    padding: 10mm; /* ปรับ padding ให้คล้ายตัวอย่างที่สอง */
     box-sizing: border-box;
     border: 2px solid var(--pp-color-border);
     border-radius: 6px;
@@ -38,18 +40,18 @@
 }
 
 .cv-pink-purple-theme {
+    font-family: var(--pp-font-main);
     background-color: var(--pp-color-bg);
     color: var(--pp-color-text);
-    font-family: var(--pp-font-main);
+    font-size: 10.5pt;
     display: flex;
     flex-direction: column;
-    font-size: 10.5pt;
     box-sizing: border-box;
 }
 
 .cv-pink-purple-theme .header {
     text-align: center;
-    border-bottom: 2px solid var(--pp-color-primary);
+    border-bottom: 3px solid var(--pp-color-primary); /* ปรับความหนา border */
     padding-bottom: 6px;
     margin-bottom: 10px;
     position: relative;
@@ -71,8 +73,8 @@
     width: 110px;
     height: 110px;
     border-radius: 50%;
-    border: 2px solid var(--pp-color-accent);
     margin: 0 auto 10px;
+    border: 3px solid var(--pp-color-primary); /* ปรับความหนา border และใช้ primary color */
     background-size: cover;
     background-position: center;
 }
@@ -82,8 +84,8 @@
     border-bottom: 1px solid var(--pp-color-border);
     margin-top: 10px;
     padding-bottom: 3px;
-    text-transform: uppercase;
     font-size: 1em;
+    text-transform: uppercase;
 }
 
 .cv-pink-purple-theme p,
@@ -94,9 +96,9 @@
 }
 
 .cv-pink-purple-theme .detail-item strong {
-    color: var(--pp-color-accent);
-    font-weight: 700;
     display: block;
+    font-weight: 700;
+    color: var(--pp-color-accent);
     margin-top: 3px;
 }
 
@@ -116,20 +118,29 @@
     flex-direction: column;
 }
 
+/* เพิ่ม h5 ใน skill card เพื่อให้คล้ายตัวอย่างที่สอง */
+.cv-pink-purple-theme .cv-skill-card h5 {
+    font-size: 1em;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
 .cv-pink-purple-theme .cv-skill-tag {
-    background: #F7E8FF;
-    color: var(--pp-color-primary);
-    border: 1px solid var(--pp-color-border);
+    display: inline-block; /* ปรับเป็น inline-block */
+    background-color: var(--pp-color-border); /* ใช้ color border แทนสีตายตัว */
+    color: var(--pp-color-text); /* ใช้ text color แทนสีตายตัว */
     padding: 4px 10px;
     border-radius: 14px;
-    font-size: 0.85em;
-    margin: 3px 6px 3px 0;
-    transition: background .2s;
+    font-size: 0.9em; /* ปรับ font size */
+    margin: 3px 5px 3px 0; /* ปรับ margin */
+    transition: 0.2s; /* ปรับ transition */
 }
 
 .cv-pink-purple-theme .cv-skill-tag:hover {
-    background: var(--pp-color-accent);
-    color: #fff;
+    background-color: var(--pp-color-primary); /* ใช้ primary color ใน hover */
+    color: #FFF; /* ปรับเป็นสีขาวใน hover */
 }
 
 .cv-pink-purple-theme .contact-info-item {
@@ -138,6 +149,15 @@
     align-items: center;
     margin-bottom: 5px;
     justify-content: center;
+}
+
+/* เพิ่ม .icon เพื่อให้คล้ายตัวอย่างที่สอง */
+.cv-pink-purple-theme .icon {
+    color: var(--pp-color-primary);
+    margin-right: 10px;
+    width: 18px;
+    text-align: center;
+    font-size: 1.2rem;
 }
 
 .cv-pink-purple-theme a {
@@ -149,15 +169,13 @@
     text-decoration: underline;
 }
 
-body.modal-open {
-    overflow: hidden;
-}
+/* ลบ body.modal-open ออกจากส่วนหลัก */
 
 .qr-code-box {
     position: absolute;
     top: 10px;
     right: 0px;
-    z-index: 99999!important;
+    z-index: 99999 !important;
     width: 110px;
     height: auto;
     text-align: center;
@@ -186,29 +204,31 @@ body.modal-open {
         size: A4 portrait;
         margin: 0 !important;
     }
-    html, 
+    html,
     body {
        margin: 0 !important;
-       padding: 0 !important; 
-       width: 210mm;
-       height: 297mm;
-       overflow: hidden !important; 
+       padding: 0 !important;
+       width: 100%; /* ปรับตามตัวอย่างที่สอง */
+       height: 100%; /* ปรับตามตัวอย่างที่สอง */
+       overflow: hidden !important;
     }
-    body.modal-open {
+
+    body.modal-open { /* ย้ายมาอยู่ใน print */
         overflow: visible !important;
     }
+
     .modal {
         display: block !important;
-        margin-top: 0 !important;
-        padding: 0 !important;
-        background: none !important;
         overflow: visible !important;
+        padding: 0 !important; /* ปรับ padding เป็น 0 */
+        background: none !important;
     }
+
     .cv-pink-purple-theme {
         width: 210mm !important;
         min-height: 297mm !important;
-        padding: 0 !important;
-        margin-top: 0 !important;
+        padding: 10mm !important; /* ปรับ padding เป็น 10mm */
+        margin: 0 !important; /* ปรับ margin เป็น 0 */
         border: none !important;
         border-radius: 0 !important;
         box-shadow: none !important;
@@ -221,8 +241,7 @@ body.modal-open {
     .cv-section {
         width: auto!important;
         min-height: auto !important;
-        padding:0!important;
-        margin-top: 0 !important;
+        padding: 0mm!important; /* ปรับ padding เป็น 0mm */
         box-sizing: border-box!important;
         page-break-inside: avoid!important;
     }
@@ -253,66 +272,70 @@ body.modal-open {
         width: 100% !important;
         min-height: auto;
         margin: 0;
-        padding: 20px 15px;
+        padding: 20px; /* ปรับ padding เป็น 20px */
         border: none;
         box-shadow: none;
     }
+
     .cv-pink-purple-theme {
         font-size: 10pt;
     }
+
     .cv-pink-purple-theme .header {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        text-align: left;
-        gap: 15px;
-        border-bottom: none;
         padding-bottom: 3px;
         padding-top: 5mm;
         margin-bottom: 5px;
+        text-align: left; /* ปรับ text-align เป็น left */
+        /* ลบ display: flex, flex-direction, align-items, gap ออก */
     }
-    .cv-pink-purple-theme .header hgroup {
-        flex-grow: 1;
-        margin-top: 5px;
-    }
+
+    /* ลบ .cv-pink-purple-theme .header hgroup ออก */
+
     .cv-pink-purple-theme .header h1 {
-        font-size: 1.4em;
+        font-size: 1.5em; /* ปรับ font-size */
     }
+
     .cv-pink-purple-theme .header h2 {
-        font-size: 1.1em;
+        font-size: 1em; /* ปรับ font-size */
     }
+
     .cv-pink-purple-theme .profile-photo {
         width: 80px;
         height: 80px;
         margin: 0 auto 12px;
-        flex-shrink: 0;
+        /* ลบ flex-shrink ออก */
     }
+
+    .qr-code-box {
+        position: static; /* ปรับ position เป็น static */
+        margin-top: 10px; /* เพิ่ม margin-top */
+        width: 100px; /* ปรับ width */
+        height: auto;
+        float: right; /* เพิ่ม float: right */
+    }
+
     .cv-pink-purple-theme .cv-prof-skills {
         flex-direction: column;
-        gap: 15px;
+        gap: 0; /* ปรับ gap เป็น 0 */
     }
+
     .cv-pink-purple-theme .cv-skill-card {
         flex: auto;
         min-height: auto;
-    }
-    .cv-pink-purple-theme .contact-info-item {
-        justify-content: flex-start;
-    }
-    .cv-pink-purple-theme .icon {
-        font-size: 1em;
-        width: 15px;
-    }
-    .qr-code-box {
-        display: none;
+        margin-bottom: 10px; /* เพิ่ม margin-bottom */
     }
     .cv-pink-purple-theme h4 {
-        margin-top: 10px;
+        margin-top: 8px; /* ปรับ margin-top */
         font-size: 0.9em;
     }
-    .cv-pink-purple-theme p, .detail-item {
+
+    .cv-pink-purple-theme p,
+    .detail-item {
         font-size: 0.8em;
+        line-height: 1.2; /* ปรับ line-height */
     }
+
     .modal {
-        padding: 10px 5px;
+        padding: 20px 10px; /* ปรับ padding */
     }
 }
