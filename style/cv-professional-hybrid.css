@@ -10,7 +10,7 @@
 .cv-section {
     width: 210mm;
     min-height: 297mm;
-    padding: 1mm;
+    padding: 5mm;
     background-color: #FFFFFF;
     border-radius: 5px;
     box-sizing: border-box;
@@ -32,7 +32,7 @@
     width: 210mm;
     min-height: 297mm;
     margin: auto;
-    padding: 1mm; /* ปรับ padding ให้คล้ายตัวอย่างที่สอง */
+    padding: 5mm; /* ปรับ padding ให้คล้ายตัวอย่างที่สอง */
     box-sizing: border-box;
     border: 2px solid var(--pp-color-border);
     border-radius: 6px;
