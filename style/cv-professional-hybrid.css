@@ -155,7 +155,7 @@ body.modal-open {
 
 .qr-code-box {
     position: absolute;
-    top: 25px;
+    top: 5px;
     right: 0px;
     z-index: 99999 !important;
     width: 110px;
