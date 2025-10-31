@@ -21,7 +21,7 @@ if (empty($token) || strlen($token) !== 32) {
                 cr.id as request_id, cr.status, cr.reason, 
                 u.id as user_id, 
                 p.full_name, 
-                e.stu_id 
+                e.stu_id,
                 e.faculty, 
                 e.major
             FROM certificate_requests cr
